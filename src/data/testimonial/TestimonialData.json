@@ -1,0 +1,26 @@
+[
+
+    {
+        "fromtext": "Yelp",
+        "title":"Personal Loan",
+        "description": "Quick Access to Funds and Instant financial support for personal needs, with simple documentation. ",
+        "authorname": "Abhishek mishra",
+        "authordesig": "Executive Chairman"
+    },
+    {
+        "fromtext": "Google",
+        "title":"Business Loan",
+        "description": "Fuel Business Growth - Secure funds to expand business operations, hire employees, and boost inventory.",
+        "authorname": "Ram Verma",
+        "authordesig": "Executive Chairman"
+    },
+    {
+        "fromtext": "Facebook",
+        "title":"Buy Now Pay Later",
+        "description": "Flexible Repayment Pay for purchases in easy installments, offering greater financial flexibility.",
+        "authorname": "Geeta Raj",
+        "authordesig": "Executive Chairman"
+    }
+
+
+]

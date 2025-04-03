@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "thumb": "/images/others/case-study-1.png",
+        "title": "Merchant Benefits",
+        "subtitle": "Featured Case Study",
+        "count_roi": "15",
+        "count_visit": "60",
+        "excerpt": "Increased Sales: Access to a wide customer base, offering flexible financing options like Personal and Business Loans.",
+        "excerpt2":"Revenue Boost: Enable customers to use Buy Now Pay Later (BNPL) services, encouraging larger purchases and increasing conversion rates.",
+        "excerpt3":"Easy Loan Management: Streamlined loan approval and repayment processes with a user-friendly platform.",
+        "excerpt4":"Competitive Advantage: Stand out in the market by offering financing options, attracting more customers to your business.",
+        "details": "<p>From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.</p> <p>Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart.<p/>",
+        "solution": "<p>From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.</p> <p>Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart. together for the first time. We provide elegant solutions.</p>"
+    },
+    {
+        "id": 2,
+        "thumb": "/images/others/case-study-2.png",
+        "title": "Customer Benefits",
+        "subtitle": "Featured Case Study",
+        "count_roi": "15",
+        "count_visit": "60",
+        "excerpt": "Flexible Payment Options: Enjoy Personal Loans, Business Loans, and BNPL to make purchases more affordable.",
+        "excerpt2":"Quick and Easy Access to Funds: Fast approval process with minimal paperwork.",
+        "excerpt3":"Low-Cost EMI: Opt for affordable monthly installments to pay off purchases without financial strain.",
+        "excerpt4":"No Hidden Fees: Transparent terms with no surprise charges, making financial planning easier.",
+        "details": "<p>From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.</p> <p>Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart.<p/>",
+        "solution": "<p>From the designers and engineers who are creating the next generation of web and mobile experiences, to anyone putting a website together for the first time. We provide elegant solutions that set new standards for online publishing.</p> <p>Digital technology has made our world more transparent and interconnected, posing new challenges and opportunities for every business. A holistic, user-centric perspective is what truly sets one apart. together for the first time. We provide elegant solutions.</p>"
+    }
+]
