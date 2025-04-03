@@ -84,7 +84,7 @@ const FormFour = () => {
       setFormData({ pan: "", email: "", pincode: "", city: "", residence: "" });
       setErrors({});
       console.log("Form Submitted!", formData);
-      const redirectPath = registrationType === "No Business Proof" ? "/user-details2" : "/turn-over2";
+      const redirectPath = registrationType === "No Business Proof" ? "/business-loans/user-details2" : "/business-loans/turn-over2";
 
       setTimeout(() => {
         navigate(redirectPath);

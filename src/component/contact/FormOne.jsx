@@ -25,6 +25,8 @@ const captchaResult = () => {
 };
 
 const FormOne = () => {
+  const navigate=useNavigate();
+
   const [captchaValue, setCaptchaValue] = useState(null);
 
   const handleCaptchaChange = (value) => {
@@ -53,7 +55,14 @@ const FormOne = () => {
         }}
         validationSchema={SubmittedForm}
         onSubmit={(values) => {
+
+
           console.log(values.firstName);
+
+
+          setTimeout(() => {
+            navigate("/personal-loans/verification"); // Redirect
+          }, 2000);
         }}
       >
         {({ errors, submitCount, touched }) => (

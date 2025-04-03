@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ScrollToTop from './component/scrollToTop/ScrollToTop';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -61,73 +61,72 @@ import UserDetails from './pages/UserDetails';
 import UserDetails2 from './pages/UserDetails2';
 import TurnOver2 from './pages/TurnOver2';
 const App = () => {
-  return (
-    <Router > 
-		<ScrollToTop>
-			<Routes>
-				{/* <Route path={PUBLIC_URL + "/"} element={<Splash />}/> */}
-				<Route path= "/" element={<CreativeAgency />}/>
+	return (
+		<Router >
+			<ScrollToTop>
+				<Routes>
+					{/* <Route path={PUBLIC_URL + "/"} element={<Splash />}/> */}
+					<Route path="/" element={<CreativeAgency />} />
 
-				<Route path="/digital-agency" element={<DigitalAgency />}/>
-				<Route path="/creative-agency" element={<CreativeAgency />}/>
-				<Route path="/personal-portfolio" element={<PersonalPortfolio />}/>
-				<Route path="/home-startup" element={<HomeStartup />}/>
-				<Route path="/corporate-agency" element={<CorporateAgency />}/>
+					<Route path="/digital-agency" element={<DigitalAgency />} />
+					<Route path="/creative-agency" element={<CreativeAgency />} />
+					<Route path="/personal-portfolio" element={<PersonalPortfolio />} />
+					<Route path="/home-startup" element={<HomeStartup />} />
+					<Route path="/corporate-agency" element={<CorporateAgency />} />
 
-				{/* Blogs */}
-				<Route path= "/blog-grid/" element={<BlogGridView />}/>
-				<Route path= "/category/:slug" element={<BlogCategory />}/>
-				<Route path= "/archive/:slug" element={<BlogArchive />}/>
-				<Route path= "/blog-details/:id" element={<BlogDetails />}/>
+					{/* Blogs */}
+					<Route path="/blog-grid/" element={<BlogGridView />} />
+					<Route path="/category/:slug" element={<BlogCategory />} />
+					<Route path="/archive/:slug" element={<BlogArchive />} />
+					<Route path="/blog-details/:id" element={<BlogDetails />} />
 
-				{/* Service */}
-				<Route path= "/service-one/" element={<ServiceOne />}/>
-				<Route path= "/service-two/" element={<ServiceTwo />}/>
-				<Route path= "/service-details/:slug" element={<ServiceDetails />}/>
+					{/* Service */}
+					<Route path="/service-one/" element={<ServiceOne />} />
+					<Route path="/service-two/" element={<ServiceTwo />} />
+					<Route path="/service-details/:slug" element={<ServiceDetails />} />
 
-				{/* Project  */}
-				<Route path="/project-grid-one" element={<ProjectGridOne />}/>
-				<Route path="/project-grid-two" element={<ProjectGridTwo />}/>
-				<Route path="/project-grid-thre" element={<ProjectGridThree />}/>
-				<Route path="/project-width-one" element={<ProjectGridFour />}/>
-				<Route path="/project-width-two" element={<ProjectGridFive />}/>
-				<Route path="/project-details/:slug" element={<ProjectDetails />}/>
+					{/* Project  */}
+					<Route path="/project-grid-one" element={<ProjectGridOne />} />
+					<Route path="/project-grid-two" element={<ProjectGridTwo />} />
+					<Route path="/project-grid-thre" element={<ProjectGridThree />} />
+					<Route path="/project-width-one" element={<ProjectGridFour />} />
+					<Route path="/project-width-two" element={<ProjectGridFive />} />
+					<Route path="/project-details/:slug" element={<ProjectDetails />} />
 
-				{/* Pages  */}
-				<Route path="/about-us" element={<AboutUs />}/>
-				<Route path="/our-office" element={<OurOffice />}/>
-				<Route path="/our-clients" element={<OurClients />}/>
-				<Route path="/team" element={<Team />}/>
-				{/* <Route =L + "/team-details/:slug"} element={<TeamDetails />}/> */}
-				<Route path="/case-study" element={<CaseStudy />}/>
-				<Route path="/case-details/:slug" element={<CaseDetails />}/>
-				<Route path="/testimonials" element={<Testimonials />}/>
-				<Route path="/pricing-table" element={<PricingTable />}/>
-				<Route path="/typography" element={<Typography />}/>
-				<Route path="/contact" element={<Contact />}/>
+					{/* Pages  */}
+					<Route path="/about-us" element={<AboutUs />} />
+					<Route path="/our-office" element={<OurOffice />} />
+					<Route path="/our-clients" element={<OurClients />} />
+					<Route path="/team" element={<Team />} />
+					{/* <Route =L + "/team-details/:slug"} element={<TeamDetails />}/> */}
+					<Route path="/case-study" element={<CaseStudy />} />
+					<Route path="/case-details/:slug" element={<CaseDetails />} />
+					<Route path="/testimonials" element={<Testimonials />} />
+					<Route path="/pricing-table" element={<PricingTable />} />
+					<Route path="/typography" element={<Typography />} />
+					<Route path="/contact" element={<Contact />} />
 
-				<Route path="/personal-loans" element={<PersonalLoans/>}/>
-				<Route path="/merchant-login" element={<MerchantLogin />}/>
-				<Route path="/business-loans" element={<BusinessLoans />}/>
+					<Route path="/personal-loans" element={<PersonalLoans />} />
+					<Route path="/merchant-login" element={<MerchantLogin />} />
+					<Route path="/business-loans" element={<BusinessLoans />} />
 
-				<Route path="/verification" element={<OtpVerification />}/>
-				<Route path="/user-details" element={<UserDetails />}/>
-				<Route path="/user-details2" element={<UserDetails2 />}/>
+					<Route path="/personal-loans/verification" element={<OtpVerification />} />
+					<Route path="/personal-loans/verification/user-details" element={<UserDetails />} />
+					<Route path="/business-loans/user-details2" element={<UserDetails2 />} />
+					<Route path="/personal-loans/verification/user-details/turn-over" element={<TurnOver />} />
+					<Route path="/business-loans/turn-over2" element={<TurnOver2 />} />
+					<Route path="/offers" element={<ProjectGridOne />} />
+b
+					{/* <Route path={PUBLIC_URL + "/merchant-signup"} element={<MerchantLogin />}/> */}
 
-				<Route path="/turn-over" element={<TurnOver/>}/>
-				<Route path="/turn-over2" element={<TurnOver2/>}/>
-				<Route path="/offers" element={<ProjectGridOne/>}/>
-
-				{/* <Route path={PUBLIC_URL + "/merchant-signup"} element={<MerchantLogin />}/> */}
-
-				<Route path="/404" element={<ErrorPage />}/>
-				<Route path="/coming-soon" element={<ComingSoon />}/>
-				<Route path="/privacy-policy" element={<PrivacyPolicy />}/>
-				<Route path="/terms-use" element={<TermsOfUse />}/>
-			</Routes>
-		</ScrollToTop>
-    </Router>
-  )
+					<Route path="/404" element={<ErrorPage />} />
+					<Route path="/coming-soon" element={<ComingSoon />} />
+					<Route path="/privacy-policy" element={<PrivacyPolicy />} />
+					<Route path="/terms-use" element={<TermsOfUse />} />
+				</Routes>
+			</ScrollToTop>
+		</Router>
+	)
 }
 
 export default App;

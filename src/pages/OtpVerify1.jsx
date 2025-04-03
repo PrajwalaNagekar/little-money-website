@@ -29,7 +29,7 @@ const OtpVerify1 = () => {
     if (enteredOtp === STATIC_OTP) {
       setMessage("OTP Verified Successfully!");
       setTimeout(() => {
-        navigate("/user-details"); // Redirect
+        navigate("/personal-loans/verification/user-details"); // Redirect
       }, 2000);
     } else {
       setMessage("Incorrect OTP. Please try again.");

@@ -112,10 +112,10 @@ const DetailsForm1 = () => {
                 // Check business proof selection for self-employed users
                 if (formData.businessProof === "No Business Proof") {
                     // Navigate to details-form2 if No Business Proof is selected
-                    navigate("/offers");
+                    navigate("/offers");a
                 } else {
                     // Navigate to turn-over page for other business proofs
-                    navigate("/turn-over");
+                    navigate("/personal-loans/verification/user-details/turn-over");
                 }
             }
         }
