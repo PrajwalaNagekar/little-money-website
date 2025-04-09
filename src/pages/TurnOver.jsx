@@ -9,7 +9,7 @@ const TurnOver = () => {
   return (
     <div>
         <SEO title="Home" />
-            <ColorSwitcher />
+            {/* <ColorSwitcher /> */}
             <HeaderTwo />
 
             <main className="main-wrapper">

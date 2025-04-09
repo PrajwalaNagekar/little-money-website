@@ -28,10 +28,10 @@ const PersonalLoans = () => {
 
   return (
     <>
-      <SEO title="Service Details" />
-      {/* <ColorSwitcher /> */}
-      <main className="main-wrapper">
-        <TopNavbar />
+    <SEO title="Personal Loans" />
+    {/* <ColorSwitcher /> */}
+    <main className="main-wrapper">
+    {/* <TopNavbar/> */}
         <HeaderTwo />
         <AboutTwo heading="Personal Loan" />
         <FooterOne parentClass="" />

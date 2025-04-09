@@ -5,8 +5,16 @@ import { SlRefresh } from "react-icons/sl";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { FaPhoneAlt } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 import * as Yup from "yup";
+
+
+// <FaPhoneAlt /> <FaUser />
+
 
 const siteKey = "6Lf-7QErAAAAADzjQav9bD3tYYWy6JZylKhMTiGu";
 const Result = () => {
@@ -25,7 +33,7 @@ const captchaResult = () => {
 };
 
 const FormOne = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const [captchaValue, setCaptchaValue] = useState(null);
 
@@ -34,9 +42,12 @@ const FormOne = () => {
   };
 
   const SubmittedForm = Yup.object().shape({
-    mobileNumber: Yup.string().required("Please fill the Field"),
-    firstName: Yup.string().required("Please fill the Field"),
-    lastName: Yup.string().required("Please fill the Field"),
+    mobileNumber: Yup.string()
+      .required("Please fill the Field")
+      .matches(/^[6-9][0-9]{9}$/, "Enter a valid 10-digit mobile number"),
+    firstName: Yup.string()  .matches(/^[A-Za-z ]*$/, "Only alphabets and spaces are allowed"),
+    lastName: Yup.string()  .matches(/^[A-Za-z ]*$/, "Only alphabets and spaces are allowed").
+    required("Please fill the Field"),
     referal: Yup.string().notRequired(),
     option1: Yup.bool().oneOf([true], "You must agree before submitting."),
     option2: Yup.bool().oneOf([true], "You must agree before submitting."),
@@ -61,64 +72,147 @@ const FormOne = () => {
 
 
           setTimeout(() => {
-            navigate("/personal-loans/verification"); // Redirect
+            navigate("/personal-loan/verification"); // Redirect
           }, 2000);
         }}
       >
         {({ errors, submitCount, touched }) => (
           <Form className="space-y-5">
             <div className="form-group">
-              <label htmlFor="mobileNumber">Phone</label>
-              <Field
+              <label htmlFor="mobileNumber">Enter your Mobile Number</label>
+              <div className="input-icon-container" style={{ position: "relative" }}>
+                <i
+                  className="fa fa-phone"
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "10px",
+                    transform: "translateY(-50%)",
+                    color: "#aaa",
+                  }}
+                />
+                <Field
+                  name="mobileNumber"
+                  type="tel"
+                  maxLength={10}
+                  onInput={(e) => {
+                    e.target.value = e.target.value.replace(/\D/g, "").slice(0, 10);
+                  }}
+                  id="mobileNumber"
+                  placeholder="XXX-XXX-XXXX"
+                  className="form-control"
+                  style={{ paddingLeft: "35px" }} // adjust space for icon
+                />
+                {/* <ErrorMessage name="mobileNumber" component="div" className="text-danger" /> */}
+              </div>
+              {/* <Field
                 name="mobileNumber"
                 type="tel"
                 id="mobileNumber"
-                placeholder="Enter Contact Number"
+                placeholder="XXX-XXX-XXXX"
                 className="form-control"
-              />
+              /> */}
               {submitCount > 0 && errors.mobileNumber && (
                 <div className="text-danger mt-1">{errors.mobileNumber}</div>
               )}
             </div>
             <div className="form-group">
               <label htmlFor="firstName">First Name</label>
-              <Field
-                name="firstName"
-                type="text"
-                id="firstName"
-                placeholder="Enter First Name"
-                className="form-control"
-              />
+              <div style={{ position: "relative" }}>
+                <i
+                  className="fas fa-user"
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "10px",
+                    transform: "translateY(-50%)",
+                    color: "#aaa",
+                    zIndex: 2,
+                  }}
+                />
+                <Field
+                  name="firstname"
+                  type="text"
+                  id="firstname"
+                  className="form-control"
+                  style={{ paddingLeft: "35px" }}
+                  onKeyDown={(e) => {
+                    const allowedKeys = [
+                      "Backspace",
+                      "ArrowLeft",
+                      "ArrowRight",
+                      "Tab",
+                      "Delete",
+                      "Shift",
+                    ];
+                    const regex = /^[a-zA-Z ]$/;
+                    if (!regex.test(e.key) && !allowedKeys.includes(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
+                />
+              </div>
               {submitCount > 0 && errors.firstName && (
                 <div className="text-danger mt-1">{errors.firstName}</div>
               )}
             </div>
+
             <div className="form-group">
               <label htmlFor="lastName">Last Name</label>
-              <Field
-                name="lastName"
-                type="text"
-                id="lastName"
-                placeholder="Enter Last Name"
-                className="form-control"
-              />
+              <div style={{ position: "relative" }}>
+                <i
+                  className="fas fa-user"
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "10px",
+                    transform: "translateY(-50%)",
+                    color: "#aaa",
+                    zIndex: 2,
+                  }}
+                />
+                <Field
+                  name="lastName"
+                  type="text"
+                  id="lastName"
+                  className="form-control"
+                  style={{ paddingLeft: "35px" }}
+                  onKeyDown={(e) => {
+                    const allowedKeys = [
+                      "Backspace",
+                      "ArrowLeft",
+                      "ArrowRight",
+                      "Tab",
+                      "Delete",
+                      "Shift",
+                    ];
+                    const regex = /^[a-zA-Z ]$/;
+                    if (!regex.test(e.key) && !allowedKeys.includes(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
+                />
+              </div>
               {submitCount > 0 && errors.lastName && (
                 <div className="text-danger mt-1">{errors.lastName}</div>
               )}
             </div>
-            <div className="form-group">
-              <label htmlFor="referal">Referal Code</label>
+
+
+
+            {/* <div className="form-group">
+              <label htmlFor="referal">Referral Code</label>
               <Field
                 name="referal"
                 type="text"
                 id="referal"
-                placeholder="Enter Referal Code"
+                placeholder="Enter Referral Code"
                 className="form-control"
               />
               {submitCount > 0 && errors.referal && (
                 <div className="text-danger mt-1">{errors.referal}</div>
               )}
-            </div>
+            </div> */}
 
             <div class="form-group">
               <div className="checkbox-container">
@@ -130,7 +224,8 @@ const FormOne = () => {
                 />
                 <label
                   htmlFor="option1"
-                  className="text-white-dark font-semibold"
+                  className="text-white-dark font-semibold text-justify"
+                  style={{ textAlign: "justify", display: "block" }}
                 >
                   I have read, understood, and agreed to the{" "}
                   <Link to="#">Terms of Service</Link> and{" "}
@@ -150,6 +245,7 @@ const FormOne = () => {
                 <label
                   htmlFor="option2"
                   className="text-white-dark font-semibold"
+                  style={{ textAlign: "justify", display: "block" }}
                 >
                   I consent to Little Money communicating with me via email,
                   SMS, WhatsApp, RCS, or call; and also sharing promotional
@@ -160,7 +256,7 @@ const FormOne = () => {
                 </label>
               </div>
             </div>
-            <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaChange} />
+            {/* <ReCAPTCHA sitekey={siteKey} onChange={handleCaptchaChange} /> */}
             <div className="form-group">
               <button
                 type="submit"

@@ -13,15 +13,15 @@ const OtpVerification = () => {
     return (
         <>
               <SEO title="Service Details" />
-              <ColorSwitcher />
+              {/* <ColorSwitcher /> */}
               <main className="main-wrapper">
-                <TopNavbar/>
+                {/* <TopNavbar/> */}
         <HeaderTwo />
         {/* <BcrumbBannerOne 
         styleClass=""
         /> */}
         <OtpVerify1/>
-            
+        <FooterOne parentClass="" />
             </main>
             {/* <FooterOne parentClass="" /> */}
 

@@ -8,7 +8,7 @@
     right: 0;
     top: 0;
     z-index: 4;
-    margin: 55px 0px;
+    margin: -18px 0px;
     .header-navbar {
         display: flex;
         align-items: center;
@@ -32,9 +32,9 @@
         }
         .header-main-nav {
             flex: 1;
-            margin: 0 55px 0 50px;
+            margin: 0 39px 0 50px;
             @media #{$smlg-device} {
-                margin: 0 30px;
+                margin: 4px -7px;
             }
             @media #{$md-layout} {
                 margin: 0;  
@@ -59,26 +59,26 @@
     } 
     &.header-style-2 {
         .axil-mainmenu {
-            padding: 50px 80px;
+            padding: -1px 80px;
             @media #{$laptop-device} {
-                padding: 2px 15px;
+                padding: 43px 15px;
             }
             @media #{$smlg-device} {
-                padding: 0px 15px;
+                padding: 32px 15px;
             }
             @media #{$large-mobile} {
-                padding: 15px 0;
+                padding: 39px 0;
             }
             &.axil-sticky {
-                padding: 15px 80px;
+                padding: 15px 13px;
                 @media #{$laptop-device} {
-                    padding: 15px;
+                    padding: -8px;
                 }
                 @media #{$smlg-device} {
-                    padding: 15px;
+                    padding: 12px;
                 }
                 @media #{$large-mobile} {
-                    padding: 15px 0;
+                    padding: 20px 0;
                 }
             }
             .mainmenu {
@@ -911,3 +911,109 @@
         opacity: 1;
     }
 }
+// .large-caption {
+//     position: absolute;
+//     bottom: 30%; /* relative instead of fixed px */
+//     left: 8%;     /* relative instead of 139px */
+//     text-align: left;
+//     color: white;
+//     padding: 1.5rem;
+//     border-radius: 8px;
+//     max-width: 450px;
+//     z-index: 10; /* increased */
+//   }
+  
+  
+//   .small-caption {
+//     position: absolute;
+//     top: 22%; /* Moves caption higher */
+//     left: 45%;
+//     transform: translateX(-50%);
+//     text-align: left;
+//     color: white;
+//     padding: 1rem;
+//     border-radius: 8px;
+//     max-width: 80%;
+//     z-index: 10;
+//     width: 100%;
+  
+// //      white-space: nowrap;
+// //   overflow: hidden;
+// //   text-overflow: ellipsis; /* Adds "..." if text overflows */
+//   }
+/* For large screens */
+.large-caption {
+    position: absolute;
+    bottom: 30%;
+    left: 8%;
+    text-align: left;
+    color: white;
+    padding: 1.5rem;
+    max-width: 450px;
+    z-index: 10;
+  }
+  
+  /* For small screens */
+  .small-caption {
+    position: absolute;
+    top: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    padding: 1rem;
+    width: 90%;
+    max-width: 90%;
+    z-index: 10;
+  }
+  
+  @media (max-width: 768px) {
+    .large-caption h3,
+    .small-caption h3 {
+      font-size: 1.5rem;
+    }
+  
+    .large-caption h6,
+    .small-caption h6 {
+      font-size: 1rem;
+    }
+  
+    .icon-subtitle {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .icon-subtitle div {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  
+    .axil-btn {
+      font-size: 0.9rem;
+      padding: 0.5rem 1.2rem;
+    }
+  }
+  
+  
+  .icon-subtitle div {
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0 0 11px 0;
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+    z-index: 3;
+    width: 40px;
+
+  }
+  
+  @media (max-width: 768px) {
+    .small-caption {
+      font-size: 0.9rem;
+    }
+  }
+  

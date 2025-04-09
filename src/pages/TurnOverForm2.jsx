@@ -20,6 +20,8 @@ const TurnOverForm2 = () => {
         };
         const validateForm = () => {
             let newErrors = {};
+            if(!formData.residence||formData.residence=="status")  newErrors.residence = "residence type is required.";
+
             if (!formData.turnover || formData.turnover === "status") newErrors.turnover = "Employment status is required.";
             if (!formData.years || formData.years === "status") newErrors.turnover = "Employment status is required.";
             if (!hasCurrentAccount) newErrors.currentAcc = "Please select an option.";
@@ -31,9 +33,7 @@ const TurnOverForm2 = () => {
             e.preventDefault();
             if (validateForm()) {
                 console.log("Form Submitted!", formData);
-                setTimeout(() => {
-                    navigate("/offers");
-                }, 2000);
+                    navigate("/business-loan/verification/business-details/turn-over2/offers");
             }
         };
   return (
@@ -41,13 +41,21 @@ const TurnOverForm2 = () => {
     <div>
     <div className="section-padding ">
     <div className="row d-flex justify-content-center">
-    <div className="col-xl-7 col-lg-6  contact-form-box shadow-box">
+    <div className="col-xl-7 col-lg-6  contact-form-box">
                 {/* <main className="main-wrapper"> */}
                 <div className='container'>
                     <form ref={form} onSubmit={handleSubmit}>
-
+                    <div className="form-group">
+                                    <label>Residence Type*</label>
+                                    <select name="residence" className="form-control" value={formData.residence} onChange={handleChange} >
+                                        <option value="status">Select Type</option>
+                                        <option value="owned">Owned</option>
+                                        <option value="rented">Rented</option>
+                                    </select>
+                                    {errors.residence && <p className="error-text">{errors.residence}</p>}
+                                </div>
                         <div className="form-group">
-                            <label>Current TurnOver</label>
+                            <label>Current TurnOver*</label>
                             <select name="turnover" className="form-control" value={formData.turnover} onChange={handleChange} required>
                                 <option value="status">Select Status</option>
                                 <option value="six">Upto 6 lacs</option>
@@ -59,7 +67,7 @@ const TurnOverForm2 = () => {
                             {errors.turnover && <p className="error-text">{errors.turnover}</p>}
                         </div>
                         <div className="form-group">
-                            <label>Years In Business</label>
+                            <label>Years In Business*</label>
                             <select name="years" className="form-control" value={formData.years} onChange={handleChange} required>
                                 <option value="status">Select Status</option>
                                 <option value="less">Less than one year</option>
@@ -95,8 +103,9 @@ const TurnOverForm2 = () => {
                                     No
                                 </label>
 
-                                {errors.currentAcc && <p className="error-text">{errors.currentAcc}</p>}
                             </div>
+                            {errors.currentAcc && <p className="error-text">{errors.currentAcc}</p>}
+
                         </div>
                         <div className="form-group">
                             <button type="submit" className="axil-btn btn-fill-primary btn-fluid btn-primary">

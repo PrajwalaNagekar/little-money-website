@@ -16,7 +16,7 @@ const OurClients = () => {
         <SEO title="Our Partners" />
         {/* <ColorSwitcher /> */}
             <main className="main-wrapper">
-            <TopNavbar/>
+            {/* <TopNavbar/> */}
 
                 <HeaderTwo />
              <br /><br /><br /><br />

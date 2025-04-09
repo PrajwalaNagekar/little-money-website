@@ -2,23 +2,31 @@
    Case Study
 -------------------------*/
 .case-study-featured {
-    margin-bottom: 60px;
+    margin-bottom: -85px;
+    @media #{$large-mobile} {
+        margin-top:-90px;
+        
+    }
+    // margin-top:-69px;
     .section-heading {
         .title {
             letter-spacing: -0.045em;
             overflow: hidden;
             text-overflow: ellipsis;
+            
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            // -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             padding-bottom: 5px;
             @media #{$large-mobile} {
-                -webkit-line-clamp: 2;
+                // -webkit-line-clamp: 2;
+                
             }
         }
         p {
             width: 100%;
             font-size: 16px;
+            text-align: justify;
         }
     }
 }

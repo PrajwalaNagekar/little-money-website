@@ -26,12 +26,12 @@ const CreativeAgency = () => {
         <SEO title="Home"/>
         {/* <ColorSwiatcher /> */}
         <main className="main-wrapper">
-           <TopNavbar/>
+           {/* <TopNavbar/> */}
             <HeaderTwo />
             
             <BannerTwo />
         
-            <div className="section section-padding">
+            <div className="section ">
                 <div className="container">
                 <SectionTitle 
                     subtitle="What We Can Do For You"
@@ -44,11 +44,11 @@ const CreativeAgency = () => {
                         <ServicePropOne colSize="col-lg-4" serviceStyle="service-style-2" itemShow="3" marginTop="yes"/>
                     </div>
                 </div>
-                <ul className="shape-group-7 list-unstyled">
+                {/* <ul className="shape-group-7 list-unstyled">
                     <li className="shape shape-1"><img src={`${PUBLIC_URL}/images/others/circle-2.png`} alt="circle" /></li>
                     <li className="shape shape-2"><img src={`${PUBLIC_URL}/images/others/bubble-2.png`} alt="Line" /></li>
                     <li className="shape shape-3"><img src={`${PUBLIC_URL }/images/others/bubble-1.png`} alt="Line" /></li>
-                </ul>
+                </ul> */}
 
             </div>
             {/* <ProjectOne parentClass="bg-color-lighta"/> */}

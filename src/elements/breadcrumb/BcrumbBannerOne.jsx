@@ -2,18 +2,20 @@ import React from 'react';
 import Tilty from 'react-tilty';
 const PUBLIC_URL = import.meta.env.VITE_API_URL;
 
-const BcrumbBannerOne = ({title, paragraph, styleClass, mainThumb}) => {
+const BcrumbBannerOne = ({ title, paragraph, styleClass, mainThumb }) => {
     return (
         <div className="breadcrum-area breadcrumb-banner">
             <div className="container">
-                <div className="section-heading heading-left">
-                    <h4 className="title h2" dangerouslySetInnerHTML={{__html: title}}></h4>
-                    <p 
- dangerouslySetInnerHTML={{__html: paragraph}}></p>
-                </div>
                 
-                <div className={`banner-thumbnail ${styleClass}`}>
-                <Tilty perspective={2000} reset={false}>
+                <div className="section-heading section-padding heading-left">
+
+                    <h4 className="title" >{title}</h4>
+                    <p
+                        dangerouslySetInnerHTML={{ __html: paragraph }}></p>
+                </div>
+
+                <div className={`banner-thumbnail ${styleClass} `}>
+                    <Tilty perspective={2000} reset={false}>
                         <img src={PUBLIC_URL + mainThumb} alt="Illustration" />
                     </Tilty>
                 </div>
