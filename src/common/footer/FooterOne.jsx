@@ -61,7 +61,7 @@ const FooterOne = ({parentClass}) => {
                                                 ))} */}
                                                 <li> <Link to="/personal-loan">Personal Loan</Link> </li>
                                                 
-                                                <li> <Link to="//business-loan">Business Loan</Link> </li>
+                                                <li> <Link to="/business-loan">Business Loan</Link> </li>
 
                                             </ul>
                                         </div>

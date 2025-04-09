@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
-import { FaRegCreditCard, FaCheckCircle, FaMoneyBillWaveAlt } from "react-icons/fa";
+import {
+  FaRegCreditCard,
+  FaCheckCircle,
+  FaMoneyBillWaveAlt,
+} from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 // Define slides for different screen sizes with title, icons, subtitles, and links
 const largeScreenSlides = [
   {
     image: "/images/banner/Banners_01.jpg",
     title: "Personal Loans",
-    statement: "Get quick and easy personal loans with flexible repayment terms.",
+    statement:
+      "Get quick and easy personal loans with flexible repayment terms.",
     icon1: <FaRegCreditCard style={{ color: "white" }} />,
     icon2: <FaCheckCircle style={{ color: "white" }} />,
     icon3: <FaMoneyBillWaveAlt style={{ color: "white" }} />,
     subtitle1: "Flexible Loan Options",
     subtitle2: "Quick Approval Process",
     subtitle3: "Instant Fund Transfer",
-    statement: "Get quick and easy personal loans with flexible repayment terms.",
+    statement:
+      "Get quick and easy personal loans with flexible repayment terms.",
 
     button: "Apply Now",
     link: "/personal-loan",
@@ -24,14 +30,16 @@ const largeScreenSlides = [
   {
     image: "/images/banner/Banners_02.jpg",
     title: "Business Loans",
-    statement: "Fast and flexible loans to help your business grow with tailored repayment plans.",
+    statement:
+      "Fast and flexible loans to help your business grow with tailored repayment plans.",
     icon1: <FaRegCreditCard style={{ color: "white" }} />,
     icon2: <FaCheckCircle style={{ color: "white" }} />,
     icon3: <FaMoneyBillWaveAlt style={{ color: "white" }} />,
     subtitle1: "Instant Onboarding",
     subtitle2: "No Hidden Charges",
     subtitle3: "Flexible Repayments",
-    statement: "Fast and flexible loans to help your business grow with tailored repayment plans.",
+    statement:
+      "Fast and flexible loans to help your business grow with tailored repayment plans.",
 
     button: "Apply Now",
     link: "/business-loan",
@@ -39,17 +47,19 @@ const largeScreenSlides = [
   {
     image: "/images/banner/Banners_03.jpg",
     title: "Buy Now Pay Later",
-    statement: "Shop now and pay later with easy, low-cost installment options.",
+    statement:
+      "Shop now and pay later with easy, low-cost installment options.",
     icon1: <FaRegCreditCard style={{ color: "white" }} />,
     icon2: <FaCheckCircle style={{ color: "white" }} />,
     icon3: <FaMoneyBillWaveAlt style={{ color: "white" }} />,
     subtitle1: "Flexible Payment Plans",
     subtitle2: "Easy Monthly Payments",
     subtitle3: "Instant EMI Approval ",
-    statement: "Shop now and pay later with easy, low-cost installment options.",
+    statement:
+      "Shop now and pay later with easy, low-cost installment options.",
 
     button: "Contact Us",
-    link: "/contact"
+    link: "/contact",
   },
 ];
 
@@ -64,7 +74,8 @@ const smallScreenSlides = [
     subtitle1: "Flexible Loan Options",
     subtitle2: "Quick Approval Process",
     subtitle3: "Instant Fund Transfer",
-    statement: "Get quick and easy personal loans with flexible repayment terms.",
+    statement:
+      "Get quick and easy personal loans with flexible repayment terms.",
 
     button: "Apply Now",
     link: "/personal-loan",
@@ -78,13 +89,14 @@ const smallScreenSlides = [
     subtitle1: "Instant Onboarding",
     subtitle2: "No Hidden Charges",
     subtitle3: "Flexible Repayments",
-    statement: "Get quick and easy personal loans with flexible repayment terms.",
+    statement:
+      "Get quick and easy personal loans with flexible repayment terms.",
 
     button: "Apply Now",
     link: "/business-loan",
   },
   {
-    image: "/images/banner/Banners_Mobile_02.jpg",
+    image: "/images/banner/Banners_Mobile_03.jpg",
     title: "Buy Now Pay Later",
     icon1: <FaRegCreditCard style={{ color: "white" }} />,
     icon2: <FaCheckCircle style={{ color: "white" }} />,
@@ -92,7 +104,8 @@ const smallScreenSlides = [
     subtitle1: "Flexible Payment Plans",
     subtitle2: "Easy Monthly Payments",
     subtitle3: "Instant EMI Approval",
-    statement: "Get quick and easy personal loans with flexible repayment terms.",
+    statement:
+      "Get quick and easy personal loans with flexible repayment terms.",
 
     button: "Contact Us",
     link: "/contact",
@@ -101,11 +114,11 @@ const smallScreenSlides = [
 
 const BannerTwo = () => {
   const [slides, setSlides] = useState(largeScreenSlides);
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 769);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 769) {
         setSlides(smallScreenSlides);
         setIsSmallScreen(true);
       } else {
@@ -120,8 +133,10 @@ const BannerTwo = () => {
   }, []);
 
   return (
-    <div className="w-100 section ">
-      <br /><br /><br />
+    <div className="w-100 section">
+      <br />
+      <br />
+      {/* <br /> */}
       {/* <Carousel>
         {slides.map((slide, index) => (
           <Carousel.Item key={index}>
@@ -159,11 +174,13 @@ const BannerTwo = () => {
           <Carousel.Item key={index}>
             <img
               className="img-fluid w-100 object-fit-cover"
-              style={{ height: '90vh' }}
+              style={{ height: "80vh" }}
               src={slide.image}
               alt={`Slide ${index + 1}`}
             />
-            <Carousel.Caption className={isSmallScreen ? "small-caption" : "large-caption"}>
+            <Carousel.Caption
+              className={isSmallScreen ? "small-caption" : "large-caption"}
+            >
               {/* {slide.title && (
                 <h3 className="mb-3 text-white fw-bold display-6 display-md-4">
                   {slide.title}
@@ -174,7 +191,9 @@ const BannerTwo = () => {
                   {slide.title}
                 </h3>
               )}
-              <h6 className="text-white mb-3 fs-6 fs-md-5 text-start">{slide.statement}</h6>
+              <h6 className="text-white mb-3 fs-6 fs-md-5 text-start">
+                {slide.statement}
+              </h6>
 
               <div className="icon-subtitle d-flex flex-column gap-2 mt-3">
                 <div className="d-flex align-items-center gap-2">
@@ -191,14 +210,15 @@ const BannerTwo = () => {
                 </div>
 
                 <Link to={slide.link}>
-                  <button className="axil-btn btn-fill-white mt-3">{slide.button}</button>
+                  <button className="axil-btn btn-fill-white mt-3">
+                    {slide.button}
+                  </button>
                 </Link>
               </div>
             </Carousel.Caption>
           </Carousel.Item>
         ))}
       </Carousel>
-
     </div>
   );
 };
