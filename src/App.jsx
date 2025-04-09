@@ -60,6 +60,9 @@ import DetailsForm2 from './pages/DetailsForm2';
 import UserDetails from './pages/UserDetails';
 import UserDetails2 from './pages/UserDetails2';
 import TurnOver2 from './pages/TurnOver2';
+import FormBusinessLoan from "./component/contact/FormBusinessLoan"
+import BusinessLoanOtpVerification from './pages/BusinessLoanOtpVerification';
+import BusinessLoanForm from './pages/BusinessLoanForm';
 const App = () => {
 	return (
 		<Router >
@@ -106,17 +109,37 @@ const App = () => {
 					<Route path="/typography" element={<Typography />} />
 					<Route path="/contact" element={<Contact />} />
 
-					<Route path="/personal-loans" element={<PersonalLoans />} />
+					<Route path="/personal-loan" element={<PersonalLoans />} />
 					<Route path="/merchant-login" element={<MerchantLogin />} />
-					<Route path="/business-loans" element={<BusinessLoans />} />
+					<Route path="/business-loan" element={<BusinessLoans />} />
 
-					<Route path="/personal-loans/verification" element={<OtpVerification />} />
-					<Route path="/personal-loans/verification/user-details" element={<UserDetails />} />
-					<Route path="/business-loans/user-details2" element={<UserDetails2 />} />
-					<Route path="/personal-loans/verification/user-details/turn-over" element={<TurnOver />} />
-					<Route path="/business-loans/turn-over2" element={<TurnOver2 />} />
-					<Route path="/offers" element={<ProjectGridOne />} />
-b
+					<Route path="/personal-loan/verification" element={<OtpVerification />} />
+					<Route path="/personal-loan/verification/user-details" element={<UserDetails />} />
+					{/* <Route path="/business-loans/user-details2" element={<UserDetails2 />} /> */}
+					<Route path="/personal-loan/verification/user-details/turn-over" element={<TurnOver />} />
+					<Route path="/personal-loan/verification/user-details/offers" element={<ProjectGridOne />} />
+
+					{/* <Route path="/business-loans/turn-over2" element={<TurnOver2 />} /> */}
+					<Route path="/personal-loan/verification/user-details/turn-over/offers" element={<ProjectGridOne />} />
+
+
+					<Route path="/business-loan" element={<BusinessLoans />} />
+					<Route path="/business-loan/verification" element={<BusinessLoanOtpVerification />} />
+					<Route path="/business-loan/verification/business-details" element={<BusinessLoanForm />} />
+					<Route path="/business-loan/verification/business-details/user-details3" element={<UserDetails2 />} />
+
+					<Route path="/business-loan/verification/business-details/user-details3/turn-over2/offers" element={<ProjectGridOne />} />
+
+{/* /business-loans/verification/user-details2/user-details3/turn-over2/offers */}
+					<Route path="/business-loan/verification/business-details/turn-over2" element={<TurnOver2 />} />
+					<Route path="/business-loan/verification/business-details/turn-over2/offers" element={<ProjectGridOne />} />
+
+
+
+					<Route path="/personal-loan/verification/user-details/offers" element={<ProjectGridOne />} />
+					<Route path="/business-loan/verification/business-details/offers" element={<ProjectGridOne />} />
+
+
 					{/* <Route path={PUBLIC_URL + "/merchant-signup"} element={<MerchantLogin />}/> */}
 
 					<Route path="/404" element={<ErrorPage />} />

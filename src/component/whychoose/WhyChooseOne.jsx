@@ -11,10 +11,10 @@ import { Link } from 'react-router-dom';
 
 const WhyChooseOne = () => {
     return (
-        <div className="section-padding bg-color-light">
+        <div className=" bg-color-light">
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-6">
+                    <div className="col-lg-6 ">
                         <div className="why-choose-us">
                             <SectionTitle
                                 subtitle="About Us"
@@ -23,11 +23,24 @@ const WhyChooseOne = () => {
                                 textAlignment="heading-left"
                                 textColor=""
                             />
-                            <Accordion defaultActiveKey="1">
+
+                        </div>
+                        <div className="why-choose-us mb--30">
+                            <div className="why-choose-thumb">
+                                <img src={PUBLIC_URL + "/images/about/mb.jpeg"} alt="Office" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-lg-6 d-flex align-items-center">
+
+                        <div className="why-choose-us">
+
+                            <Accordion >
                                 <Accordion.Item eventKey="1">
                                     <Accordion.Header><BsGraphUpArrow /> Increased Sales</Accordion.Header>
                                     <Accordion.Body>
-                                        Access to a wide customer base, offering flexible financing options like Personal and Business Loans.                            </Accordion.Body>
+                                        Access to a wide customer base, offering flexible financing options like Personal and Business Loans.
+                                    </Accordion.Body>
                                 </Accordion.Item>
                                 <Accordion.Item eventKey="2">
                                     <Accordion.Header><BiSolidPurchaseTag /> Revenue Boost</Accordion.Header>
@@ -41,29 +54,24 @@ const WhyChooseOne = () => {
                                 </Accordion.Item>
                             </Accordion>
                             <br />
-                            <div className=''>
-                                <Link to='/contact' className=''><button className="axil-btn btn-fill-primary btn-fluid btn-primary w-auto "  id='btn-verify'>
-                                    Contact us to sign up
-                                </button></Link>
-                                <Link to='#'><button className="axil-btn btn-fill-primary btn-fluid btn-primary w-auto"  id='btn-verify'>
-                                         Merchant Login
-                                </button></Link>
+                            <div className="button-container">
+                                <Link to="/contact">
+                                    <button className="btn-benefit btn-fill-primary">Contact us to sign up</button>
+                                </Link>
+                                <Link to="#">
+                                    <button className="btn-benefit btn-fill-primary">Merchant Login</button>
+                                </Link>
                             </div>
                         </div>
 
                     </div>
 
-                    <div className="col-xl-5 ">
-                        <div className="why-choose-us mb--30">
-                            <div className="why-choose-thumb">
-                                <img src={PUBLIC_URL + "/images/about/m-benefits.jpeg"} alt="Office" />
-                            </div>
-                        </div>
-                    </div>
+
 
                 </div>
+
             </div>
-        </div>
+        </div >
 
     )
 }

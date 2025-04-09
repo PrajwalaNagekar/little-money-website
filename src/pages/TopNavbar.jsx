@@ -16,10 +16,10 @@ const TopNavbar = () => {
           <Link to='' style={styles.link} >Customer Login</Link>
           <div style={styles.divider}></div>
 
-          <Link to='/personal-loans' style={styles.link}>Personal Loan</Link>
+          <Link to='/personal-loan' style={styles.link}>Personal Loan</Link>
           <div style={styles.divider}></div>
 
-          <Link to='/business-loans' style={styles.link}>Business Loan</Link>
+          <Link to='/business-loan' style={styles.link}>Business Loan</Link>
 
         </div>
       </div>

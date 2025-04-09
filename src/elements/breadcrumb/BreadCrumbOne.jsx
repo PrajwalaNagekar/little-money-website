@@ -10,9 +10,9 @@ const BreadCrumbOne = ({title, page}) => {
             <div className="container">
                 <div className="breadcrumb">
                     <ul className="list-unstyled">
-                        <li>
+                        {/* <li>
                             <Link to={PUBLIC_URL + "/"}>Home</Link>
-                        </li>
+                        </li> */}
                         <li className="active" dangerouslySetInnerHTML={{__html: page}}></li>
                     </ul>
                     <h1 className="title h2" dangerouslySetInnerHTML={{__html: title}}></h1>

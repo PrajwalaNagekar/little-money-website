@@ -6,7 +6,7 @@ const Offers = () => {
     <div>
       <SEO title="Home" />
       <main className="main-wrapper">
-      <TopNavbar/>
+      {/* <TopNavbar/> */}
 
         <HeaderTwo />
         

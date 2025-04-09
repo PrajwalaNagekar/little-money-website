@@ -13,7 +13,7 @@ const FooterOne = ({parentClass}) => {
     return (
         <footer className={`footer-area ${parentClass}`}>
             <div className="container">
-                <div className="footer-top">
+                {/* <div className="footer-top"> */}
                     {/* <div className="footer-social-link">
                         <ul className="list-unstyled">
                             <li><Link to="https://facebook.com/"><FaFacebookF /></Link></li>
@@ -23,12 +23,13 @@ const FooterOne = ({parentClass}) => {
                             
                         </ul>
                     </div> */}
-                </div>
+                {/* </div> */}
                 <div className="footer-main">
                     <div className="row">
                         <div className="col-xl-6 col-lg-5">
                             <div className="footer-widget border-end">
                                 <div className="footer-newsletter">
+                                    <br />
                                     <h2 className="title">Get in touch!</h2>
                                     <Link to="https://www.linkedin.com/company/little-money-technologies"><FaLinkedin style={{height:"40px",width:"40px"}} /></Link>
 
@@ -41,12 +42,15 @@ const FooterOne = ({parentClass}) => {
                                         </div>
                                     </form> */}
                                 </div>
+
+                                
                             </div>
                         </div>
                         <div className="col-xl-6 col-lg-7">
                             <div className="row">
                                 <div className="col-sm-6">
                                     <div className="footer-widget">
+                                        <br />
                                         <h6 className="widget-title">Services</h6>
                                         <div className="footer-menu-link">
                                             <ul className="list-unstyled">
@@ -55,9 +59,9 @@ const FooterOne = ({parentClass}) => {
                                                         <Link to={PUBLIC_URL + `/service-details/${slugify(data.title)}`}>{data.title}</Link>
                                                     </li>
                                                 ))} */}
-                                                <li> <Link to="/personal-loans">Personal Loan</Link> </li>
-                                                <br></br>
-                                                <li>Business Loan</li>
+                                                <li> <Link to="/personal-loan">Personal Loan</Link> </li>
+                                                
+                                                <li> <Link to="//business-loan">Business Loan</Link> </li>
 
                                             </ul>
                                         </div>
@@ -77,6 +81,7 @@ const FooterOne = ({parentClass}) => {
                                 </div> */}
                                 <div className="col-sm-3">
                                     <div className="footer-widget">
+                                        <br />
                                         <h6 className="widget-title">Support</h6>
                                         <div className="footer-menu-link">
                                             <ul className="list-unstyled">
@@ -93,19 +98,19 @@ const FooterOne = ({parentClass}) => {
                 </div>
                 <div className="footer-bottom"> 
                     <div className="row">
-                        <div className="col-md-6">
-                            <div className="footer-copyright">
+                        {/* <div className="col-md-6"> */}
+                            <div className="footer-copyright text-center">
                                 <span className="copyright-text">© {new Date().getFullYear()}. All rights reserved by <a href="https://littlemoney.co.in">Little Money Technologies Pvt. Ltd.</a></span>
                             </div>
-                        </div>
-                        <div className="col-md-6">
+                        {/* </div> */}
+                        {/* <div className="col-md-6">
                             <div className="footer-bottom-link">
                                 <ul className="list-unstyled">
                                     <li><Link to="/privacy-policy">Privacy Policy</Link></li>
                                     <li><Link to="/terms-use">Terms of Use</Link></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

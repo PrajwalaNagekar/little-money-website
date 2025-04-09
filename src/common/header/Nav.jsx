@@ -76,15 +76,14 @@ const Nav = () => {
 
                 {/* <li><Link to={PUBLIC_URL + "/personal-loan"}>Personal Loan</Link></li> */}
 
-                {/* <ul className="list-unstyled ">
-                    <li className="buy-btn"><Link to="/personal-loans" className="axil-btn btn-fill-primary">Personal Loan</Link></li>
+                <ul className="list-unstyled ">
+                    <li className="buy-btn"><Link to="/personal-loan" className="axil-btn btn-fill-primary">Personal Loan</Link></li>
 
                 </ul>
 
-                <ul className="list-unstyled ">
-                    <li className="buy-btn"><Link to="/merchant-login" className="axil-btn btn-fill-primary">Merchant Login</Link></li>
-
-                </ul> */}
+                <ul className="list-unstyled me-2">
+                    <li className="buy-btn"><Link to="/business-loan" className="axil-btn btn-fill-primary">Business Loan</Link></li>
+                </ul>
             </ul>
         </nav>
     )

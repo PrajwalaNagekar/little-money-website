@@ -14,32 +14,31 @@ import TeamDetails from '../pages/TeamDetails';
 
 import HeaderTwo from '../common/header/HeaderTwo';
 import TopNavbar from './TopNavbar';
-
+import AboutBreadCrumb from '../elements/breadcrumb/AboutBreadCrumb';
+import EmpowerSection from '../elements/breadcrumb/EmpowerSection';
+import MissionSection from './MissionSection';
 const AboutUs = () => {
 
     return (
         <>
-        <SEO title="About us" />
-        {/* <ColorSwitcher /> */}
+            <SEO title="About us" />
             <main className="main-wrapper">
-            <TopNavbar/>
 
                 <HeaderTwo />
-                
-                <BcrumbBannerOne 
-                title="Empowering Merchants with Innovative Tech Solutions"
-                paragraph ="Little Money Technologies revolutionizes the lending industry by empowering merchants with advanced, cutting-edge tech solutions."
-                styleClass="thumbnail-4"
-                mainThumb="/images/banner/about1.png"
-                />
-                 <AboutThree />
+
+                {/* <BcrumbBannerOne
+                    title="Empowering Merchants with Innovative Tech Solutions"
+                    paragraph="Little Money Technologies revolutionizes the lending industry by empowering merchants with advanced, cutting-edge tech solutions."
+                    styleClass="thumbnail-4"
+                    mainThumb="/images/banner/about1.png"
+                /> */}
+                <EmpowerSection/>
+                <AboutThree />
                 <AboutFour />
-               
-        {/* <TeamDetails/> */}
-                 <CounterUpOne />
+
+                <CounterUpOne />
                 <AboutFive />
-                {/* <ProcessOne /> */}
-                {/* <CtaLayoutOne /> */}
+               {/* <MissionSection/> */}
                 <FooterOne parentClass="" />
             </main>
         </>

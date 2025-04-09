@@ -64,9 +64,9 @@ const HeaderOne = () => {
                                             <span></span>
                                         </button>
                                     </li>
-                                    <li className="my_switcher d-block d-lg-none">
+                                    {/* <li className="my_switcher d-block d-lg-none">
                                         <SwitcherHeader />
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </div>
                         </div>

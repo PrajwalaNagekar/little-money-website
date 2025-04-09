@@ -13,7 +13,7 @@ const ProjectGridFive = () => {
     return (
         <>
         <SEO title="Project Full Width Four Column" />
-        <ColorSwitcher />
+        {/* <ColorSwitcher /> */}
         <main className="main-wrapper">
             
             <HeaderOne />

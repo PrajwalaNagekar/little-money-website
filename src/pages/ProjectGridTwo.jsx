@@ -13,7 +13,7 @@ const ProjectGridTwo = () => {
     return (
         <>
         <SEO title="Project Three Column" />
-        <ColorSwitcher />
+        {/* <ColorSwitcher /> */}
         <main className="main-wrapper">
             <HeaderOne />
             <BcrumbBannerOne 

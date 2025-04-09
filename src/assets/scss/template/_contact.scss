@@ -24,7 +24,8 @@
 .contact-info {
     background-color: #adb5bd;
     border-radius: 14px;
-    padding: 60px 50px;
+    padding: 60px 50px; 
+    margin-bottom: 30px;
     box-shadow: 0 9px 18px 0 rgba(0,0,0,.25);
     .title {
         color: var(--color-white);
@@ -115,3 +116,12 @@
         }
     }
 }
+.contact-card {
+    background: #561010;
+    border-radius: 12px;
+    min-height: 220px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  .mb-custom {
+    margin-bottom: 4rem;
+  }

@@ -19,15 +19,17 @@ const OffcanvasMenu = ({ offcanvasShow, offcanvasHide }) => {
                 </form>
                 <div className="row ">
                     <div className="col-lg-5 col-xl-6">
+                        <h4>Services we offer</h4> <br />
                         <ul className="main-navigation list-unstyled">
-                            <h3>Services We Offer</h3>
+                            {/* <h3>Services We Offer</h3> */}
                             <li><h5>Personal Loan</h5></li>
-                            <Link to='/personal-loans'><button className="axil-btn btn-fill-primary ">
+                            
+                            <Link to='/personal-loan'><button className="axil-btn btn-fill-primary ">
                                 Apply Now
                             </button></Link>
                             {/* <li><Link to={PUBLIC_URL + "/creative-agency"}>Business Loan </Link></li> */}
                             <li><h5>Business Loan</h5></li>
-                            <Link to='/business-loans'><button className="axil-btn btn-fill-primary " id='btn-bl'>
+                            <Link to='/business-loan'><button className="axil-btn btn-fill-primary " id='btn-bl'>
                                 Apply Now                            </button></Link>
                             <li><h5>BNPL</h5></li>
                             <Link to='/contact'><button className="axil-btn btn-fill-primary " id='btn-bl'>
@@ -43,7 +45,7 @@ const OffcanvasMenu = ({ offcanvasShow, offcanvasHide }) => {
                             <div className="contact-inner">
                                 <address className="address">
                                     <h4 >Contact Information</h4>
-                                    <p>#30/1, 4th Cross Road, New Bank Colony, Konanakunte, 560062
+                                    <p>#30/1, 4th Cross Road, New Bank Colony, <br /> Konanakunte, 560062
 
                                         <br /> Bengaluru</p>
                                 </address>

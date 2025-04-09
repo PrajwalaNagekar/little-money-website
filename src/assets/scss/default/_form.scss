@@ -1,18 +1,20 @@
 /*-------------------------
     Forms Styles
--------------------------*/
+-------------------------*/b
 input,
 .form-control {
-    border: var(--border-lighter);
-    border-radius: 16px;
+    border: 1px solid #adb5bd;
+    border-radius: 10px;
     background-color: transparent;
     color: var(--color-text-dark);
     // padding: 15px 20px;
     width: 100%;
     &:focus {
         outline: none;
-        box-shadow: 0 20px 48px -14px rgba(153,161,170,0.25);
-        border-color: transparent;
+        border-color: #007bff;
+        box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+        // box-shadow: 0 20px 48px -14px rgba(153,161,170,0.25);
+        // border-color: transparent;
 
     }
     /* -- Placeholder -- */
@@ -37,6 +39,8 @@ input,
     color: red;
 }
 
+
+
 .form-group {
     margin-bottom: 16px;
     label {
@@ -49,11 +53,11 @@ input,
         display: flex;
         align-items: flex-start;
         gap: 8px;
-        margin-bottom: 12px;
+        // margin-bottom: 12px;
     }
     
     .checkbox-container input {
-        width: 20px;
+        width: 16px;
         height: 20px;
         // margin-top: 3px;
         cursor: pointer;
@@ -158,6 +162,7 @@ input,
             border: 1px solid var(--color-light);
         }
         
+        
     }
     .subscribe-btn {
         border: none;
@@ -233,7 +238,7 @@ input,
     height: 45px;
     text-align: center;
     font-size: 20px;
-    border: 2px solid #ccc;
+    border: 1px solid #adb5bd;;
     border-radius: 8px;
     outline: none;
     transition: all 0.3s ease-in-out;
@@ -243,7 +248,14 @@ input,
     border-color: #007bff;
     box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
 }
+.input-group-container {
+    display: flex;
+    gap: 10px; /* Adjust spacing between inputs */
+    flex-wrap: nowrap; /* Prevents stacking on mobile */
+}
 
-
-
+.input-group-container .form-control {
+    flex: 1; /* Makes inputs flexible */
+    min-width: 0;
+}
 

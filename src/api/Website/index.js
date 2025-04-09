@@ -4,7 +4,7 @@ const api = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_API_URL,
     headers: {
         "apikey": "11111111-1111-1111-1111-111111111111",
-        "Content- Type": "application/ json"
+        "Content-Type": "application/ json"
     }
 });
 

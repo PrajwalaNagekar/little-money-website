@@ -21,10 +21,10 @@ const HeaderTwo = () => {
         document.querySelector('body').classList.toggle("mobilemenu-show");
 
         var elements = document.querySelectorAll('.mobilemenu-popup .menu-item-has-children > a');
-    
-        for(var i in elements) {
-            if(elements.hasOwnProperty(i)) {
-                elements[i].onclick = function() {
+
+        for (var i in elements) {
+            if (elements.hasOwnProperty(i)) {
+                elements[i].onclick = function () {
                     this.parentElement.querySelector('.axil-submenu').classList.toggle("active");
                     this.classList.toggle("open");
                 }
@@ -35,13 +35,13 @@ const HeaderTwo = () => {
     return (
         <>
             <header className="header axil-header header-style-2">
-                <div className={`axil-mainmenu ${sticky ? "axil-sticky" : ""}`}>
+                <div className="axil-mainmenu axil-sticky">
                     <div className="container-fluid">
                         <div className="header-navbar">
                             <div className="header-logo">
                                 <Logo limage="/images/lm.png"
-                                dimage="/images/LittleLogo_01_dark.png"
-                                simage="/images/LittleLogo_01.jpg"
+                                    dimage="/images/LittleLogo_01_dark.png"
+                                    simage="/images/LittleLogo_01.jpg"
                                 />
                             </div>
                             <div className="header-main-nav">
@@ -73,7 +73,7 @@ const HeaderTwo = () => {
                 </div>
             </header>
             <OffcanvasMenu offcanvasShow={showOffcanvas} offcanvasHide={OffcanvasHandleClose} />
-            <MobileMenu MobileHandler={MobileMenuHandler}/>
+            <MobileMenu MobileHandler={MobileMenuHandler} />
         </>
     )
 }

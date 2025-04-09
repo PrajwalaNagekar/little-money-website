@@ -9,7 +9,7 @@ const UserDetails = () => {
         <div>
             <SEO title="Home" />
             <main className="main-wrapper">
-                <TopNavbar/>
+                {/* <TopNavbar/> */}
             <HeaderTwo />
             <DetailsForm1/>
             </main>

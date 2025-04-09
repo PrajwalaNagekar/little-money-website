@@ -9,8 +9,9 @@ const AboutTwo = ({ heading }) => {
       <div className="container ">
         <div className="row d-flex justify-content-center">
           <div className="col-xl-7 col-lg-6">
-            <div className="contact-form-box shadow-box mb--30">
-              <h3 className="title">Get a free keystroke for {heading}</h3>
+            <div className="contact-form-box">
+            {/* shadow-box */}
+              <h4 className="text-center">Start Your Loan Application Below</h4>
               <FormOne />
             </div>
           </div>

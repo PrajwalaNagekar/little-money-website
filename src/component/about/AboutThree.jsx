@@ -35,13 +35,13 @@ const Datas = [
 
 const AboutThree = () => {
     return (
-        <div className="section section-padding bg-color-custom pb--80 pb_lg--40 pb_md--20">
+        <div className="section bg-color-custom  pb_lg--40 pb_md--20">
             <div className="container">
                 <SectionTitle 
                     subtitle="Flexible Financing"
                     title="What We Offer"
                     description="Personalized, Accessible, and Efficient Lending Solutions"
-                    textAlignment="heading-left heading-light-left mb--100"
+                    textAlignment="heading-left heading-light-left"
                     textColor=""
                 />
 
@@ -51,8 +51,8 @@ const AboutThree = () => {
                             <div className="about-quality">
                                 <h3 className="sl-number">{data.id}</h3>
                                 <h5 className="title">{data.title}</h5>
-                                <p>{data.para}</p>
-                            </div>
+                                <p >{data.para}</p>
+                            </div> 
                         </div>
                     ))}
 
