@@ -9,9 +9,9 @@ import LoggedInHeaderTwoBL from '../common/header/LoggedInHeaderTwoBL'
 import { useLocation } from 'react-router-dom'
 const ProjectGridFiveBL = () => {
     const location = useLocation();
-    const { mobileNumber, firstName, lastName } = location.state || {};
+    const { mobileNumber, firstName, lastName,leadId } = location.state || {};
 
-    const userData = { mobileNumber, firstName, lastName };
+    const userData = { mobileNumber, firstName, lastName,leadId };
     return (
         <>
             <SEO title="Project Full Width Four Column" />

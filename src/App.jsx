@@ -128,7 +128,7 @@ const App = () => {
 						}
 					/>
 					<Route path="/user-detail/offers/:referralCode?" element={<ProjectGridFour />} />
-					<Route path="/bl-verification" element={<BusinessLoanOtpVerification />} />
+					<Route path="/bl-verification/:referralCode?" element={<BusinessLoanOtpVerification />} />
 					<Route path="/business-detail" element={<BusinessLoanForm />} />
 
 					{/* <Route path="/business-loan/verification/business-details/user-details3/turn-over2/offers" element={<ProjectGridOne />} /> */}

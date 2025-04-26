@@ -56,6 +56,8 @@ const FormOne = () => {
     option2: Yup.bool().oneOf([true], "You must agree before submitting."),
   });
 
+
+
   return (
     <>
       <Formik
@@ -70,6 +72,10 @@ const FormOne = () => {
         onSubmit={async (values) => {
           try {
             // console.log(values)
+            localStorage.setItem("mobileNumber", values.mobileNumber);
+            localStorage.setItem("firstName", values.firstName);
+            localStorage.setItem("lastName", values.lastName);
+          
             const data = {
               mobileNumber: values.mobileNumber,
               firstName: values.firstName,
@@ -115,7 +121,7 @@ const FormOne = () => {
             <div className="form-group">
               <label htmlFor="mobileNumber">Enter your Mobile Number</label>
 
-              <p>Referral Code: {finalReferralCode}</p>
+              {/* <p>Referral Code: {finalReferralCode}</p> */}
               <div className="input-icon-container" style={{ position: "relative" }}>
                 <i
                   className="fa fa-phone"
@@ -301,7 +307,7 @@ const FormOne = () => {
               >
 
                 {loading ? (
-                  <FullScreenLoader/>
+                  <FullScreenLoader />
                 ) : (
                   'Send OTP  '
                 )}

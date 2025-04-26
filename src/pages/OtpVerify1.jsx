@@ -104,23 +104,28 @@ const OtpVerify1 = () => {
     console.log("User created", daysSinceCreation.toFixed(1), "days ago");
 
     if (result.success) {
-      if (daysSinceCreation > 30) {
+      if (daysSinceCreation > 1) {
         navigate(`/user-detail`, { state: data });
         return;
       }
 
       if (result.leadId) {
         const leadId = result.leadId;
+        localStorage.setItem("ExistingLeadInLocal", leadId)
+        const ExistingLeadFromLocal = localStorage.getItem('ExistingLeadInLocal')
+        console.log("ExistingLeadFromLocal", ExistingLeadFromLocal);
+
+
         const offersResponse = await getOffersByLeadId(leadId);
         const offers = offersResponse.offers;
         console.log("offersResponse", offers);
         if (finalReferralCode) {
           navigate(`/user-detail/offers/${finalReferralCode}`, {
-            state: { ...data, offers },
+            state: { ...data, offers, ExistingLeadFromLocal },
           });
         } else {
           navigate(`/user-detail/offers`, {
-            state: { ...data, offers },
+            state: { ...data, offers, ExistingLeadFromLocal },
           });
         }
       } else {

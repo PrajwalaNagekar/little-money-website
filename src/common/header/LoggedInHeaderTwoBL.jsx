@@ -72,7 +72,9 @@ const LoggedInHeaderTwoBL = ({ userData }) => {
                                                 state={{ userData, edit: true }}
                                                 className="d-flex align-items-center text-decoration-none link-hover-effect  mb-2"
                                             >
-                                                <CiEdit size={32} id="i1" />
+                                                {/* <CiEdit size={32} id="i1" /> */}
+                                                <img src="/edit.svg" alt="" style={{ width: "40px", height: "auto" }}
+                                                    />
                                                 <span className="d-none d-sm-inline ms-1">Edit</span>
                                             </Link>
 

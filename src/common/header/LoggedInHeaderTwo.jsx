@@ -12,7 +12,7 @@ import { CiEdit } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
 
 
-const LoggedInHeaderTwo = ({ userData }) => {
+const LoggedInHeaderTwo = ({ userData, sentLeadFromOtp }) => {
     const [showOffcanvas, setShowOffcanvas] = useState(false);
 
     const OffcanvasHandleClose = () => setShowOffcanvas(false);
@@ -38,6 +38,8 @@ const LoggedInHeaderTwo = ({ userData }) => {
     const location = useLocation();
     const data = location.state;
     console.log("Received user data:", data);
+    console.log("lead from otp to header", sentLeadFromOtp);
+    const referral_code = localStorage.getItem('referral_code')
 
     return (
         <>
@@ -63,11 +65,14 @@ const LoggedInHeaderTwo = ({ userData }) => {
                                         {/* <Nav /> */}
                                         <div className="d-flex flex-wrap justify-content-between align-items-center">
                                             <Link
-                                                to="/user-detail"
-                                                state={userData}
-                                                className="d-flex align-items-center text-decoration-none link-hover-effect  mb-2"
+                                                to={referral_code ? `/user-detail/${referral_code}` : "/user-detail"}
+                                                state={{ userData, sentLeadFromOtp, edit: true }}
+                                                className="d-flex align-items-center text-decoration-none link-hover-effect mb-2"
                                             >
-                                                <CiEdit size={32} id="i1" />
+                                                {/* <CiEdit size={32} id="i1" /> */}
+                                                <img src="/edit.svg" alt="" style={{ width: "40px", height: "auto" }}
+                                                />
+
                                                 <span className="d-none d-sm-inline ms-1">Edit</span>
                                             </Link>
 

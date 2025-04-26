@@ -34,6 +34,7 @@ export const verifyOtp = async (mobileNumber, enteredOtp) => {
 
     if (response.data.success) {
       localStorage.setItem("token", response.data.token);
+      console.log(response.data.leadId);
 
       return {
         success: true,
@@ -192,5 +193,26 @@ export const updateBusinessDetailsByLeadId = async (leadId, updatedData) => {
   } catch (error) {
     console.error("Error updating business details by leadId:", error.response?.data || error.message);
     return { success: false, message: "Failed to update business details" };
+  }
+};
+
+
+export const getPersonalLoanDetailsByLeadId = async (leadId) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return { success: false, message: "No token found for authentication." };
+  }
+
+  try {
+    const response = await api.get(`/get-personal-details-by-id/${leadId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching personal loan details by leadId:", error);
+    return { success: false, message: "Failed to fetch personal loan details" };
   }
 };

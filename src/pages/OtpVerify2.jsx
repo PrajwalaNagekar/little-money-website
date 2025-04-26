@@ -13,6 +13,7 @@ const OtpVerify2 = () => {
   const location = useLocation();
   const data = location.state;
   console.log("Received user data:", data);
+console.log("Received user data:mobile number", data.mobileNumber);
 
 
   // const [referralCode, setReferralCode] = useState(null);
@@ -112,7 +113,7 @@ const OtpVerify2 = () => {
 
       if (result.leadId) {
         const leadId = result.leadId;
-        console.log(leadId);
+        console.log("leadId in otp verify2",leadId);
         
         const offersResponse = await getOffersByLeadId(leadId);
         const offers = offersResponse.offers;
@@ -128,9 +129,12 @@ const OtpVerify2 = () => {
         }
       } else {
         // If no leadId but user is valid, go to user-details
+        console.log("this is else");
+        
         if (finalReferralCode) {
           navigate(`/business-detail/${finalReferralCode}`, { state: data });
         } else {
+          console.log("this is else");
           navigate(`/business-detail`, { state: data });
         }
       }

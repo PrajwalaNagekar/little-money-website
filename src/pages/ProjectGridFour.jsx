@@ -10,9 +10,14 @@ import LoggedInHeaderTwo from '../common/header/LoggedInHeaderTwo';
 import { useLocation } from 'react-router-dom';
 const ProjectGridFour = () => {
     const location = useLocation();
-    const { mobileNumber, firstName, lastName } = location.state || {};
-
-    const userData = { mobileNumber, firstName, lastName };
+    const { mobileNumber, firstName, lastName, leadId,
+    } = location.state || {};
+    const { ExistingLeadFromLocal, } = location.state;
+    const sentLeadFromOtp=ExistingLeadFromLocal
+    console.log("lead from otp to project",sentLeadFromOtp);
+    
+//pl offers
+    const userData = { mobileNumber, firstName, lastName, leadId };
     return (
 
         <>
@@ -20,8 +25,8 @@ const ProjectGridFour = () => {
             {/* <ColorSwitcher /> */}
             <main className="main-wrapper">
 
-            <LoggedInHeaderTwo userData={userData} />
-            {/* <BcrumbBannerOne 
+                <LoggedInHeaderTwo userData={userData} sentLeadFromOtp={sentLeadFromOtp} />
+                {/* <BcrumbBannerOne 
                 title="Our Projects"
                 paragraph ="A quick view of industry specific problems solved with design by the awesome team at Abstrak.
                 "

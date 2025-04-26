@@ -75,7 +75,7 @@ const ProjectFive = ({ colSize, parentClass, perPageShow }) => {
         <div className={`section section-padding-equal pt--100 pt_md--80 pt_sm--60 ${parentClass ? parentClass : ""}`}>
             <Container className="mt-4">
 
-                <h3 className="mb-4">Available Offers</h3>
+                <h3 className="mb-4 mt-8">Available Offers</h3>
                 {/* <Button
                         variant="primary"
                         className="mt-auto axil-btn btn-fill-primary"
