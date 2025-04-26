@@ -224,3 +224,29 @@
         }
     } 
 }
+
+
+.offer-logo {
+
+    height: 80px;
+    width: 180px;
+    object-fit: contain;
+  }
+  
+  /* Custom card size adjustment between 585px to 767px */
+  @media (min-width: 576px) and (max-width: 767px) {
+    .custom-offer-card {
+      min-height: 270px; /* Increase height a bit if needed */
+      padding: 8px;
+    }
+  
+    .offer-logo {
+      width: 80px; /* Slightly reduce image width */
+    }
+    .amount-text{
+        .div{
+            font-size: 20px;
+        }
+        
+    }
+  }

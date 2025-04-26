@@ -1,22 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import Alert from "react-bootstrap/Alert";
 import { SlRefresh } from "react-icons/sl";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
+import { sendOtp } from "../../api/Website";
 import * as Yup from "yup";
+import FullScreenLoader from "../loader/FullScreenLoader";
 
 
-// <FaPhoneAlt /> <FaUser />
-
-
-const siteKey = "6Lf-7QErAAAAADzjQav9bD3tYYWy6JZylKhMTiGu";
+// const siteKey = "6Lf-7QErAAAAADzjQav9bD3tYYWy6JZylKhMTiGu";
 const Result = () => {
   return (
     <Alert variant="success" className="success-msg">
@@ -24,30 +22,35 @@ const Result = () => {
     </Alert>
   );
 };
-const captchaResult = () => {
-  return (
-    <Alert variant="success" className="success-msg">
-      please enter captcha
-    </Alert>
-  );
-};
 
 const FormOne = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const { referralCode } = useParams();
+  console.log("referralCode from URL:", referralCode);
 
   const [captchaValue, setCaptchaValue] = useState(null);
 
   const handleCaptchaChange = (value) => {
     setCaptchaValue(value);
   };
+  const finalReferralCode = referralCode || undefined; // Set to undefined if no referral code exists
+
+
+  // You can store the referralCode in localStorage if it's found for future use
 
   const SubmittedForm = Yup.object().shape({
     mobileNumber: Yup.string()
       .required("Please fill the Field")
       .matches(/^[6-9][0-9]{9}$/, "Enter a valid 10-digit mobile number"),
-    firstName: Yup.string()  .matches(/^[A-Za-z ]*$/, "Only alphabets and spaces are allowed"),
-    lastName: Yup.string()  .matches(/^[A-Za-z ]*$/, "Only alphabets and spaces are allowed").
-    required("Please fill the Field"),
+    firstName: Yup.string()
+      .trim()
+      .matches(/^[A-Za-z]+$/, "Only alphabets are allowed, no spaces")
+      .required("Please fill the Field"),
+    lastName: Yup.string()
+      .trim()
+      .matches(/^[A-Za-z]+$/, "Only alphabets are allowed, no spaces")
+      .required("Please fill the Field"),
     referal: Yup.string().notRequired(),
     option1: Yup.bool().oneOf([true], "You must agree before submitting."),
     option2: Yup.bool().oneOf([true], "You must agree before submitting."),
@@ -60,26 +63,59 @@ const FormOne = () => {
           mobileNumber: "",
           firstName: "",
           lastName: "",
-          referal: "",
           option1: false,
           option2: false,
         }}
         validationSchema={SubmittedForm}
-        onSubmit={(values) => {
+        onSubmit={async (values) => {
+          try {
+            // console.log(values)
+            const data = {
+              mobileNumber: values.mobileNumber,
+              firstName: values.firstName,
+              lastName: values.lastName,
+              referal: localStorage.getItem("referralCode") || "",
+            };
+            setLoading(true);
 
+            const response = await sendOtp({ mobileNumber: data.mobileNumber });
+            // console.log(data.mobileNumber)
 
-          console.log(values.firstName);
+            if (response?.success) {
 
+              console.log("Form submitted with referral code:", finalReferralCode);
 
-          setTimeout(() => {
-            navigate("/personal-loan/verification"); // Redirect
-          }, 2000);
+              if (finalReferralCode) {
+
+                navigate(`/verification/${finalReferralCode}`, {
+                  state: data
+                });
+              } else {
+                navigate(`/verification`, {
+                  state: data
+                });
+
+              }
+
+            } else {
+              console.error("SMS send failed:", response?.error);
+            }
+
+          } catch (error) {
+            console.error("API Error:", error);
+          }
+          setLoading(false);
+
         }}
+
+
       >
         {({ errors, submitCount, touched }) => (
           <Form className="space-y-5">
             <div className="form-group">
               <label htmlFor="mobileNumber">Enter your Mobile Number</label>
+
+              <p>Referral Code: {finalReferralCode}</p>
               <div className="input-icon-container" style={{ position: "relative" }}>
                 <i
                   className="fa fa-phone"
@@ -131,9 +167,9 @@ const FormOne = () => {
                   }}
                 />
                 <Field
-                  name="firstname"
+                  name="firstName"
                   type="text"
-                  id="firstname"
+                  id="firstName"
                   className="form-control"
                   style={{ paddingLeft: "35px" }}
                   onKeyDown={(e) => {
@@ -229,7 +265,7 @@ const FormOne = () => {
                 >
                   I have read, understood, and agreed to the{" "}
                   <Link to="#">Terms of Service</Link> and{" "}
-                  <Link to="#">Privacy Policy</Link> of Little Money.
+                  <Link to="#">Privacy Policy</Link> of Little Money Technologies Pvt. Ltd.
                   {submitCount > 0 && errors.option1 && (
                     <div className="text-danger mt-1">{errors.option1}</div>
                   )}
@@ -260,9 +296,15 @@ const FormOne = () => {
             <div className="form-group">
               <button
                 type="submit"
-                className="axil-btn btn-fill-primary btn-fluid btn-primary"
+                className="axil-btn btn-fill-primary btn-fluid btn-primary "
+                disabled={loading}
               >
-                Send OTP
+
+                {loading ? (
+                  <FullScreenLoader/>
+                ) : (
+                  'Send OTP  '
+                )}
               </button>
             </div>
           </Form>

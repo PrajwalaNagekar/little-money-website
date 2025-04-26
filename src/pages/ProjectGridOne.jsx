@@ -12,21 +12,21 @@ const ProjectGridOne = () => {
 
     return (
         <>
-        <SEO title="Offers" />
-        {/* <ColorSwitcher /> */}
-        <main className="main-wrapper">
-            <HeaderOne />
-            {/* <BcrumbBannerOne 
+            <SEO title="Offers" />
+            {/* <ColorSwitcher /> */}
+            <main className="main-wrapper">
+                <HeaderOne />
+                {/* <BcrumbBannerOne 
                 title="Our Projects"
                 paragraph ="A quick view of industry specific problems solved with design by the awesome team at Abstrak.
                 "
                 styleClass=""
                 mainThumb="/images/banner/banner-thumb-1.png"
             /> */}
-            <ProjectOne />
-            {/* <CtaLayoutOne /> */}
-            <FooterOne parentClass="" />
-        </main>
+                <ProjectOne />
+                {/* <CtaLayoutOne /> */}
+                <FooterOne parentClass="" />
+            </main>
         </>
     )
 }

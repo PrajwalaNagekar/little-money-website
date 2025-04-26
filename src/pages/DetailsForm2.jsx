@@ -319,6 +319,7 @@ const DetailsForm2 = () => {
                                                 name="officePincode"
                                                 value={formData.officePincode}
                                                 onChange={handleChange}
+                                                
                                             />
                                             {errors.officePincode && <p className="error-text">{errors.officePincode}</p>}
                                         </div>

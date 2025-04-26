@@ -1,8 +1,25 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { lead, verifyOtp } from '../api/Website/index'
+import { sendOtp } from '../api/Website/index'
+import { getOffersByLeadId } from '../api/Website/index'
+import FullScreenLoader from '../component/loader/FullScreenLoader';
 const OtpVerify1 = () => {
+  const { referralCode } = useParams();
+
   const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state;
+  console.log("Received user data:", data);
+
+
+  // const [referralCode, setReferralCode] = useState(null);
+  // useEffect(() => {
+  //   const code = localStorage.getItem("referral_code");
+  //   setReferralCode(code);
+  // }, []);
+
   const form = useRef();
   const STATIC_OTP = "555555";
 
@@ -14,6 +31,26 @@ const OtpVerify1 = () => {
   // const [phoneNumber] = useState("9876543210");
 
   const [countdown, setCountdown] = useState(); // 75 seconds countdown
+
+
+  useEffect(() => {
+    setCountdown(75); // or 60 for 1 min
+  }, []);
+
+  useEffect(() => {
+    let timer;
+    if (countdown > 0) {
+      setResendEnabled(false);
+      timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+    } else {
+      setResendEnabled(true);
+    }
+
+    return () => clearInterval(timer); // cleanup
+  }, [countdown]);
+
 
   // Countdown timer logic
   useEffect(() => {
@@ -42,32 +79,85 @@ const OtpVerify1 = () => {
     }
   };
 
-  const handleVerify = (e) => {
+  const finalReferralCode = referralCode || localStorage.getItem("referral_code");
+  console.log(finalReferralCode);
+
+
+  useEffect(() => {
+    if (finalReferralCode) {
+      localStorage.setItem("referral_code", finalReferralCode);
+    }
+  }, [finalReferralCode]);
+  const handleVerify = async (e) => {
     e.preventDefault();
     const enteredOtp = otp.join("");
     setLoading(true);
     setMessage("");
 
-    setTimeout(() => {
-      if (enteredOtp === STATIC_OTP) {
-        setMessage("OTP Verified Successfully!");
-        setLoading(false);
+    const result = await verifyOtp(data.mobileNumber, enteredOtp);
+    console.log("result from verify otp api", result)
+    console.log(result.createdAt);
+    const createdAt = new Date(result.createdAt);
+    const now = new Date();
 
-        // setTimeout(() => {
-          navigate("/personal-loan/verification/user-details");
-        // }, 2);
-      } else {
-        setMessage("Incorrect OTP. Please try again.");
-        setLoading(false);
+    const daysSinceCreation = (now - createdAt) / (1000 * 60 * 60 * 24); // Difference in days
+    console.log("User created", daysSinceCreation.toFixed(1), "days ago");
+
+    if (result.success) {
+      if (daysSinceCreation > 30) {
+        navigate(`/user-detail`, { state: data });
+        return;
       }
-    }, 1500);
+
+      if (result.leadId) {
+        const leadId = result.leadId;
+        const offersResponse = await getOffersByLeadId(leadId);
+        const offers = offersResponse.offers;
+        console.log("offersResponse", offers);
+        if (finalReferralCode) {
+          navigate(`/user-detail/offers/${finalReferralCode}`, {
+            state: { ...data, offers },
+          });
+        } else {
+          navigate(`/user-detail/offers`, {
+            state: { ...data, offers },
+          });
+        }
+      } else {
+        // If no leadId but user is valid, go to user-details
+        if (finalReferralCode) {
+          navigate(`/user-detail/${finalReferralCode}`, { state: data });
+        } else {
+          navigate(`/user-detail`, { state: data });
+        }
+      }
+    } else {
+      setMessage(result.message);
+    }
+    setLoading(false);
   };
 
-  const handleResendOtp = () => {
-    setOtp(["", "", "", "", "", ""]);
+
+  const handleResendOtp = async (e) => {
+    console.log("gkjb")
     setOtpResent(true);
     setMessage(`OTP resent successfully `);
-    setCountdown(5); // Restart timer
+    setCountdown(2); // Restart timer
+
+    // const result = await verfyOtp(data.mobileNumber, enteredOtp);
+
+    try {
+      console.log(data.mobileNumber);
+
+      const result = await sendOtp({ mobileNumber: data.mobileNumber }); // Make sure you have sendOtp function
+
+      if (!result.success) {
+        setMessage(result.message || "Failed to resend OTP");
+      }
+    } catch (error) {
+      console.error("Resend OTP error:", error);
+      setMessage("Something went wrong while resending OTP");
+    }
   };
 
   return (
@@ -79,12 +169,14 @@ const OtpVerify1 = () => {
               <form ref={form} onSubmit={handleVerify}>
                 <div className="form-group">
                   <h5 className='text-center'>Enter your verification code</h5>
+                  <p className='text-center'>    OTP sent to the Phone Number +91 {data.mobileNumber ? `******${data.mobileNumber.slice(-4)}` : 'Invalid number'}
+                  </p>
                   <div className="otp-box">
                     {otp.map((digit, index) => (
                       <input
                         key={index}
                         id={`otp-${index}`}
-                        type="text"
+                        type="tel"
                         maxLength="1"
                         value={digit}
                         onChange={(e) => handleChange(index, e)}
@@ -93,16 +185,16 @@ const OtpVerify1 = () => {
                   </div>
                 </div>
 
-                <div className="container text-center ">
+                <div className="container text-center">
                   <button
                     type="submit"
-                    className="btn btn-primary text-center w-fixed"
+                    className="axil-btn btn-fill-primary text-center w-fixed w-50"
                     id="btn-verify"
                     onClick={handleVerify}
                     disabled={loading}
                   >
                     {loading ? (
-                      <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      <FullScreenLoader />
                     ) : (
                       'Verify OTP  '
                     )}
@@ -113,9 +205,11 @@ const OtpVerify1 = () => {
                 {message && <p className="message text-center">{message}</p>}
 
                 <div className="container text-center mt-2">
+
+                  <p>Didn't get the OTP?</p>
                   <button
-                  type='button'
-                    className="btn btn-primary text-center w-fixed"
+                    type='button'
+                    className="axil-btn btn-fill-primary text-center w-fixed w-50"
                     onClick={handleResendOtp}
                     disabled={!resendEnabled}
                   >

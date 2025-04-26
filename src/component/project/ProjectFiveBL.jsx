@@ -1,18 +1,8 @@
-import React, { useState } from 'react';
-import ProjectPropOne from './itemProp/ProjectPropOne';
-import ProjectData from "../../data/project/ProjectData.json";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
-import ReactPaginate from 'react-paginate';
+import React from 'react'
+import { Modal } from 'react-bootstrap';
 import { useLocation, useParams } from 'react-router-dom';
-import QRCode from 'react-qr-code';
-import { appliedCustomers } from '../../api/Website';
-import logout from '../../utils/logout';
 
-import { Button, Card, Col, Container, Modal, Row } from 'react-bootstrap';
-import useAutoLogout from '../../hooks/useAutoLogout';
-const AllData = ProjectData;
-
-const ProjectFive = ({ colSize, parentClass, perPageShow }) => {
+const ProjectFiveBL = () => {
     const { userId, leadId } = useParams();
     const location = useLocation();
     const data = location.state;
@@ -25,9 +15,6 @@ const ProjectFive = ({ colSize, parentClass, perPageShow }) => {
     console.log("Extracted offers:", offers);
     console.log(leadId);
     console.log(offers.lenderName);
-
-
-
     if (!Array.isArray(offers) || offers.length === 0) {
         return <div>No valid offers available.</div>;
     }
@@ -69,9 +56,7 @@ const ProjectFive = ({ colSize, parentClass, perPageShow }) => {
     // useAutoLogout(60 * 1000);
 
     const { showModal, countdown } = useAutoLogout(60 * 30 * 1000); // 30 min
-
     return (
-
         <div className={`section section-padding-equal pt--100 pt_md--80 pt_sm--60 ${parentClass ? parentClass : ""}`}>
             <Container className="mt-4">
 
@@ -153,8 +138,7 @@ const ProjectFive = ({ colSize, parentClass, perPageShow }) => {
                 </Modal.Body>
             </Modal>
         </div>
-
     )
 }
 
-export default ProjectFive;
+export default ProjectFiveBL

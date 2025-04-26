@@ -59,7 +59,7 @@ const Contact = () => {
 
                                 <div className="contact-info h-50 d-flex flex-column justify-content-between p-4 mt-4">
                                     <h4 className="title">Location</h4>
-                                    <p>#30/1, 4th Cross Road, New Bank Colony, Konanakunte, 560062
+                                    <p>#30/1, 4th Cross Road, New Bank Colony,Konanakunte,<br/> 560062
 
                                     </p>
                                     <h4 className="email"><a href="#">

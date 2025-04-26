@@ -3,13 +3,15 @@ import FormFour from './FormFour'
 import HeaderTwo from '../common/header/HeaderTwo'
 import SEO from '../common/SEO'
 import FooterOne from '../common/footer/FooterOne'
+import LoggedInHeader from '../common/header/LoggedInHeader'
+import LoggedInHeaderBL from '../common/header/LoggedInHeaderBL'
 const BusinessLoanForm = () => {
     return (
         
         <div>
                 <SEO title="Service Details" />
                 <main className="main-wrapper">
-                <HeaderTwo />
+                <LoggedInHeaderBL />
 
             <div className="section-padding">
                 <div className="container ">

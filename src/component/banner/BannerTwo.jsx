@@ -96,7 +96,7 @@ const smallScreenSlides = [
     link: "/business-loan",
   },
   {
-    image: "/images/banner/Banners_Mobile_03.jpg",
+    image: "/images/banner/Banners_Mobile_03.jpeg",
     title: "Buy Now Pay Later",
     icon1: <FaRegCreditCard style={{ color: "white" }} />,
     icon2: <FaCheckCircle style={{ color: "white" }} />,

@@ -21,14 +21,14 @@ const AboutFour = () => {
             </div>
           </div>
           <div className="col-xl-5 col-lg-6 d-flex align-items-center ">
-            <div className="case-study-featured">
+            <div className="case-study-featured ">
               <div className=" section-heading heading-left">
-                <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-2xl">
+                <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-2xl ">
                   <p className="text-justify text-gray-700 leading-relaxed tracking-wide">
                     <span className="font-semibold text-black">
                       Little Money Technologies
                     </span>{" "}
-                    is a leading provider of innovative tech solutions designed
+                    is a leading provider of innovative tech solutions designeda
                     specifically for the lending industry. We focus on
                     empowering merchants by redefining their lending experience
                     with cutting-edge technology.

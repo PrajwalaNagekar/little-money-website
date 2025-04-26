@@ -13,12 +13,24 @@ const BusinessLoans = () => {
       <SEO title="Service Details" />
       {/* <ColorSwitcher /> */}
       <main className="main-wrapper">
-      {/* <TopNavbar/> */}
+        {/* <TopNavbar/> */}
 
         <HeaderTwo />
         {/* <AboutTwo heading="Business Loan"/> */}
-        
-        <FormBusinessLoan />
+
+        <div className="section-padding">
+          <div className="container ">
+            <div className="row d-flex justify-content-center">
+              <div className="col-xl-7 col-lg-6">
+                <div className="contact-form-box">
+                  {/* shadow-box */}
+                  <h4 className="text-center">Start Your Loan Application Below</h4>
+                  <FormBusinessLoan />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <FooterOne parentClass="" />
 
       </main>
