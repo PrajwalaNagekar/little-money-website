@@ -118,7 +118,7 @@ export default function FormikForm() {
     const location = useLocation()
     const data = location.state
     // console.log("data from otp page",data);
-    
+
     const { userData, edit, sentLeadFromOtp } = location.state || {}
     console.log("🚀 ~ FormikForm ~ userData:", userData)
     console.log("🚀 ~ FormikForm ~ edit:", edit)
@@ -135,7 +135,7 @@ export default function FormikForm() {
     const ph = localStorage.getItem("mobileNumber");
     const fn = localStorage.getItem("firstName");
     const ln = localStorage.getItem("lastName");
-    
+
 
     console.log(mobileNumber, firstName, lastName);
     const navigate = useNavigate()
@@ -195,9 +195,9 @@ export default function FormikForm() {
 
             // Update initial values with fetched data
             setInitialValues({
-                mobileNumber:ph,
-                firstName:fn,
-                lastName:ln,
+                mobileNumber: ph,
+                firstName: fn,
+                lastName: ln,
                 pan: data.pan || "",
                 day: dateComponents.day,
                 month: dateComponents.month,
@@ -294,7 +294,7 @@ export default function FormikForm() {
                             const isSelfEmployed = Number(values.employmentStatus) === 2
                             const hasValidBusinessProof = Number(values.businessProof) >= 1 && Number(values.businessProof) <= 7
                             const personaLLoanFormData = {
-                                mobileNumber: location.state?.mobileNumber ||ph ,
+                                mobileNumber: location.state?.mobileNumber || ph,
                                 firstName: location.state?.firstName || fn,
                                 lastName: location.state?.lastName || ln,
                                 referal: finalReferralCode,
@@ -424,7 +424,9 @@ export default function FormikForm() {
 
                                 <div className="form-group">
                                     <label>Pincode*</label>
-                                    <Field name="pincode" className="form-control" />
+                                    <Field name="pincode" className="form-control" type="text"
+                                        maxLength={6}
+                                        inputMode="numeric" />
                                     <ErrorMessage name="pincode" component="p" className="error-text" />
                                 </div>
 
@@ -562,7 +564,7 @@ export default function FormikForm() {
 
                                 {/* Submit */}
                                 <button type="submit" className="axil-btn btn-fill-primary btn-fluid btn-primary" disabled={loading}>
-                                    {loading ? <FullScreenLoader /> : "Submit"}
+                                    {loading ? <FullScreenLoader /> : "Look For Offers"}
                                 </button>
                             </Form>
                         )}

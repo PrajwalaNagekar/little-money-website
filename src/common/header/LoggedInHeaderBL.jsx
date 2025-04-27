@@ -24,7 +24,7 @@ const LoggedInHeaderBL = () => {
         // Optionally delay or redirect after logout
         setTimeout(() => {
             setLoggingOut(false);
-            navigate('/business-loan'); // Or redirect wherever you want after logout
+            navigate('/about-us'); 
         }, 1000);
     };
     const [showOffcanvas, setShowOffcanvas] = useState(false);

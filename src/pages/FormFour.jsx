@@ -1,7 +1,8 @@
-"use client"
 import React, { useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { getBusinessDetailsByLeadId, getOffersByLeadId, leadApiBusinessLoan } from "../api/Website"
+import useAutoLogout from "../hooks/useAutoLogout.jsx"
+import { Modal } from "react-bootstrap"
 
 const FormFour = () => {
   const [formData, setFormData] = useState({
@@ -37,6 +38,8 @@ const FormFour = () => {
     "No Business Proof",
   ]
 
+  const { showModal, countdown } = useAutoLogout(60 * 30 * 1000) // 30 min
+
   ///To get referal code
   const { referralCode } = useParams()
 
@@ -54,7 +57,24 @@ const FormFour = () => {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     })
-
+    if (name === 'monthlyIncome') {
+      if (!value) {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          monthlyIncome: 'Monthly Income is required',
+        }));
+      } else if (Number(value) < 25000) {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          monthlyIncome: 'Monthly Income must be at least 25000',
+        }));
+      } else {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          monthlyIncome: '',
+        }));
+      }
+    }
     // Clear error for this field when user makes a change
     if (errors[name]) {
       setErrors({
@@ -76,7 +96,7 @@ const FormFour = () => {
 
   const navigate = useNavigate()
   const location = useLocation()
-  const { edit, userData } = location.state || {}
+  const { edit, userData, sentLeadFromOtp } = location.state || {}
   console.log("userdata", userData)
   const { mobileNumber, firstName, lastName } = userData || {}
   console.log(mobileNumber, firstName, lastName)
@@ -134,16 +154,20 @@ const FormFour = () => {
   }
 
   //for fetching the data
-  const leadId = localStorage.getItem("leadId")
-
+  const [leadIdLocal, setLeadIdLocal] = useState(() => {
+    return localStorage.getItem('leadId') || '';
+  });
   useEffect(() => {
     const fetchBusinessLoanData = async () => {
       try {
         if (edit) {
-          const response = await getBusinessDetailsByLeadId(leadId)
+          const response = await getBusinessDetailsByLeadId(leadIdLocal)
           console.log("get details by leadid", response)
           console.log("businessProof", response.businessProof)
           console.log("turn", response.businessCurrentTurnover)
+          console.log("b reg type", response.businessRegistrationType)
+
+          // businessProofOptions[(response.businessRegistrationType || 1) - 1] || "",
           const dob = response.dob || "";
           let day = "", month = "", year = "";
 
@@ -161,7 +185,7 @@ const FormFour = () => {
             firstName,
             lastName,
             businessRegistrationType: response.businessRegistrationType || "",
-            businessProof: response.businessProof || "",
+            businessProof: response.businessRegistrationType || "",
             employmentStatus: response.employmentStatus || "",
             monthlyIncome: response.monthlyIncome || "",
             dob: response.dob || "",
@@ -176,7 +200,7 @@ const FormFour = () => {
             yearsInBusiness: response.businessYears || "",
             hasCurrentAccount: String(response.businessAccount || ""),
             referal: finalReferralCode,
-            
+
           })
         }
       } catch (error) {
@@ -335,11 +359,11 @@ const FormFour = () => {
 
     try {
       const response = await leadApiBusinessLoan(payload)
-      console.log(response)
+      console.log("response from bl lead ", response)
       if (response.success === true) {
         const leadId = response.leadId
         console.log(leadId)
-        const offersResponse = await getOffersByLeadId(leadId)
+        const offersResponse = await getOffersByLeadId(leadId || sentLeadFromOtp)
         localStorage.setItem("leadId", leadId) // or mobileNumber
         console.log("Offers response:", offersResponse)
 
@@ -365,7 +389,7 @@ const FormFour = () => {
   return (
     <div className="container mt-5">
       <form onSubmit={handleSubmit} noValidate>
-        <h5 className="text-center mb-4">Business Registration Form</h5>
+        {/* <h5 className="text-center mb-4">Business Registration Form</h5> */}
 
         {/* Business Proof Dropdown */}
         <div className="form-group mb-3">
@@ -430,6 +454,7 @@ const FormFour = () => {
                 value={formData.pincode}
                 maxLength={6}
                 onChange={handleChange}
+                inputMode="numeric"
                 className={`form-control ${formSubmitted && errors.pincode ? "is-invalid" : ""}`}
               />
               {formSubmitted && errors.pincode && (
@@ -560,9 +585,9 @@ const FormFour = () => {
                 value={formData.monthlyIncome}
                 min="25000"
                 onChange={handleChange}
-                className={`form-control ${formSubmitted && errors.monthlyIncome ? "is-invalid" : ""}`}
+                className={`form-control ${errors.monthlyIncome ? "is-invalid" : ""}`}
               />
-              {formSubmitted && errors.monthlyIncome && (
+              {errors.monthlyIncome && (
                 <div className="invalid-feedback d-block text-danger">{errors.monthlyIncome}</div>
               )}
             </div>
@@ -605,7 +630,7 @@ const FormFour = () => {
             <div className="form-group mb-3">
               <label className="form-label">Pincode*</label>
               <input
-                type="text"
+                type="number"
                 name="pincode"
                 placeholder="Pincode"
                 value={formData.pincode}
@@ -793,9 +818,21 @@ const FormFour = () => {
         )}
 
         <button type="submit" className="axil-btn btn-fill-primary btn-fluid btn-primary">
-          Submit
+          Look For Offers
         </button>
       </form>
+      <Modal show={showModal} centered className="border-2 bg-blend-color-burn">
+        <Modal.Body.Body className="text-center">
+          <p className="mb-4">
+            <i className="fas fa-exclamation-circle fa-3x text-danger"></i>
+          </p>
+          <p className="font-weight-bold">
+            Our system has detected more than 30 minutes of inactivity. For security reasons, you will be logged out
+            in <span className="font-weight-bolder">{countdown}</span> seconds.
+          </p>
+        </Modal.Body.Body>
+
+      </Modal>
     </div>
   )
 }

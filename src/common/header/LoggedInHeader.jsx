@@ -5,7 +5,7 @@ import OffcanvasMenu from './OffcanvasMenu';
 import StickyHeader from './StickyHeader';
 import SwitcherHeader from '../../elements/switcher/SwitcherHeader';
 import MobileMenu from './MobileMenu';
-import logout from '../../utils/logout';
+// import logout from '../../utils/logout';
 import { Button } from 'react-bootstrap';
 import { IoIosLogOut } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
@@ -33,7 +33,11 @@ const LoggedInHeader = () => {
     const OffcanvasHandleShow = () => setShowOffcanvas(true);
 
     const sticky = StickyHeader(100);
-
+    const logout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("leadId");
+        window.location.href = "/personal-loan";
+    };
     const MobileMenuHandler = () => {
         document.querySelector('.mobilemenu-popup').classList.toggle("show");
         document.querySelector('body').classList.toggle("mobilemenu-show");
@@ -74,7 +78,7 @@ const LoggedInHeader = () => {
                                     <div className="header-main-nav">
                                         {/* <Nav /> */}
                                         {loggingOut && (
-                                           <FullScreenLoader/>
+                                            <FullScreenLoader />
                                         )}
 
                                         <Link onClick={handleLogout} className="d-flex align-items-center gap-1 text-decoration-none link-hover-effect">

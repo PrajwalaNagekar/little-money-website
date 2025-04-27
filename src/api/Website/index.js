@@ -30,6 +30,7 @@ export const verifyOtp = async (mobileNumber, enteredOtp) => {
       mobileNumber,
       otp: enteredOtp,
     });
+    console.log("JAY SHREE RAM", response)
     console.log("OTP API Response:", response.data);
 
     if (response.data.success) {
@@ -60,6 +61,7 @@ export const verifyOtp = async (mobileNumber, enteredOtp) => {
 };
 
 export const lead = async (payload) => {
+  console.log("🚀 ~ lead ~ payload:", payload)
   const token = localStorage.getItem("token");
 
   if (!token) {
@@ -149,6 +151,8 @@ export const leadApiBusinessLoan = async (payload) => {
         Authorization: `Bearer ${token}`,
       }
     })
+    console.log("🚀 SEE THIS RESPONSE", response)
+
     return response.data;
   } catch (error) {
     if (error.response) {

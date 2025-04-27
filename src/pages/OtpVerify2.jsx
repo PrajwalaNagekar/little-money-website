@@ -13,7 +13,7 @@ const OtpVerify2 = () => {
   const location = useLocation();
   const data = location.state;
   console.log("Received user data:", data);
-console.log("Received user data:mobile number", data.mobileNumber);
+  console.log("Received user data:mobile number", data.mobileNumber);
 
 
   // const [referralCode, setReferralCode] = useState(null);
@@ -97,6 +97,8 @@ console.log("Received user data:mobile number", data.mobileNumber);
     setMessage("");
 
     const result = await verifyOtp(data.mobileNumber, enteredOtp);
+    console.log("🚀 ~ handleVerify ~ enteredOtp:", enteredOtp)
+    console.log("🚀 ~ handleVerify ~ mobileNumber:", data.mobileNumber)
     console.log("result from verify otp api", result)
     console.log(result.createdAt);
     const createdAt = new Date(result.createdAt);
@@ -110,27 +112,29 @@ console.log("Received user data:mobile number", data.mobileNumber);
         navigate(`/business-detail`, { state: data });
         return;
       }
-
       if (result.leadId) {
         const leadId = result.leadId;
-        console.log("leadId in otp verify2",leadId);
-        
+        // console.log("leadId in otp verify2", leadId);
+        localStorage.setItem("ExistingLeadInLocal", leadId)
+        const ExistingLeadFromLocal = localStorage.getItem('ExistingLeadInLocal')
+        console.log("ExistingLeadFromLocal", ExistingLeadFromLocal);
+
         const offersResponse = await getOffersByLeadId(leadId);
         const offers = offersResponse.offers;
         console.log("offersResponse", offers);
         if (finalReferralCode) {
           navigate(`/business-detail/offers/${finalReferralCode}`, {
-            state: { ...data, offers,leadId },
+            state: { ...data, offers, ExistingLeadFromLocal },
           });
         } else {
           navigate(`/business-detail/offers`, {
-            state: { ...data, offers,leadId },
+            state: { ...data, offers, ExistingLeadFromLocal },
           });
         }
       } else {
         // If no leadId but user is valid, go to user-details
         console.log("this is else");
-        
+
         if (finalReferralCode) {
           navigate(`/business-detail/${finalReferralCode}`, { state: data });
         } else {

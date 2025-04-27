@@ -5,14 +5,14 @@ import OffcanvasMenu from './OffcanvasMenu';
 import StickyHeader from './StickyHeader';
 import SwitcherHeader from '../../elements/switcher/SwitcherHeader';
 import MobileMenu from './MobileMenu';
-import logout from '../../utils/logout';
+// import logout from '../../utils/logout';
 import { Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { CiEdit } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
 
 
-const LoggedInHeaderTwoBL = ({ userData }) => {
+const LoggedInHeaderTwoBL = ({ userData, sentLeadFromOtp }) => {
     const [showOffcanvas, setShowOffcanvas] = useState(false);
 
     const OffcanvasHandleClose = () => setShowOffcanvas(false);
@@ -38,11 +38,16 @@ const LoggedInHeaderTwoBL = ({ userData }) => {
     const location = useLocation();
     const data = location.state;
     console.log("Received user data:", data);
+
+    console.log("lead from otp to header", sentLeadFromOtp);
+
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("leadId");
         window.location.href = "/business-loan";
     };
+    const referral_code = localStorage.getItem('referral_code')
+
 
     return (
         <>
@@ -68,13 +73,13 @@ const LoggedInHeaderTwoBL = ({ userData }) => {
                                         {/* <Nav /> */}
                                         <div className="d-flex flex-wrap justify-content-between align-items-center">
                                             <Link
-                                                to="/business-detail"
-                                                state={{ userData, edit: true }}
+                                                to={referral_code ? `/business-detail/${referral_code}` : "/business-detail"}
+                                                state={{ userData, sentLeadFromOtp, edit: true }}
                                                 className="d-flex align-items-center text-decoration-none link-hover-effect  mb-2"
                                             >
                                                 {/* <CiEdit size={32} id="i1" /> */}
                                                 <img src="/edit.svg" alt="" style={{ width: "40px", height: "auto" }}
-                                                    />
+                                                />
                                                 <span className="d-none d-sm-inline ms-1">Edit</span>
                                             </Link>
 

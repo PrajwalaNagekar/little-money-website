@@ -9,9 +9,9 @@ const AllData = ServiceData;
 const getLoanRoute = (title) => {
 	switch (title.toLowerCase()) {
 		case "personal loan":
-			return "personal-loans";
+			return "personal-loan";
 		case "business loan":
-			return "business-loans";
+			return "business-loan";
 		case "bnpl":
 			return "contact";
 		default:

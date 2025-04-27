@@ -79,29 +79,7 @@ const App = () => {
 					{/* <Route path={PUBLIC_URL + "/"} element={<Splash />}/> */}
 					<Route path="/" element={<CreativeAgency />} />
 
-					{/* <Route path="/digital-agency" element={<DigitalAgency />} />
-					<Route path="/creative-agency" element={<CreativeAgency />} />
-					<Route path="/personal-portfolio" element={<PersonalPortfolio />} />
-					<Route path="/home-startup" element={<HomeStartup />} />
-					<Route path="/corporate-agency" element={<CorporateAgency />} /> */}
-
-					{/* Blogs */}
-					{/* <Route path="/blog-grid/" element={<BlogGridView />} />
-					<Route path="/category/:slug" element={<BlogCategory />} />
-					<Route path="/archive/:slug" element={<BlogArchive />} />
-					<Route path="/blog-details/:id" element={<BlogDetails />} /> */}
-
-					{/* Service */}
-					{/* <Route path="/service-one/" element={<ServiceOne />} />
-					<Route path="/service-two/" element={<ServiceTwo />} />
-					<Route path="/service-details/:slug" element={<ServiceDetails />} /> */}
-
-					{/* Project  */}
-					{/* <Route path="/project-grid-one" element={<ProjectGridOne />} />
-					<Route path="/project-grid-two" element={<ProjectGridTwo />} />
-					<Route path="/project-grid-thre" element={<ProjectGridThree />} />
-					<Route path="/project-width-two" element={<ProjectGridFive />} />
-					<Route path="/project-details/:slug" element={<ProjectDetails />} /> */}
+					
 					<Route path="/project-width-one" element={<ProjectGridFour />} />
 
 					{/* Pages  */}
@@ -112,6 +90,7 @@ const App = () => {
 					<Route path="/business-loan/:referralCode?" element={<BusinessLoans />} />
 					{/* <Route path="/personal-loan/verification/user-details" element={<UserDetails />} /> */}
 					{/* <Route path="/business-loans/user-details2" element={<UserDetails2 />} /> */}
+
 					<Route path="/personal-loan/:referralCode?" element={<PersonalLoans />} />
 					{/* <Route path="/personal-loan" element={<PersonalLoanFlow />} /> */}
 
@@ -129,7 +108,7 @@ const App = () => {
 					/>
 					<Route path="/user-detail/offers/:referralCode?" element={<ProjectGridFour />} />
 					<Route path="/bl-verification/:referralCode?" element={<BusinessLoanOtpVerification />} />
-					<Route path="/business-detail" element={<BusinessLoanForm />} />
+					<Route path="/business-detail/:referralCode?" element={<BusinessLoanForm />} />
 
 					{/* <Route path="/business-loan/verification/business-details/user-details3/turn-over2/offers" element={<ProjectGridOne />} /> */}
 					{/* /business-loans/verification/user-details2/user-details3/turn-over2/offers */}

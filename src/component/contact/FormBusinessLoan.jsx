@@ -28,6 +28,7 @@ const captchaResult = () => {
     </Alert>
   );
 };
+
 const FormBusinessLoan = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -120,7 +121,6 @@ const FormBusinessLoan = () => {
             <div className="form-group">
               <label htmlFor="mobileNumber">Enter your Mobile Number</label>
 
-              <p>Referral Code: {finalReferralCode}</p>
               <div className="input-icon-container" style={{ position: "relative" }}>
                 <i
                   className="fa fa-phone"

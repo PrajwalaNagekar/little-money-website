@@ -5,7 +5,7 @@ import OffcanvasMenu from './OffcanvasMenu';
 import StickyHeader from './StickyHeader';
 import SwitcherHeader from '../../elements/switcher/SwitcherHeader';
 import MobileMenu from './MobileMenu';
-import logout from '../../utils/logout';
+// import logout from '../../utils/logout';
 import { Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { CiEdit } from "react-icons/ci";
@@ -35,6 +35,11 @@ const LoggedInHeaderTwo = ({ userData, sentLeadFromOtp }) => {
             }
         }
     }
+    const logout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("leadId");
+        window.location.href = "/personal-loan";
+    };
     const location = useLocation();
     const data = location.state;
     console.log("Received user data:", data);
