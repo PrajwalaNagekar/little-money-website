@@ -6,15 +6,15 @@ const ProjectFiveBL = () => {
     const { userId, leadId } = useParams();
     const location = useLocation();
     const data = location.state;
-    console.log("Received user data:", data);
-    console.log("Full location state:", location.state);
+    // console.log("Received user data:", data);
+    // console.log("Full location atste:", location.state);
     const queryParams = new URLSearchParams(location.search);
 
     // const offers = location.state?.offers || [];
     const offers = location.state?.offers || [];
-    console.log("Extracted offers:", offers);
-    console.log(leadId);
-    console.log(offers.lenderName);
+    // console.log("Extracted offers:", offers);
+    // console.log(leadId);
+    // console.log(offers.lenderName);
     if (!Array.isArray(offers) || offers.length === 0) {
         return <div>No valid offers available.</div>;
     }
@@ -39,14 +39,14 @@ const ProjectFiveBL = () => {
     }
     const handleApply = async (offer) => {
         try {
-            console.log("Clicked offer:", offer); // ✅ Full object
-            console.log("Lender Name:", offer.lenderName);
+            // console.log("Clicked offer:", offer); // ✅ Full object
+            // console.log("Lender Name:", offer.lenderName);
             const payload = {
                 leadId: leadId,
                 lenderName: offer.lenderName,
             };
             await appliedCustomers(payload)
-            console.log(offers.offerLink);
+            // console.log(offers.offerLink);
 
             window.open(offer.offerLink, '_blank');
         } catch (error) {

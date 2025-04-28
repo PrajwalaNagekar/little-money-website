@@ -18,7 +18,7 @@ const FooterTwo = () => {
                     <div className="footer-bottom-link">
                         <ul className="list-unstyled">
                             <li><Link to={PUBLIC_URL + "/privacy-policy"}>Privacy Policy</Link></li>
-                            <li><Link to={PUBLIC_URL + "/terms-use"}>Terms of Use</Link></li>
+                            <li><Link to={PUBLIC_URL + "/terms-use"}>Terms & Conditions</Link></li>
                         </ul>
                     </div>
                     </div>

@@ -16,7 +16,7 @@ const ProjectGridFiveBL = () => {
     const userData = { mobileNumber, firstName, lastName, leadId };
     const { ExistingLeadFromLocal, } = location.state;
     const sentLeadFromOtp = ExistingLeadFromLocal
-    console.log("lead from otp to project", sentLeadFromOtp);
+    // console.log("lead from otp to project", sentLeadFromOtp);
     const { showModal, countdown } = useAutoLogout(60 * 30 * 1000) // 30 min
 
     return (

@@ -36,6 +36,7 @@ const LoggedInHeader = () => {
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("leadId");
+        localStorage.removeItem("ExistingLeadFromLocal")
         window.location.href = "/personal-loan";
     };
     const MobileMenuHandler = () => {

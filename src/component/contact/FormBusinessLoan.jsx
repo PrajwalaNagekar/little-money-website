@@ -33,7 +33,7 @@ const FormBusinessLoan = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const { referralCode } = useParams();
-  console.log("referralCode from URL:", referralCode);
+  // console.log("referralCode from URL:", referralCode);
 
   const [captchaValue, setCaptchaValue] = useState(null);
 
@@ -47,16 +47,16 @@ const FormBusinessLoan = () => {
 
   const SubmittedForm = Yup.object().shape({
     mobileNumber: Yup.string()
-      .required("Please fill the Field")
+      .required("Enter your Mobile Number")
       .matches(/^[6-9][0-9]{9}$/, "Enter a valid 10-digit mobile number"),
     firstName: Yup.string()
       .trim()
       .matches(/^[A-Za-z]+$/, "Only alphabets are allowed, no spaces")
-      .required("Please fill the Field"),
+      .required("Enter your First Name"),
     lastName: Yup.string()
       .trim()
       .matches(/^[A-Za-z]+$/, "Only alphabets are allowed, no spaces")
-      .required("Please fill the Field"),
+      .required("Enter your Last Name"),
     referal: Yup.string().notRequired(),
     option1: Yup.bool().oneOf([true], "You must agree before submitting."),
     option2: Yup.bool().oneOf([true], "You must agree before submitting."),
@@ -89,7 +89,7 @@ const FormBusinessLoan = () => {
 
             if (response?.success) {
 
-              console.log("Form submitted with referral code:", finalReferralCode);
+              // console.log("Form submitted with referral code:", finalReferralCode);
 
               if (finalReferralCode) {
 
@@ -269,8 +269,8 @@ const FormBusinessLoan = () => {
                   style={{ textAlign: "justify", display: "block" }}
                 >
                   I have read, understood, and agreed to the{" "}
-                  <Link to="#">Terms of Service</Link> and{" "}
-                  <Link to="#">Privacy Policy</Link> of Little Money Technologies Pvt. Ltd.
+                  <Link to="/terms-use" target="_blank">Terms & Conditions</Link> and{" "}
+                  <Link to="/privacy-policy" target="_blank">Privacy Policy</Link> of Little Money Technologies Pvt. Ltd.
                   {submitCount > 0 && errors.option1 && (
                     <div className="text-danger mt-1">{errors.option1}</div>
                   )}

@@ -69,7 +69,7 @@ const App = () => {
 		const stored = localStorage.getItem("referral_code");
 		if (stored === "verification" || stored === "user-details") {
 			localStorage.removeItem("referral_code");
-			console.log("❌ Invalid referral code removed from localStorage");
+			// console.log("❌ Invalid referral code removed from localStorage");
 		}
 	}, []);
 	return (

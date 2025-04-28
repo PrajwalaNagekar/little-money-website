@@ -37,13 +37,14 @@ const LoggedInHeaderTwoBL = ({ userData, sentLeadFromOtp }) => {
     }
     const location = useLocation();
     const data = location.state;
-    console.log("Received user data:", data);
+    // console.log("Received user data:", data);
 
-    console.log("lead from otp to header", sentLeadFromOtp);
+    // console.log("lead from otp to header", sentLeadFromOtp);
 
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("leadId");
+        localStorage.removeItem("sentLeadFromOtp")
         window.location.href = "/business-loan";
     };
     const referral_code = localStorage.getItem('referral_code')

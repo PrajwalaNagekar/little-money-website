@@ -86,6 +86,7 @@ const OtpVerify1 = () => {
   useEffect(() => {
     if (finalReferralCode) {
       localStorage.setItem("referral_code", finalReferralCode);
+      localStorage.removeItem("referral_code")
     }
   }, [finalReferralCode]);
   const handleVerify = async (e) => {
@@ -101,10 +102,10 @@ const OtpVerify1 = () => {
     const now = new Date();
 
     const daysSinceCreation = (now - createdAt) / (1000 * 60 * 60 * 24); // Difference in days
-    console.log("User created", daysSinceCreation.toFixed(1), "days ago");
+    // console.log("User created", daysSinceCreation.toFixed(1), "days ago");
 
     if (result.success) {
-      if (daysSinceCreation > 1) {
+      if (daysSinceCreation > 30) {
         navigate(`/user-detail`, { state: data });
         return;
       }

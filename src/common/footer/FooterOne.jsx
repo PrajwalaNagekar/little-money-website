@@ -8,13 +8,13 @@ const PUBLIC_URL = import.meta.env.VITE_API_URL;
 
 const getServiceData = ServiceData;
 
-const FooterOne = ({parentClass}) => {
-    
+const FooterOne = ({ parentClass }) => {
+
     return (
         <footer className={`footer-area ${parentClass}`}>
             <div className="container">
                 {/* <div className="footer-top"> */}
-                    {/* <div className="footer-social-link">
+                {/* <div className="footer-social-link">
                         <ul className="list-unstyled">
                             <li><Link to="https://facebook.com/"><FaFacebookF /></Link></li>
                             <li><Link to="https://twitter.com/"><FaXTwitter /></Link></li>
@@ -31,7 +31,7 @@ const FooterOne = ({parentClass}) => {
                                 <div className="footer-newsletter">
                                     <br />
                                     <h2 className="title">Get in touch!</h2>
-                                    <Link to="https://www.linkedin.com/company/little-money-technologies"><FaLinkedin style={{height:"40px",width:"40px"}} /></Link>
+                                    <Link to="https://www.linkedin.com/company/little-money-technologies"><FaLinkedin style={{ height: "40px", width: "40px" }} /></Link>
 
                                     {/* <p>Fusce varius, dolor tempor interdum tristique, dui urna bib endum magna, ut ullamcorper purus</p>
                                     <form>
@@ -43,7 +43,7 @@ const FooterOne = ({parentClass}) => {
                                     </form> */}
                                 </div>
 
-                                
+
                             </div>
                         </div>
                         <div className="col-xl-6 col-lg-7">
@@ -60,7 +60,7 @@ const FooterOne = ({parentClass}) => {
                                                     </li>
                                                 ))} */}
                                                 <li> <Link to="/personal-loan">Personal Loan</Link> </li>
-                                                
+
                                                 <li> <Link to="/business-loan">Business Loan</Link> </li>
 
                                             </ul>
@@ -86,8 +86,8 @@ const FooterOne = ({parentClass}) => {
                                         <div className="footer-menu-link">
                                             <ul className="list-unstyled">
                                                 <li><Link to="/contact">Contact Us</Link></li>
-                                                <li> <Link to="/privacy-policy">Privacy Policy</Link></li>
-                                                <li><Link to="/terms-use">Terms of Use</Link></li>
+                                                <li> <Link to="/privacy-policy" target='_blank'>Privacy Policy</Link></li>
+                                                <li><Link to="/terms-use" target='_blank'>Terms & Conditions </Link></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -96,18 +96,18 @@ const FooterOne = ({parentClass}) => {
                         </div>
                     </div>
                 </div>
-                <div className="footer-bottom"> 
+                <div className="footer-bottom">
                     <div className="row">
                         {/* <div className="col-md-6"> */}
-                            <div className="footer-copyright text-center">
-                                <span className="copyright-text">© {new Date().getFullYear()}. All rights reserved by <a href="https://littlemoney.co.in">Little Money Technologies Pvt. Ltd.</a></span>
-                            </div>
+                        <div className="footer-copyright text-center">
+                            <span className="copyright-text">© {new Date().getFullYear()}. All rights reserved by <a href="https://littlemoney.co.in">Little Money Technologies Pvt. Ltd.</a></span>
+                        </div>
                         {/* </div> */}
                         {/* <div className="col-md-6">
                             <div className="footer-bottom-link">
                                 <ul className="list-unstyled">
                                     <li><Link to="/privacy-policy">Privacy Policy</Link></li>
-                                    <li><Link to="/terms-use">Terms of Use</Link></li>
+                                    <li><Link to="/terms-use">Terms & Conditions</Link></li>
                                 </ul>
                             </div>
                         </div> */}

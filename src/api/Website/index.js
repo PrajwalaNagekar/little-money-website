@@ -30,12 +30,12 @@ export const verifyOtp = async (mobileNumber, enteredOtp) => {
       mobileNumber,
       otp: enteredOtp,
     });
-    console.log("JAY SHREE RAM", response)
-    console.log("OTP API Response:", response.data);
+    // console.log("JAY SHREE RAM", response)
+    // console.log("OTP API Response:", response.data);
 
     if (response.data.success) {
       localStorage.setItem("token", response.data.token);
-      console.log(response.data.leadId);
+      // console.log(response.data.leadId);
 
       return {
         success: true,
@@ -61,7 +61,7 @@ export const verifyOtp = async (mobileNumber, enteredOtp) => {
 };
 
 export const lead = async (payload) => {
-  console.log("🚀 ~ lead ~ payload:", payload)
+  // console.log("🚀 ~ lead ~ payload:", payload)
   const token = localStorage.getItem("token");
 
   if (!token) {
@@ -85,12 +85,12 @@ export const lead = async (payload) => {
 //  Get Offers by Lead ID API (protected route)
 export const getOffersByLeadId = async (leadId) => {
   const token = localStorage.getItem("token"); // Get token from localStorage
-  console.log(token);
+  // console.log(token);
 
   if (!token) {
     return { success: false, message: "No token found for authentication." };
   }
-  console.log("Sending token:", token);
+  // console.log("Sending token:", token);
 
   try {
     const response = await api.get(`/get-offers/${leadId}`, {
@@ -135,7 +135,7 @@ export const appliedCustomers = async (payload) => {
         Authorization: `Bearer ${token}`,
       }
     })
-    console.log(response);
+    // console.log(response);
   } catch (error) {
     console.log(error);
 
@@ -151,7 +151,7 @@ export const leadApiBusinessLoan = async (payload) => {
         Authorization: `Bearer ${token}`,
       }
     })
-    console.log("🚀 SEE THIS RESPONSE", response)
+    // console.log("🚀 SEE THIS RESPONSE", response)
 
     return response.data;
   } catch (error) {
@@ -165,6 +165,7 @@ export const leadApiBusinessLoan = async (payload) => {
 
 
 export const getBusinessDetailsByLeadId = async (leadId) => {
+  // console.log("🚀 ~ getBusinessDetailsByLeadId ~ leadId:", leadId)
   const token = localStorage.getItem("token");
   if (!token) return { success: false, message: "No token found for authentication." };
   try {

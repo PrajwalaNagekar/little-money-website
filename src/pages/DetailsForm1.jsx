@@ -49,11 +49,16 @@ const validationSchema = Yup.object({
         is: "1",
         then: (schema) => schema.required("Employer name is required"),
     }),
-    officePincode: Yup.string().when("employmentStatus", {
-        is: "1",
-        then: (schema) =>
-            schema.matches(/^\d{6}$/, "Office Pincode must be 6 digits").required("Office Pincode is required"),
-    }),
+    officePincode: Yup.number()
+        .typeError("Office Pincode must be a number")
+        .when("employmentStatus", {
+            is: "1",
+            then: (schema) =>
+                schema
+                    .required("Office Pincode is required")
+                    .min(100000, "Office Pincode must be exactly 6 digits")
+                    .max(999999, "Office Pincode must be exactly 6 digits"),
+        }),
     income: Yup.number()
         .typeError("Income must be a number")
         .required("Monthly Income is required")
@@ -120,9 +125,9 @@ export default function FormikForm() {
     // console.log("data from otp page",data);
 
     const { userData, edit, sentLeadFromOtp } = location.state || {}
-    console.log("🚀 ~ FormikForm ~ userData:", userData)
-    console.log("🚀 ~ FormikForm ~ edit:", edit)
-    console.log("🚀 ~ FormikForm ~ leadFromOtp:", sentLeadFromOtp)
+    // console.log("🚀 ~ FormikForm ~ userData:", userData)
+    // console.log("🚀 ~ FormikForm ~ edit:", edit)
+    // console.log("🚀 ~ FormikForm ~ leadFromOtp:", sentLeadFromOtp)
 
     const { leadId, mobileNumber, firstName, lastName } = userData || {}
     // localStorage.setItem("mobileNumber",mobileNumber)
@@ -137,12 +142,12 @@ export default function FormikForm() {
     const ln = localStorage.getItem("lastName");
 
 
-    console.log(mobileNumber, firstName, lastName);
+    // console.log(mobileNumber, firstName, lastName);
     const navigate = useNavigate()
     const [leadIdLocal, setLeadIdLocal] = useState(() => {
         return localStorage.getItem('leadId') || '';
     });
-    console.log("🚀 ~ const[leadIdLocal,setLeadIdLocal]=useState ~ leadIdLocal:", localStorage.getItem('leadId'))
+    // console.log("🚀 ~ const[leadIdLocal,setLeadIdLocal]=useState ~ leadIdLocal:", localStorage.getItem('leadId'))
 
 
     const [loading, setLoading] = useState(false)
@@ -174,11 +179,11 @@ export default function FormikForm() {
 
         try {
             setIsDataLoading(true)
-            console.log("before response")
+            // console.log("before response")
             const response = await getPersonalLoanDetailsByLeadId(leadIdLocal || sentLeadFromOtp)
-            console.log("🚀 ~ fetchPersonalData ~ response:", response)
+            // console.log("🚀 ~ fetchPersonalData ~ response:", response)
             const data = response.data || response // Handle different response formats
-            console.log("Fetched Personal Loan Data:", data)
+            // console.log("Fetched Personal Loan Data:", data)
 
             // Check if business details should be shown
             const businessProofValue = data.businessRegistrationType?.toString() || ""
@@ -289,7 +294,7 @@ export default function FormikForm() {
                         validationSchema={validationSchema}
                         enableReinitialize={true}
                         onSubmit={async (values) => {
-                            console.log("Submitted values:", values)
+                            // console.log("Submitted values:", values)
                             const isSalaried = Number(values.employmentStatus) === 1
                             const isSelfEmployed = Number(values.employmentStatus) === 2
                             const hasValidBusinessProof = Number(values.businessProof) >= 1 && Number(values.businessProof) <= 7
@@ -308,7 +313,7 @@ export default function FormikForm() {
                                 consumerConsentIp: "0.0.0.0",
                                 ...(isSalaried && {
                                     employerName: values.employerName,
-                                    officePincode: values.officePincode,
+                                    officePincode: values.officePincode.toString(),
                                 }),
                                 ...(isSelfEmployed &&
                                     hasValidBusinessProof && {
@@ -333,13 +338,13 @@ export default function FormikForm() {
                                 setLoading(true)
                                 // API call to submit form data
                                 const response = await lead(personaLLoanFormData)
-                                console.log(response)
+                                // console.log(response)
                                 if (response.success === true) {
                                     const leadId = response.leadId
-                                    console.log(leadId)
+                                    // console.log(leadId)
                                     const offersResponse = await getOffersByLeadId(leadId)
                                     localStorage.setItem("leadId", leadId)
-                                    console.log("Offers response:", offersResponse)
+                                    // console.log("Offers response:", offersResponse)
 
                                     if (finalReferralCode) {
                                         navigate(`/user-detail/offers/${referralCode}`, {
@@ -408,7 +413,9 @@ export default function FormikForm() {
                                                 </option>
                                             ))}
                                         </Field>
-                                        <Field name="year" type="number" className="form-control" placeholder="Year" />
+                                        <Field name="year" type="number" className="form-control" placeholder="Year" inputMode="numeric"
+                                            min="1000"
+                                            max="9999" />
                                     </div>
                                     <ErrorMessage name="day" component="p" className="error-text" />
                                 </div>
@@ -424,9 +431,16 @@ export default function FormikForm() {
 
                                 <div className="form-group">
                                     <label>Pincode*</label>
-                                    <Field name="pincode" className="form-control" type="text"
+                                    <Field
+                                        name="pincode"
+                                        className="form-control"
+                                        type="text"
                                         maxLength={6}
-                                        inputMode="numeric" />
+                                        inputMode="numeric"
+                                        onInput={(e) => {
+                                            e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                                        }}
+                                    />
                                     <ErrorMessage name="pincode" component="p" className="error-text" />
                                 </div>
 
@@ -435,7 +449,13 @@ export default function FormikForm() {
 
                                 <div className="form-group">
                                     <label>Employment Status*</label>
-                                    <Field as="select" name="employmentStatus" className="form-control">
+                                    <Field as="select" name="employmentStatus" className="form-control"
+                                        onChange={(e) => {
+                                            setShowBusinessDetails(false)
+                                            setFieldValue("employmentStatus", e.target.value)
+                                            setFieldValue("showBusinessDetails", false)
+                                        }}
+                                    >
                                         <option value="">Select Status</option>
                                         <option value="1">Salaried</option>
                                         <option value="2">Self-Employed</option>
@@ -454,7 +474,7 @@ export default function FormikForm() {
 
                                         <div className="form-group">
                                             <label>Office Pincode*</label>
-                                            <Field name="officePincode" className="form-control" />
+                                            <Field name="officePincode" className="form-control" type="number" />
                                             <ErrorMessage name="officePincode" component="p" className="error-text" />
                                         </div>
 

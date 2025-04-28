@@ -12,8 +12,8 @@ const OtpVerify2 = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
-  console.log("Received user data:", data);
-  console.log("Received user data:mobile number", data.mobileNumber);
+  // console.log("Received user data:", data);
+  // console.log("Received user data:mobile number", data.mobileNumber);
 
 
   // const [referralCode, setReferralCode] = useState(null);
@@ -82,7 +82,7 @@ const OtpVerify2 = () => {
   };
 
   const finalReferralCode = referralCode || localStorage.getItem("referral_code");
-  console.log(finalReferralCode);
+  // console.log(finalReferralCode);
 
 
   useEffect(() => {
@@ -97,15 +97,15 @@ const OtpVerify2 = () => {
     setMessage("");
 
     const result = await verifyOtp(data.mobileNumber, enteredOtp);
-    console.log("🚀 ~ handleVerify ~ enteredOtp:", enteredOtp)
-    console.log("🚀 ~ handleVerify ~ mobileNumber:", data.mobileNumber)
-    console.log("result from verify otp api", result)
-    console.log(result.createdAt);
+    // console.log("🚀 ~ handleVerify ~ enteredOtp:", enteredOtp)
+    // console.log("🚀 ~ handleVerify ~ mobileNumber:", data.mobileNumber)
+    // console.log("result from verify otp api", result)
+    // console.log(result.createdAt);
     const createdAt = new Date(result.createdAt);
     const now = new Date();
 
     const daysSinceCreation = (now - createdAt) / (1000 * 60 * 60 * 24); // Difference in days
-    console.log("User created", daysSinceCreation.toFixed(1), "days ago");
+    // console.log("User created", daysSinceCreation.toFixed(1), "days ago");
 
     if (result.success) {
       if (daysSinceCreation > 30) {
@@ -117,7 +117,7 @@ const OtpVerify2 = () => {
         // console.log("leadId in otp verify2", leadId);
         localStorage.setItem("ExistingLeadInLocal", leadId)
         const ExistingLeadFromLocal = localStorage.getItem('ExistingLeadInLocal')
-        console.log("ExistingLeadFromLocal", ExistingLeadFromLocal);
+        // console.log("ExistingLeadFromLocal", ExistingLeadFromLocal);
 
         const offersResponse = await getOffersByLeadId(leadId);
         const offers = offersResponse.offers;

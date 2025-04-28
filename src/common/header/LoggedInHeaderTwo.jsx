@@ -38,12 +38,13 @@ const LoggedInHeaderTwo = ({ userData, sentLeadFromOtp }) => {
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("leadId");
+        localStorage.removeItem("ExistingLeadFromLocal")
         window.location.href = "/personal-loan";
     };
     const location = useLocation();
     const data = location.state;
-    console.log("Received user data:", data);
-    console.log("lead from otp to header", sentLeadFromOtp);
+    // console.log("Received user data:", data);
+    // console.log("lead from otp to header", sentLeadFromOtp);
     const referral_code = localStorage.getItem('referral_code')
 
     return (

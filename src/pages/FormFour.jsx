@@ -42,9 +42,10 @@ const FormFour = () => {
 
   ///To get referal code
   const { referralCode } = useParams()
+  // console.log("referralCode from URL:", referralCode);
 
-  const finalReferralCode = referralCode || localStorage.getItem("referral_code")
-  console.log(finalReferralCode)
+  const finalReferralCode = referralCode
+  // console.log(finalReferralCode)
   useEffect(() => {
     if (finalReferralCode) {
       localStorage.setItem("referral_code", finalReferralCode)
@@ -97,12 +98,12 @@ const FormFour = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { edit, userData, sentLeadFromOtp } = location.state || {}
-  console.log("userdata", userData)
+  // console.log("userdata", userData)
   const { mobileNumber, firstName, lastName } = userData || {}
-  console.log(mobileNumber, firstName, lastName)
+  // console.log(mobileNumber, firstName, lastName)
 
   const data = location.state
-  console.log("Received user data:", data)
+  // console.log("Received user data:", sentLeadFromOtp)
   const isFirstSeven = (value) => ["1", "2", "3", "4", "5", "6", "7"].includes(value)
   const isNoProof = (value) => value === "8"
 
@@ -141,6 +142,7 @@ const FormFour = () => {
     )
       return false
 
+
     // Check if the age is between 22 and 55
     if (
       age > 55 ||
@@ -155,7 +157,7 @@ const FormFour = () => {
 
   //for fetching the data
   const [leadIdLocal, setLeadIdLocal] = useState(() => {
-    return localStorage.getItem('leadId') || '';
+    return localStorage.getItem('leadId') || sentLeadFromOtp;
   });
   useEffect(() => {
     const fetchBusinessLoanData = async () => {
@@ -163,9 +165,9 @@ const FormFour = () => {
         if (edit) {
           const response = await getBusinessDetailsByLeadId(leadIdLocal)
           console.log("get details by leadid", response)
-          console.log("businessProof", response.businessProof)
-          console.log("turn", response.businessCurrentTurnover)
-          console.log("b reg type", response.businessRegistrationType)
+          // console.log("businessProof", response.businessProof)
+          // console.log("turn", response.businessCurrentTurnover)
+          // console.log("b reg type", response.businessRegistrationType)
 
           // businessProofOptions[(response.businessRegistrationType || 1) - 1] || "",
           const dob = response.dob || "";
@@ -179,8 +181,10 @@ const FormFour = () => {
               day = parts[2];
             }
           }
+          const dobParts = response.dob ? response.dob.split("-") : [];
 
           setFormData({
+
             mobileNumber,
             firstName,
             lastName,
@@ -189,10 +193,10 @@ const FormFour = () => {
             employmentStatus: response.employmentStatus || "",
             monthlyIncome: response.monthlyIncome || "",
             dob: response.dob || "",
-            day, // Resetting day to empty, ensure it's updated later
-            month, // Resetting month to empty, ensure it's updated later
-            year, // Resetting year to empty, ensure it's updated later
-            pan: "", // Resetting PAN to empty, ensure it's updated later
+            day: dobParts[2] || "",
+            month: dobParts[1] || "",
+            year: dobParts[0] || "", // Resetting year to empty, ensure it's updated later
+            pan: response.pan, // Resetting PAN to empty, ensure it's updated later
             email: response.email || "",
             pincode: response.pincode || "",
             residenceType: response.residenceType || "",
@@ -359,13 +363,13 @@ const FormFour = () => {
 
     try {
       const response = await leadApiBusinessLoan(payload)
-      console.log("response from bl lead ", response)
+      // console.log("response from bl lead ", response)
       if (response.success === true) {
         const leadId = response.leadId
-        console.log(leadId)
+        // console.log(leadId)
         const offersResponse = await getOffersByLeadId(leadId || sentLeadFromOtp)
         localStorage.setItem("leadId", leadId) // or mobileNumber
-        console.log("Offers response:", offersResponse)
+        // console.log("Offers response:", offersResponse)
 
         if (finalReferralCode) {
           navigate(`/business-detail/offers/${referralCode}`, {

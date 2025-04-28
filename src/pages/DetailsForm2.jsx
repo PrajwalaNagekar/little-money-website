@@ -133,12 +133,12 @@ const DetailsForm2 = () => {
         if (validateForm()) {
             if (formData.employmentStatus === "salaried") {
                 // Salaried users go directly to offers
-                console.log("Form Submitted!", formData);
+                // console.log("Form Submitted!", formData);
                 navigate("/personal-loan/verification/user-details/offers");
             } else if (formData.employmentStatus === "self-employed") {
                 if (formData.businessProof === "No Business Proof") {
                     // Self-employed with no proof still go to offers
-                    console.log("Form Submitted!", formData);
+                    // console.log("Form Submitted!", formData);
                     navigate("/personal-loan/verification/user-details/offers");
                 } else {
                     // Self-employed with valid business proof: show additional business fields
@@ -152,7 +152,7 @@ const DetailsForm2 = () => {
     const handleSubmit1 = (e) => {
         e.preventDefault();
         if (validateForm1()) {
-            console.log("Form Submitted!", formData);
+            // console.log("Form Submitted!", formData);
             navigate("/personal-loan/verification/user-details/offers");
         }
     };
@@ -392,7 +392,7 @@ const DetailsForm2 = () => {
                                             onChange={() => setIsChecked(!isChecked)}
                                         />
                                         <label htmlFor="terms" style={{ textAlign: "justify", display: "block" }}>
-                                            In addition to any consent you may give pursuant to the Privacy Policy, you hereby consent to (a) Lenders retrieving your credit score from third party providers for the purpose of evaluating your eligibility for a Credit Facility; (b) Lenders sharing your credit score with Little Money; (c) Little Money sharing the Transaction information with its affiliates and Lenders. For the avoidance of doubt, Creditlinks does not retrieve your credit score from any source.
+                                            In addition to any consent you may give pursuant to the Privacy Policy, you hereby consent to (a) Lenders retrieving your credit score from third party providers for the purpose of evaluating your eligibility for a Credit Facility; (b) Lenders sharing your credit score with Little Money; (c) Little Money sharing the Transaction information with its affiliates and Lenders. For the avoidance of doubt, Little Money Technologies does not retrieve your credit score from any source.
                                         </label>
                                     </div>
                                     {errors.consent && <p className="error-text ">{errors.consent}</p>}
