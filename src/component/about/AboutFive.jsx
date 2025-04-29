@@ -22,8 +22,10 @@ const AboutFive = () => {
             <div className="about-team">
               <div className="section-heading heading-left">
                 <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-2xl">
-                  <p className="text-justify text-gray-700 leading-relaxed tracking-wide">
-                    Our mission is to reduce dependency on traditional lending
+                  <span
+                    className=""
+                    style={{ fontFamily: 'Poppins, sans-serif', fontSize: '16px',fontWeight:'1px' }}
+                  >                    Our mission is to reduce dependency on traditional lending
                     formats by providing technology-driven, customized lending
                     solutions that meet the unique needs of each consumers we
                     help foster financial independence for consumers while
@@ -37,7 +39,7 @@ const AboutFive = () => {
                     technology to ensure seamless experiences, reduce financial
                     dependency, and empower users to take control of their
                     financial journey.
-                  </p>
+                  </span>
                 </div>
                 {/*  */}
                 {/* <Link to="#" className="axil-btn btn-large btn-fill-primary">Our Team</Link> */}
