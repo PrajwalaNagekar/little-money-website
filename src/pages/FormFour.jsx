@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { getBusinessDetailsByLeadId, getOffersByLeadId, leadApiBusinessLoan } from "../api/Website"
@@ -24,7 +26,6 @@ const FormFour = () => {
     hasCurrentAccount: "",
     employerName: "",
     officePincode: "",
-
   })
 
   const businessProofOptions = [
@@ -58,22 +59,22 @@ const FormFour = () => {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     })
-    if (name === 'monthlyIncome') {
+    if (name === "monthlyIncome") {
       if (!value) {
-        setErrors(prevErrors => ({
+        setErrors((prevErrors) => ({
           ...prevErrors,
-          monthlyIncome: 'Monthly Income is required',
-        }));
+          monthlyIncome: "Monthly Income is required",
+        }))
       } else if (Number(value) < 25000) {
-        setErrors(prevErrors => ({
+        setErrors((prevErrors) => ({
           ...prevErrors,
-          monthlyIncome: 'Monthly Income must be at least 25000',
-        }));
+          monthlyIncome: "Monthly Income must be at least 25000",
+        }))
       } else {
-        setErrors(prevErrors => ({
+        setErrors((prevErrors) => ({
           ...prevErrors,
-          monthlyIncome: '',
-        }));
+          monthlyIncome: "",
+        }))
       }
     }
     // Clear error for this field when user makes a change
@@ -104,8 +105,15 @@ const FormFour = () => {
 
   const data = location.state
   // console.log("Received user data:", sentLeadFromOtp)
-  const isFirstSeven = (value) => ["1", "2", "3", "4", "5", "6", "7"].includes(value)
-  const isNoProof = (value) => value === "8"
+
+  const isFirstSeven = (value) => {
+    const numValue = Number(value)
+    return numValue >= 1 && numValue <= 7
+  }
+
+  const isNoProof = (value) => {
+    return Number(value) === 8
+  }
 
   const showBusinessFields = isFirstSeven(formData.businessProof)
   const showNoBusinessProofFields = isNoProof(formData.businessProof)
@@ -142,7 +150,6 @@ const FormFour = () => {
     )
       return false
 
-
     // Check if the age is between 22 and 55
     if (
       age > 55 ||
@@ -157,8 +164,8 @@ const FormFour = () => {
 
   //for fetching the data
   const [leadIdLocal, setLeadIdLocal] = useState(() => {
-    return localStorage.getItem('leadId') || sentLeadFromOtp;
-  });
+    return localStorage.getItem("leadId") || sentLeadFromOtp
+  })
   useEffect(() => {
     const fetchBusinessLoanData = async () => {
       try {
@@ -170,21 +177,22 @@ const FormFour = () => {
           // console.log("b reg type", response.businessRegistrationType)
 
           // businessProofOptions[(response.businessRegistrationType || 1) - 1] || "",
-          const dob = response.dob || "";
-          let day = "", month = "", year = "";
+          const dob = response.dob || ""
+          let day = "",
+            month = "",
+            year = ""
 
           if (dob) {
-            const parts = dob.split("-");
+            const parts = dob.split("-")
             if (parts.length === 3) {
-              year = parts[0];
-              month = parseInt(parts[1]); // Ensure month is 1-12 as number
-              day = parts[2];
+              year = parts[0]
+              month = Number.parseInt(parts[1]) // Ensure month is 1-12 as number
+              day = parts[2]
             }
           }
-          const dobParts = response.dob ? response.dob.split("-") : [];
+          const dobParts = response.dob ? response.dob.split("-") : []
 
           setFormData({
-
             mobileNumber,
             firstName,
             lastName,
@@ -204,8 +212,19 @@ const FormFour = () => {
             yearsInBusiness: response.businessYears || "",
             hasCurrentAccount: String(response.businessAccount || ""),
             referal: finalReferralCode,
-
           })
+
+          if (response.businessRegistrationType) {
+            // Check if business registration type is 1-7 (first seven options) or 8 (No Business Proof)
+            const isFirstSeven = response.businessRegistrationType >= 1 && response.businessRegistrationType <= 7
+            const isNoProof = response.businessRegistrationType === 8
+
+            // Update the state to show the appropriate fields
+            setFormData((prevData) => ({
+              ...prevData,
+              businessProof: String(response.businessRegistrationType),
+            }))
+          }
         }
       } catch (error) {
         console.log(error)
@@ -469,24 +488,48 @@ const FormFour = () => {
             <div className="form-group">
               <label>Birth Date*</label>
               <div className="input-group-container d-flex gap-2">
-
-                <input type="number" name="day" placeholder="Day" onChange={handleChange} required className="form-control" value={formData.day}
-
+                <input
+                  type="number"
+                  name="day"
+                  placeholder="Day"
+                  onChange={handleChange}
+                  required
+                  className="form-control"
+                  value={formData.day}
                 />
 
-                <select name="month" onChange={handleChange} required className="form-control" value={formData.month}
-                >
-                  <option value="" >Month</option>
-                  {["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m, i) => (
-                    <option value={i + 1} key={i}>{m}</option>
+                <select name="month" onChange={handleChange} required className="form-control" value={formData.month}>
+                  <option value="">Month</option>
+                  {[
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
+                  ].map((m, i) => (
+                    <option value={i + 1} key={i}>
+                      {m}
+                    </option>
                   ))}
                 </select>
-                <input type="number" name="year" placeholder="Year" onChange={handleChange} required className="form-control" value={formData.year}
-
+                <input
+                  type="number"
+                  name="year"
+                  placeholder="Year"
+                  onChange={handleChange}
+                  required
+                  className="form-control"
+                  value={formData.year}
                 />
               </div>
               {errors.dob && <div className="text-danger">{errors.dob}</div>}
-
             </div>
 
             <div className="form-group mb-3">
@@ -567,7 +610,6 @@ const FormFour = () => {
                   name="hasCurrentAccount"
                   id="hasCurrentAccount-no"
                   value="2"
-
                   checked={formData.hasCurrentAccount === "2"}
                   onChange={handleChange}
                 />
@@ -650,23 +692,47 @@ const FormFour = () => {
             <div className="form-group">
               <label>Birth Date*</label>
               <div className="input-group-container d-flex gap-2">
-
-                <input type="number" name="day" placeholder="Day" onChange={handleChange} required className="form-control"
+                <input
+                  type="number"
+                  name="day"
+                  placeholder="Day"
+                  onChange={handleChange}
+                  required
+                  className="form-control"
                 />
 
-                <select name="month" onChange={handleChange} required className="form-control" >
-                  <option value="" >Month</option>
-                  {["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"].map((m, i) => (
-                    <option value={i + 1} key={i}>{m}</option>
+                <select name="month" onChange={handleChange} required className="form-control">
+                  <option value="">Month</option>
+                  {[
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
+                  ].map((m, i) => (
+                    <option value={i + 1} key={i}>
+                      {m}
+                    </option>
                   ))}
                 </select>
-                <input type="number" name="year" placeholder="Year" onChange={handleChange} required className="form-control"
+                <input
+                  type="number"
+                  name="year"
+                  placeholder="Year"
+                  onChange={handleChange}
+                  required
+                  className="form-control"
                 />
               </div>
               {errors.dob && <div className="text-danger">{errors.dob}</div>}
-
             </div>
-
 
             <h5>Business Information</h5>
             <div className="form-group mb-3">
@@ -801,7 +867,11 @@ const FormFour = () => {
               checked={formData.agreed}
               onChange={handleChange}
             />
-            <label className="form-check-label" htmlFor="agreed" style={{ textAlign: "justify", display: "block" }}>
+            <label
+              className="form-label"
+              htmlFor="agreed"
+              style={{ textAlign: "justify", display: "block" ,}}
+            >
               In addition to any consent you may give pursuant to the Privacy Policy, you hereby consent to (a) Lenders
               retrieving your credit score from third party providers for the purpose of evaluating your eligibility for
               a Credit Facility; (b) Lenders sharing your credit score with Little Money; (c) Little Money sharing the
@@ -831,11 +901,10 @@ const FormFour = () => {
             <i className="fas fa-exclamation-circle fa-3x text-danger"></i>
           </p>
           <p className="font-weight-bold">
-            Our system has detected more than 30 minutes of inactivity. For security reasons, you will be logged out
-            in <span className="font-weight-bolder">{countdown}</span> seconds.
+            Our system has detected more than 30 minutes of inactivity. For security reasons, you will be logged out in{" "}
+            <span className="font-weight-bolder">{countdown}</span> seconds.
           </p>
         </Modal.Body.Body>
-
       </Modal>
     </div>
   )
