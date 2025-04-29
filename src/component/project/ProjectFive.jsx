@@ -4,7 +4,7 @@ import ProjectData from "../../data/project/ProjectData.json";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import ReactPaginate from 'react-paginate';
 import { useLocation, useParams } from 'react-router-dom';
-import QRCode from 'react-qr-code';
+import { QRCode } from "react-qr-code";
 import { appliedCustomers } from '../../api/Website';
 import logout from '../../utils/logout';
 
@@ -75,7 +75,7 @@ const ProjectFive = ({ colSize, parentClass, perPageShow }) => {
         <div className={`section section-padding-equal pt--100 pt_md--80 pt_sm--60 ${parentClass ? parentClass : ""}`}>
             <Container className="mt-4">
 
-                <h3 className="mb-4" style={{marginTop:"8vh"}}>Available Offers</h3>
+                <h3 className="mb-4" style={{ marginTop: "8vh" }}>Available Offers</h3>
                 {/* <Button
                         variant="primary"
                         className="mt-auto axil-btn btn-fill-primary"
@@ -109,11 +109,11 @@ const ProjectFive = ({ colSize, parentClass, perPageShow }) => {
                                         <div className="text-left mt-3">
                                             {/* <Card.Title>{offer.lenderName}</Card.Title> */}
                                             <Card.Text>
-                                                <div className='text-wrap'>
-                                                    <p style={{ fontSize: '13px' }}> <strong>Tenure:</strong> {" "}{offer.offerTenure}</p>
-                                                    <p style={{ fontSize: '13px' }}><strong>Interest Rate:</strong>{" "} {offer.offerInterestRate}</p>
-                                                    <p style={{ fontSize: '13px' }}> <strong>Processing Fees:</strong>{" "} {offer.offerProcessingFees}</p>
-                                                </div>
+                                                {/* <div className='text-wrap'> */}
+                                                <span style={{ fontSize: '13px' }}><strong>Interest Rate:</strong>{" "} {offer.offerInterestRate}</span>
+                                                <span style={{ fontSize: '13px' }}> <strong>Processing Fees:</strong>{" "} {offer.offerProcessingFees}</span>
+                                                <span style={{ fontSize: '13px' }}> <strong>Tenure:</strong> {" "}{offer.offerTenure}</span>
+                                                {/* </div> */}
                                             </Card.Text>
                                         </div>
                                         <div className="d-flex justify-content-center align-items-center my-3">
@@ -122,7 +122,7 @@ const ProjectFive = ({ colSize, parentClass, perPageShow }) => {
                                                 size={110}
                                                 bgColor="#ffffff"
                                                 fgColor="#000000"
-                                                includeMargin={true}
+                                                // includeMargin={true}
                                             />
                                         </div>
                                     </div>

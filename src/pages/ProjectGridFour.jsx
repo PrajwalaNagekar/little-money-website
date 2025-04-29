@@ -16,7 +16,7 @@ const ProjectGridFour = () => {
     } = location.state || {};
     const { ExistingLeadFromLocal, } = location.state;
     const sentLeadFromOtp = ExistingLeadFromLocal
-    console.log("lead from otp to project", sentLeadFromOtp);
+    // console.log("lead from otp to project", sentLeadFromOtp);
 
     //pl offers
     const userData = { mobileNumber, firstName, lastName, leadId };

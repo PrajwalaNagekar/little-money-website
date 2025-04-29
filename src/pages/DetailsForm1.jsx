@@ -155,8 +155,8 @@ export default function FormikForm() {
     const [showBusinessDetails, setShowBusinessDetails] = useState(false)
     const [initialValues, setInitialValues] = useState(defaultInitialValues)
 
-    const { referralCode } = useParams()
-    const finalReferralCode = referralCode || localStorage.getItem("referral_code")
+    // const { referralCode } = useParams()
+    const finalReferralCode = localStorage.getItem("referral_code")
 
     // Parse date string into day, month, year
     const parseDateString = (dateString) => {
@@ -209,6 +209,7 @@ export default function FormikForm() {
                 year: dateComponents.year,
                 email: data.email || "",
                 pincode: data.pincode || "",
+                referralCode:data.referralCode || "",
                 employmentStatus: data.employmentStatus?.toString() || "",
                 employerName: data.employerName || "",
                 officePincode: data.officePincode || "",
@@ -519,7 +520,7 @@ export default function FormikForm() {
                                 )}
 
                                 {/* Additional Details */}
-                                {values.showBusinessDetails && (
+                                {values.employmentStatus=="2" && values.businessProof!=="8" && (
                                     <>
                                         <div className="form-group">
                                             <label>Residence Type*</label>

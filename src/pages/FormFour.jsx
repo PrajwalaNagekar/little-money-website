@@ -47,11 +47,11 @@ const FormFour = () => {
 
   const finalReferralCode = referralCode
   // console.log(finalReferralCode)
-  useEffect(() => {
-    if (finalReferralCode) {
-      localStorage.setItem("referral_code", finalReferralCode)
-    }
-  }, [finalReferralCode])
+  // useEffect(() => {
+  //   if (finalReferralCode) {
+  //     localStorage.setItem("referral_code", finalReferralCode)
+  //   }
+  // }, [finalReferralCode])
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -171,12 +171,10 @@ const FormFour = () => {
       try {
         if (edit) {
           const response = await getBusinessDetailsByLeadId(leadIdLocal)
-          console.log("get details by leadid", response)
-          // console.log("businessProof", response.businessProof)
-          // console.log("turn", response.businessCurrentTurnover)
-          // console.log("b reg type", response.businessRegistrationType)
+          console.log("API Response:", response)
+          console.log("DOB from API:", response.dob)
 
-          // businessProofOptions[(response.businessRegistrationType || 1) - 1] || "",
+          // Properly handle date parsing
           const dob = response.dob || ""
           let day = "",
             month = "",
@@ -186,45 +184,33 @@ const FormFour = () => {
             const parts = dob.split("-")
             if (parts.length === 3) {
               year = parts[0]
-              month = Number.parseInt(parts[1]) // Ensure month is 1-12 as number
+              month = parts[1] // Keep as string for select element
               day = parts[2]
             }
           }
-          const dobParts = response.dob ? response.dob.split("-") : []
 
           setFormData({
             mobileNumber,
             firstName,
             lastName,
             businessRegistrationType: response.businessRegistrationType || "",
-            businessProof: response.businessRegistrationType || "",
-            employmentStatus: response.employmentStatus || "",
+            businessProof: String(response.businessRegistrationType || ""), // Convert to string for select element
+            employmentStatus: String(response.employmentStatus || ""), // Convert to string for select element
             monthlyIncome: response.monthlyIncome || "",
             dob: response.dob || "",
-            day: dobParts[2] || "",
-            month: dobParts[1] || "",
-            year: dobParts[0] || "", // Resetting year to empty, ensure it's updated later
-            pan: response.pan, // Resetting PAN to empty, ensure it's updated later
+            day: day,
+            month: month,
+            year: year,
+            pan: response.pan || "",
             email: response.email || "",
             pincode: response.pincode || "",
-            residenceType: response.residenceType || "",
-            turnover: response.businessCurrentTurnover || "",
-            yearsInBusiness: response.businessYears || "",
+            residenceType: String(response.residenceType || ""), // Convert to string for select element
+            turnover: String(response.businessCurrentTurnover || ""), // Convert to string for select element
+            yearsInBusiness: String(response.businessYears || ""), // Convert to string for select element
             hasCurrentAccount: String(response.businessAccount || ""),
             referal: finalReferralCode,
+            agreed: false,
           })
-
-          if (response.businessRegistrationType) {
-            // Check if business registration type is 1-7 (first seven options) or 8 (No Business Proof)
-            const isFirstSeven = response.businessRegistrationType >= 1 && response.businessRegistrationType <= 7
-            const isNoProof = response.businessRegistrationType === 8
-
-            // Update the state to show the appropriate fields
-            setFormData((prevData) => ({
-              ...prevData,
-              businessProof: String(response.businessRegistrationType),
-            }))
-          }
         }
       } catch (error) {
         console.log(error)
@@ -410,7 +396,7 @@ const FormFour = () => {
   }
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" style={{ padding: "0px" }}>
       <form onSubmit={handleSubmit} noValidate>
         {/* <h5 className="text-center mb-4">Business Registration Form</h5> */}
 
@@ -514,7 +500,7 @@ const FormFour = () => {
                     "November",
                     "December",
                   ].map((m, i) => (
-                    <option value={i + 1} key={i}>
+                    <option value={String(i + 1)} key={i}>
                       {m}
                     </option>
                   ))}
@@ -699,9 +685,10 @@ const FormFour = () => {
                   onChange={handleChange}
                   required
                   className="form-control"
+                  value={formData.day}
                 />
 
-                <select name="month" onChange={handleChange} required className="form-control">
+                <select name="month" onChange={handleChange} required className="form-control" value={formData.month}>
                   <option value="">Month</option>
                   {[
                     "January",
@@ -729,6 +716,7 @@ const FormFour = () => {
                   onChange={handleChange}
                   required
                   className="form-control"
+                  value={formData.year}
                 />
               </div>
               {errors.dob && <div className="text-danger">{errors.dob}</div>}
@@ -828,8 +816,8 @@ const FormFour = () => {
                   className={`form-check-input ${formSubmitted && errors.hasCurrentAccount ? "is-invalid" : ""}`}
                   name="hasCurrentAccount"
                   id="hasCurrentAccount-yes"
-                  value="yes"
-                  checked={formData.hasCurrentAccount === "yes"}
+                  value="1"
+                  checked={formData.hasCurrentAccount === "1"}
                   onChange={handleChange}
                 />
                 <label className="form-check-label" htmlFor="hasCurrentAccount-yes">
@@ -842,8 +830,8 @@ const FormFour = () => {
                   className={`form-check-input ${formSubmitted && errors.hasCurrentAccount ? "is-invalid" : ""}`}
                   name="hasCurrentAccount"
                   id="hasCurrentAccount-no"
-                  value="no"
-                  checked={formData.hasCurrentAccount === "no"}
+                  value="2"
+                  checked={formData.hasCurrentAccount === "2"}
                   onChange={handleChange}
                 />
                 <label className="form-check-label" htmlFor="hasCurrentAccount-no">
@@ -867,11 +855,7 @@ const FormFour = () => {
               checked={formData.agreed}
               onChange={handleChange}
             />
-            <label
-              className="form-label"
-              htmlFor="agreed"
-              style={{ textAlign: "justify", display: "block" ,}}
-            >
+            <label className="form-label" htmlFor="agreed" style={{ textAlign: "justify", display: "block" }}>
               In addition to any consent you may give pursuant to the Privacy Policy, you hereby consent to (a) Lenders
               retrieving your credit score from third party providers for the purpose of evaluating your eligibility for
               a Credit Facility; (b) Lenders sharing your credit score with Little Money; (c) Little Money sharing the

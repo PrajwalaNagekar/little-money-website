@@ -11,7 +11,7 @@ const OtpVerify1 = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
-  console.log("Received user data:", data);
+  // console.log("Received user data:", data);
 
 
   // const [referralCode, setReferralCode] = useState(null);
@@ -80,7 +80,7 @@ const OtpVerify1 = () => {
   };
 
   const finalReferralCode = referralCode || localStorage.getItem("referral_code");
-  console.log(finalReferralCode);
+  // console.log(finalReferralCode);
 
 
   useEffect(() => {
@@ -96,7 +96,7 @@ const OtpVerify1 = () => {
     setMessage("");
 
     const result = await verifyOtp(data.mobileNumber, enteredOtp);
-    console.log("result from verify otp api", result)
+    // console.log("result from verify otp api", result)
     console.log(result.createdAt);
     const createdAt = new Date(result.createdAt);
     const now = new Date();
@@ -109,7 +109,7 @@ const OtpVerify1 = () => {
         navigate(`/user-detail`, { state: data });
         return;
       }
-
+    
       if (result.leadId) {
         const leadId = result.leadId;
         localStorage.setItem("ExistingLeadInLocal", leadId)
@@ -148,7 +148,7 @@ const OtpVerify1 = () => {
     console.log("gkjb")
     setOtpResent(true);
     setMessage(`OTP resent successfully `);
-    setCountdown(2); // Restart timer
+    setCountdown(75); // Restart timer
 
     // const result = await verfyOtp(data.mobileNumber, enteredOtp);
 

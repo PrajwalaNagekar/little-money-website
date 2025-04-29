@@ -81,15 +81,15 @@ const OtpVerify2 = () => {
     }
   };
 
-  const finalReferralCode = referralCode || localStorage.getItem("referral_code");
+  const finalReferralCode = referralCode || localStorage.getItem("referralCode");
   // console.log(finalReferralCode);
 
 
-  useEffect(() => {
-    if (finalReferralCode) {
-      localStorage.setItem("referral_code", finalReferralCode);
-    }
-  }, [finalReferralCode]);
+  // useEffect(() => {
+  //   if (finalReferralCode) {
+  //     localStorage.setItem("referral_code", finalReferralCode);
+  //   }
+  // }, [finalReferralCode]);
   const handleVerify = async (e) => {
     e.preventDefault();
     const enteredOtp = otp.join("");
@@ -121,7 +121,7 @@ const OtpVerify2 = () => {
 
         const offersResponse = await getOffersByLeadId(leadId);
         const offers = offersResponse.offers;
-        console.log("offersResponse", offers);
+        // console.log("offersResponse", offers);
         if (finalReferralCode) {
           navigate(`/business-detail/offers/${finalReferralCode}`, {
             state: { ...data, offers, ExistingLeadFromLocal },
@@ -133,7 +133,7 @@ const OtpVerify2 = () => {
         }
       } else {
         // If no leadId but user is valid, go to user-details
-        console.log("this is else");
+        // console.log("this is else");
 
         if (finalReferralCode) {
           navigate(`/business-detail/${finalReferralCode}`, { state: data });

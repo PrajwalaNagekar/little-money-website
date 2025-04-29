@@ -39,7 +39,11 @@ const FormOne = () => {
     setCaptchaValue(value);
   };
   const finalReferralCode = referralCode || undefined; // Set to undefined if no referral code exists
-
+  // useEffect(() => {
+  //   if (ExistingLeadInLocal) {
+  //     localStorage.removeItem(ExistingLeadInLocal);
+  //   }
+  // }, [referralCode]);
 
   // You can store the referralCode in localStorage if it's found for future use
 

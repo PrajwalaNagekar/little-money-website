@@ -42,7 +42,11 @@ const FormBusinessLoan = () => {
   };
   const finalReferralCode = referralCode || undefined; // Set to undefined if no referral code exists
 
-
+  useEffect(() => {
+    if (referralCode) {
+      localStorage.setItem("referralCode", referralCode);
+    }
+  }, [referralCode]);
   // You can store the referralCode in localStorage if it's found for future use
 
   const SubmittedForm = Yup.object().shape({
@@ -255,7 +259,7 @@ const FormBusinessLoan = () => {
               )}
             </div> */}
 
-            <div class="form-group">
+            <div className="form-group">
               <div className="checkbox-container">
                 <Field
                   name="option1"
