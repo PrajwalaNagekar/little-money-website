@@ -7,7 +7,7 @@ import FooterOne from '../common/footer/FooterOne'
 const UserDetails2 = () => {
     return (
         <div>
-            <SEO title="Home" />
+            {/* <SEO title="Home" /> */}
             <main className="main-wrapper">
                 <HeaderTwo />
                 <DetailsForm2 />

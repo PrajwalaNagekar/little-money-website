@@ -13,7 +13,7 @@ const OurClients = () => {
 
     return (
         <>
-        <SEO title="Our Partners" />
+        {/* <SEO title="Our Partners" /> */}
         {/* <ColorSwitcher /> */}
             <main className="main-wrapper">
             {/* <TopNavbar/> */}

@@ -9,7 +9,7 @@ import SEO from '../common/SEO';
 const TermsOfUse = () => {
     return (
         <>
-            <SEO title="Terms & Conditions" />
+            {/* <SEO title="Terms & Conditions" /> */}
             <main className="main-wrapper">
                 <HeaderTwo />
                 <BreadCrumbOne

@@ -21,7 +21,7 @@ const AboutUs = () => {
 
     return (
         <>
-            <SEO title="About us" />
+            {/* <SEO title="About us" /> */}
             <main className="main-wrapper">
 
                 <HeaderTwo />

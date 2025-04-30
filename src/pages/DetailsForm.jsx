@@ -6,7 +6,7 @@ import DetailsForm1 from './DetailsForm1'
 const DetailsForm = () => {
   return (
     <>
-      <SEO title="Home" />
+      {/* <SEO title="Home" /> */}
       <ColorSwitcher />
       <main className="main-wrapper">
       {/* <HeaderTwo /> */}

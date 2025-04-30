@@ -27,7 +27,7 @@ const params = useParams();
   return (
     
     <>
-    <SEO title="Service Details" />
+    {/* <SEO title="Service Details" /> */}
     <ColorSwitcher />
     <main className="main-wrapper">
         <HeaderOne />

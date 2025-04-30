@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
 
     return (
         <>
-            <SEO title="Privacy Policy" />
+            {/* <SEO title="Privacy Policy" /> */}
             {/* <ColorSwitcher /> */}
             <main className="main-wrapper">
                 <HeaderOne />

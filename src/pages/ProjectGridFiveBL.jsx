@@ -21,7 +21,7 @@ const ProjectGridFiveBL = () => {
 
     return (
         <>
-            <SEO title="Project Full Width Four Column" />
+            {/* <SEO title="Project Full Width Four Column" /> */}
             {/* <ColorSwitcher /> */}
             <main className="main-wrapper">
 

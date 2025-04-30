@@ -19,7 +19,7 @@ const Contact = () => {
     const location = { lat: 12.9532, lng: 77.6323 }
     return (
         <>
-            <SEO title="Contact" />
+            {/* <SEO title="Contact" /> */}
             {/* <TopNavbar/> */}
 
             {/* <ColorSwitcher /> */}

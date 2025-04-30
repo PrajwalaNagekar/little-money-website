@@ -135,7 +135,7 @@ export const appliedCustomers = async (payload) => {
         Authorization: `Bearer ${token}`,
       }
     })
-    console.log("🚀 ~ appliedCustomers ~ response:", response)
+    console.log("🚀 ~a appliedCustomers ~ response:", response)
     // console.log(response);
   } catch (error) {
     console.log(error);

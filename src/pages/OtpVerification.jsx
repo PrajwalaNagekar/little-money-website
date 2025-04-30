@@ -12,7 +12,7 @@ const OtpVerification = () => {
 
     return (
         <>
-              <SEO title="Service Details" />
+              {/* <SEO title="Service Details" /> */}
               {/* <ColorSwitcher /> */}
               <main className="main-wrapper">
                 {/* <TopNavbar/> */}

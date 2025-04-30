@@ -9,7 +9,7 @@ const BusinessLoanForm = () => {
     return (
         
         <div>
-                <SEO title="Service Details" />
+                {/* <SEO title="Service Details" /> */}
                 <main className="main-wrapper">
                 <LoggedInHeaderBL />
 

@@ -10,7 +10,7 @@ import FooterOne from '../common/footer/FooterOne'
 const BusinessLoans = () => {
   return (
     <div>
-      <SEO title="Service Details" />
+      {/* <SEO title="Service Details" /> */}
       {/* <ColorSwitcher /> */}
       <main className="main-wrapper">
         {/* <TopNavbar/> */}

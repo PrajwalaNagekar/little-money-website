@@ -28,7 +28,7 @@ const PersonalLoans = () => {
 
   return (
     <>
-    <SEO title="Personal Loans" />
+    {/* <SEO title="Personal Loans" /> */}
     {/* <ColorSwitcher /> */}
     <main className="main-wrapper">
     {/* <TopNavbar/> */}

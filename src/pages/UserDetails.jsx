@@ -14,7 +14,7 @@ const UserDetails = () => {
     const userData = { mobileNumber, firstName, lastName, leadId, };
     return (
         <div>
-            <SEO title="Home" />
+            {/* <SEO title="Home" /> */}
             <main className="main-wrapper">
                 {/* <TopNavbar/> */}
                 <LoggedInHeader userData={userData} />
