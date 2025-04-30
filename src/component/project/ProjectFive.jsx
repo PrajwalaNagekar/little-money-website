@@ -13,7 +13,9 @@ import useAutoLogout from '../../hooks/useAutoLogout';
 const AllData = ProjectData;
 
 const ProjectFive = ({ colSize, parentClass, perPageShow }) => {
-    const { userId, leadId } = useParams();
+    const { userId} = useParams();
+
+    const leadId=localStorage.getItem("ExistingLeadInLocal")
     const location = useLocation();
     const data = location.state;
     // console.log("Received user data:", data);
@@ -58,6 +60,7 @@ const ProjectFive = ({ colSize, parentClass, perPageShow }) => {
                 leadId: leadId,
                 lenderName: offer.lenderName,
             };
+            // console.log("🚀 ~ handleApply ~ payload:", payload)
             await appliedCustomers(payload)
             // console.log(offers.offerLink);
 

@@ -157,7 +157,7 @@ export default function FormikForm() {
 
     // const { referralCode } = useParams()
     const finalReferralCode = localStorage.getItem("referralCode")
-    console.log("🚀 ~ FormikForm ~ finalReferralCode:", finalReferralCode)
+    // console.log("🚀 ~ FormikForm ~ finalReferralCode:", finalReferralCode)
 
     // Parse date string into day, month, year
     const parseDateString = (dateString) => {
@@ -184,7 +184,7 @@ export default function FormikForm() {
             const response = await getPersonalLoanDetailsByLeadId(leadIdLocal || sentLeadFromOtp)
             // console.log("🚀 ~ fetchPersonalData ~ response:", response)
             const data = response.data || response // Handle different response formats
-            console.log("Fetched Personal Loan Data:", data)
+            // console.log("Fetched Personal Loan Data:", data)
 
             // Check if business details should be shown
             const businessProofValue = data.businessRegistrationType?.toString() || ""
@@ -315,10 +315,10 @@ export default function FormikForm() {
                                 ...(isSelfEmployed && {
                                     businessRegistrationType: Number(values.businessProof),
                                     ...(hasValidBusinessProof && {
-                                      residenceType: Number(values.residence),
-                                      businessCurrentTurnover: Number(values.turnover),
-                                      businessYears: Number(values.years),
-                                      businessAccount: Number(values.currentAcc),
+                                      residenceType: Number(values.residence)||0,
+                                      businessCurrentTurnover: Number(values.turnover)||0,
+                                      businessYears: Number(values.years)||0,
+                                      businessAccount: Number(values.currentAcc)||0,
                                     }),
                                   }),
                                 ...(location.state?.referal &&

@@ -3,7 +3,9 @@ import { Modal } from 'react-bootstrap';
 import { useLocation, useParams } from 'react-router-dom';
 
 const ProjectFiveBL = () => {
-    const { userId, leadId } = useParams();
+    const { userId } = useParams();
+    const leadId = localStorage.getItem("ExistingLeadInLocal")
+
     const location = useLocation();
     const data = location.state;
     // console.log("Received user data:", data);
@@ -45,6 +47,8 @@ const ProjectFiveBL = () => {
                 leadId: leadId,
                 lenderName: offer.lenderName,
             };
+            // console.log("🚀 ~ handleApply ~ payload:", payload)
+
             await appliedCustomers(payload)
             // console.log(offers.offerLink);
 

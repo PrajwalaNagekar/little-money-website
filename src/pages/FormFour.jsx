@@ -41,7 +41,8 @@ const FormFour = () => {
   ]
 
   const { showModal, countdown } = useAutoLogout(60 * 30 * 1000) // 30 min
-
+  const [loading, setLoading] = useState(false)
+  const [isDataLoading, setIsDataLoading] = useState(true)
   ///To get referal code
   const { referralCode } = useParams()
   // console.log("referralCode from URL:", referralCode);
@@ -173,7 +174,7 @@ const FormFour = () => {
     const fetchBusinessLoanData = async () => {
       try {
         if (edit) {
-          const { data: response } = await getBusinessDetailsByLeadId(leadIdLocal);
+          const { data: response } = await getBusinessDetailsByLeadId(leadIdLocal)
           // console.log("API Response:", response)
           // console.log("DOB from API:", response.dob)
 
@@ -212,7 +213,9 @@ const FormFour = () => {
             businessYears: String(response.businessYears || ""), // Convert to string for select element
             hasCurrentAccount: String(response.businessAccount || ""),
             referal: response.referal
-              ? (finalReferralCode !== response.referal ? response.referal : finalReferralCode)
+              ? finalReferralCode !== response.referal
+                ? response.referal
+                : finalReferralCode
               : finalReferralCode,
             agreed: false,
           })
@@ -261,7 +264,7 @@ const FormFour = () => {
     }
 
     // Validate fields based on business proof type
-    if (showBusinessFields || showNoBusinessProofFields) {
+    if (showBusinessFields) {
       // Validate residence type
       if (!formData.residenceType) {
         newErrors.residenceType = "Residence Type is required"
@@ -281,13 +284,13 @@ const FormFour = () => {
       if (!formData.hasCurrentAccount) {
         newErrors.hasCurrentAccount = "Please select Yes or No"
       }
+    }
 
-      // Validate monthly income
-      if (!formData.monthlyIncome) {
-        newErrors.monthlyIncome = "Monthly Income is required"
-      } else if (Number(formData.monthlyIncome) < 25000) {
-        newErrors.monthlyIncome = "Monthly Income must be at least ₹25,000"
-      }
+    // Validate monthly income (required for all business types)
+    if (!formData.monthlyIncome) {
+      newErrors.monthlyIncome = "Monthly Income is required"
+    } else if (Number(formData.monthlyIncome) < 25000) {
+      newErrors.monthlyIncome = "Monthly Income must be at least ₹25,000"
     }
 
     // Validate consent
@@ -318,7 +321,6 @@ const FormFour = () => {
     // Clear errors if validation passes
     setErrors({})
 
-
     const payload = {
       mobileNumber: mobileNumber || formData.mobileNumber,
       firstName: firstName || formData.firstName,
@@ -343,7 +345,9 @@ const FormFour = () => {
       leadId: formData.leadId || undefined,
     }
 
-    // Conditionally add fields based on businessRegistrationType & employmentStatus
+    // console.log("🚀 ~ handleSubmit ~ payload:", payload)
+
+    // Conditionally add fields based on businessRegistrationType
     if (payload.businessRegistrationType !== 8) {
       if (formData.city) payload.city = formData.city
       if (formData.businessProof) payload.businessProof = Number(formData.businessProof)
@@ -367,9 +371,6 @@ const FormFour = () => {
       }
 
       if (formData.residenceType) payload.residenceType = Number(formData.residenceType)
-    } else if (payload.employmentStatus === 2) {
-      if (formData.businessProof) payload.businessProof = Number(formData.businessProof)
-      // Same checks for businessCurrentTurnover, businessYears, businessAccount, residenceType
     }
 
     if (payload.employmentStatus === 1) {
@@ -390,7 +391,6 @@ const FormFour = () => {
         navigate(`/business-detail/offers`, {
           state: { offers: offersResponse.offers, ...data },
         })
-
       } else {
         console.error("Lead creation failed:", response.message)
         setErrors({ api: response.message || "Lead creation failed. Please try again." })
@@ -758,99 +758,7 @@ const FormFour = () => {
               )}
             </div>
 
-            {formData.businessProof !== "8" && (
-              <>
-                <div className="form-group mb-3">
-                  <label className="form-label">Residence Type*</label>
-                  <select
-                    name="residenceType"
-                    value={formData.residenceType}
-                    onChange={handleChange}
-                    className={`form-select ${formSubmitted && errors.residenceType ? "is-invalid" : ""}`}
-                  >
-                    <option value="">Select</option>
-                    <option value="1">Rented</option>
-                    <option value="2">Owned</option>
-                  </select>
-                  {formSubmitted && errors.residenceType && (
-                    <div className="invalid-feedback d-block text-danger">{errors.residenceType}</div>
-                  )}
-                </div>
-
-                <div className="form-group mb-3">
-                  <label className="form-label">Current Turnover*</label>
-                  <select
-                    name="turnover"
-                    value={formData.turnover}
-                    onChange={handleChange}
-                    className={`form-select ${formSubmitted && errors.turnover ? "is-invalid" : ""}`}
-                  >
-                    <option value="">Select</option>
-                    <option value="1">Up to 6 Lacs</option>
-                    <option value="2">6 - 12 Lacs</option>
-                    <option value="3">12 - 20 Lacs</option>
-                    <option value="4">More than 20 Lacs</option>
-                  </select>
-                  {formSubmitted && errors.turnover && (
-                    <div className="invalid-feedback d-block text-danger">{errors.turnover}</div>
-                  )}
-                </div>
-
-                <div className="form-group mb-3">
-                  <label className="form-label">Years in business*</label>
-                  <select
-                    name="businessYears"
-                    value={formData.businessYears}
-                    onChange={handleChange}
-                    className={`form-select ${formSubmitted && errors.businessYears ? "is-invalid" : ""}`}
-                  >
-                    <option value="">Select</option>
-                    <option value="1">Less than 1 year</option>
-                    <option value="2">1 - 2 years</option>
-                    <option value="3">More than 2 years</option>
-                  </select>
-                  {formSubmitted && errors.businessYears && (
-                    <div className="invalid-feedback d-block text-danger">{errors.businessYears}</div>
-                  )}
-                </div>
-                <div className="form-group mb-3">
-                  <label className="form-label d-block">Current Account in Business Name?*</label>
-                  <div className="form-check form-check-inline">
-                    <input
-                      type="radio"
-                      className={`form-check-input ${formSubmitted && errors.hasCurrentAccount ? "is-invalid" : ""}`}
-                      name="hasCurrentAccount"
-                      id="hasCurrentAccount-yes"
-                      value="1"
-                      checked={formData.hasCurrentAccount === "1"}
-                      onChange={handleChange}
-                    />
-                    <label className="form-check-label" htmlFor="hasCurrentAccount-yes">
-                      Yes
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <input
-                      type="radio"
-                      className={`form-check-input ${formSubmitted && errors.hasCurrentAccount ? "is-invalid" : ""}`}
-                      name="hasCurrentAccount"
-                      id="hasCurrentAccount-no"
-                      value="2"
-                      checked={formData.hasCurrentAccount === "2"}
-                      onChange={handleChange}
-                    />
-                    <label className="form-check-label" htmlFor="hasCurrentAccount-no">
-                      No
-                    </label>
-                  </div>
-                  {formSubmitted && errors.hasCurrentAccount && (
-                    <div className="invalid-feedback d-block text-danger">{errors.hasCurrentAccount}</div>
-                  )}
-                </div>
-
-              </>
-            )}
-
+            {/* These fields are intentionally not shown when "No Business Proof" is selected */}
           </>
         )}
 
