@@ -53,11 +53,11 @@ const FormOne = () => {
       .matches(/^[6-9][0-9]{9}$/, "Enter a valid 10-digit mobile number"),
     firstName: Yup.string()
       .trim()
-      .matches(/^[A-Za-z]+$/, "Only alphabets are allowed, no spaces")
+      .matches(/^[A-Za-z]*$/, "Only alphabets are allowed, no spaces")
       .required("Enter your First Name"),
     lastName: Yup.string()
       .trim()
-      .matches(/^[A-Za-z]+$/, "Only alphabets are allowed, no spaces")
+      .matches(/^[A-Za-z]*$/, "Only alphabets are allowed, no spaces")
       .required("Enter your Last Name"),
     referal: Yup.string().notRequired(),
     option1: Yup.bool().oneOf([true], "You must agree before submitting."),
@@ -195,7 +195,7 @@ const FormOne = () => {
                       "Delete",
                       "Shift",
                     ];
-                    const regex = /^[a-zA-Z ]$/;
+                    const regex = /^[a-zA-Z]$/;
                     if (!regex.test(e.key) && !allowedKeys.includes(e.key)) {
                       e.preventDefault();
                     }
@@ -236,7 +236,7 @@ const FormOne = () => {
                       "Delete",
                       "Shift",
                     ];
-                    const regex = /^[a-zA-Z ]$/;
+                    const regex = /^[a-zA-Z]$/;
                     if (!regex.test(e.key) && !allowedKeys.includes(e.key)) {
                       e.preventDefault();
                     }

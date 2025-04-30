@@ -72,7 +72,7 @@ const Nav = () => {
                 <li><Link to={PUBLIC_URL + "/about-us"}>About Us</Link></li>
 
                 <li><Link to={PUBLIC_URL + "/contact"}>Contact</Link></li>
-                <li><Link to={PUBLIC_URL + "/our-clients"}>Our Partners</Link></li>
+                {/* <li><Link to={PUBLIC_URL + "/our-clients"}>Our Partners</Link></li> */}
 
                 {/* <li><Link to={PUBLIC_URL + "/personal-loan"}>Personal Loan</Link></li> */}
 

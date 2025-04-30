@@ -18,7 +18,7 @@ const largeScreenSlides = [
     icon1: <FaRegCreditCard style={{ color: "white" }} />,
     icon2: <FaCheckCircle style={{ color: "white" }} />,
     icon3: <FaMoneyBillWaveAlt style={{ color: "white" }} />,
-    subtitle1: "Flexible Loan Options",
+    subtitle1: "Multiple Loan Offers",
     subtitle2: "Quick Approval Process",
     subtitle3: "Instant Fund Transfer",
     statement:
@@ -71,7 +71,7 @@ const smallScreenSlides = [
     icon1: <FaRegCreditCard style={{ color: "white" }} />,
     icon2: <FaCheckCircle style={{ color: "white" }} />,
     icon3: <FaMoneyBillWaveAlt style={{ color: "white" }} />,
-    subtitle1: "Flexible Loan Options",
+    subtitle1: "Multiple Loan Offers",
     subtitle2: "Quick Approval Process",
     subtitle3: "Instant Fund Transfer",
     statement:

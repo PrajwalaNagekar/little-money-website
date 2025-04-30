@@ -13,6 +13,7 @@ const FormFour = () => {
     nestedBusinessProof: "",
     agreed: false,
     monthlyIncome: "",
+    referal: "",
     day: "",
     month: "",
     year: "",
@@ -22,7 +23,7 @@ const FormFour = () => {
     // city: '',
     residenceType: "",
     turnover: "",
-    yearsInBusiness: "",
+    businessYears: "",
     hasCurrentAccount: "",
     employerName: "",
     officePincode: "",
@@ -44,8 +45,9 @@ const FormFour = () => {
   ///To get referal code
   const { referralCode } = useParams()
   // console.log("referralCode from URL:", referralCode);
-
-  const finalReferralCode = referralCode
+  const finalReferralCode = localStorage.getItem("referralCode")
+  // console.log("🚀 ~ FormFour ~ finalReferralCode:", finalReferralCode)
+  // const finalReferralCode = referralCode
   // console.log(finalReferralCode)
   // useEffect(() => {
   //   if (finalReferralCode) {
@@ -100,8 +102,9 @@ const FormFour = () => {
   const location = useLocation()
   const { edit, userData, sentLeadFromOtp } = location.state || {}
   // console.log("userdata", userData)
+  // console.log("🚀 ~ FormFour ~ location.state:", location.state)
   const { mobileNumber, firstName, lastName } = userData || {}
-  // console.log(mobileNumber, firstName, lastName)
+  // console.log("ph no, fn ,ln", mobileNumber, firstName, lastName)
 
   const data = location.state
   // console.log("Received user data:", sentLeadFromOtp)
@@ -170,9 +173,9 @@ const FormFour = () => {
     const fetchBusinessLoanData = async () => {
       try {
         if (edit) {
-          const response = await getBusinessDetailsByLeadId(leadIdLocal)
-          console.log("API Response:", response)
-          console.log("DOB from API:", response.dob)
+          const { data: response } = await getBusinessDetailsByLeadId(leadIdLocal);
+          // console.log("API Response:", response)
+          // console.log("DOB from API:", response.dob)
 
           // Properly handle date parsing
           const dob = response.dob || ""
@@ -190,9 +193,9 @@ const FormFour = () => {
           }
 
           setFormData({
-            mobileNumber,
-            firstName,
-            lastName,
+            mobileNumber: mobileNumber || response.mobileNumber,
+            firstName: firstName || response.firstName,
+            lastName: lastName || response.lastName,
             businessRegistrationType: response.businessRegistrationType || "",
             businessProof: String(response.businessRegistrationType || ""), // Convert to string for select element
             employmentStatus: String(response.employmentStatus || ""), // Convert to string for select element
@@ -206,9 +209,11 @@ const FormFour = () => {
             pincode: response.pincode || "",
             residenceType: String(response.residenceType || ""), // Convert to string for select element
             turnover: String(response.businessCurrentTurnover || ""), // Convert to string for select element
-            yearsInBusiness: String(response.businessYears || ""), // Convert to string for select element
+            businessYears: String(response.businessYears || ""), // Convert to string for select element
             hasCurrentAccount: String(response.businessAccount || ""),
-            referal: finalReferralCode,
+            referal: response.referal
+              ? (finalReferralCode !== response.referal ? response.referal : finalReferralCode)
+              : finalReferralCode,
             agreed: false,
           })
         }
@@ -268,8 +273,8 @@ const FormFour = () => {
       }
 
       // Validate years in business
-      if (!formData.yearsInBusiness) {
-        newErrors.yearsInBusiness = "Years in Business is required"
+      if (!formData.businessYears) {
+        newErrors.businessYears = "Years in Business is required"
       }
 
       // Validate current account
@@ -313,16 +318,22 @@ const FormFour = () => {
     // Clear errors if validation passes
     setErrors({})
 
+
     const payload = {
-      mobileNumber: location.state?.mobileNumber || mobileNumber,
-      firstName: location.state?.firstName || firstName,
-      lastName: location.state?.lastName || lastName,
+      mobileNumber: mobileNumber || formData.mobileNumber,
+      firstName: firstName || formData.firstName,
+      lastName: lastName || formData.lastName,
+      referal: formData.referal
+        ? finalReferralCode !== formData.referal
+          ? formData.referal
+          : finalReferralCode
+        : finalReferralCode,
       email: formData.email,
       pincode: formData.pincode,
       pan: formData.pan,
       dob: `${formData.year}-${String(formData.month).padStart(2, "0")}-${String(formData.day).padStart(2, "0")}`,
-      consumerConsentDate: new Date().toISOString().split("T")[0], // Example
-      consumerConsentIp: "127.0.0.1", // Replace with real IP
+      consumerConsentDate: new Date().toISOString().split("T")[0],
+      consumerConsentIp: "127.0.0.1",
       businessRegistrationType: Number(formData.businessProof),
       employmentStatus:
         formData.employmentStatus === "1" || formData.employmentStatus === "2"
@@ -344,9 +355,9 @@ const FormFour = () => {
       }
 
       // Handle valid businessYears
-      const validYears = [1, 2]
-      if (validYears.includes(Number(formData.yearsInBusiness))) {
-        payload.businessYears = Number(formData.yearsInBusiness)
+      const validYears = [1, 2,3]
+      if (validYears.includes(Number(formData.businessYears))) {
+        payload.businessYears = Number(formData.businessYears)
       }
 
       // Handle valid businessAccount
@@ -367,6 +378,7 @@ const FormFour = () => {
     }
 
     try {
+      // console.log("🚀 ~ handleSubmit ~ payload:", payload)
       const response = await leadApiBusinessLoan(payload)
       // console.log("response from bl lead ", response)
       if (response.success === true) {
@@ -375,16 +387,10 @@ const FormFour = () => {
         const offersResponse = await getOffersByLeadId(leadId || sentLeadFromOtp)
         localStorage.setItem("leadId", leadId) // or mobileNumber
         // console.log("Offers response:", offersResponse)
+        navigate(`/business-detail/offers`, {
+          state: { offers: offersResponse.offers, ...data },
+        })
 
-        if (finalReferralCode) {
-          navigate(`/business-detail/offers/${referralCode}`, {
-            state: { offers: offersResponse.offers, ...data },
-          })
-        } else {
-          navigate(`/business-detail/offers`, {
-            state: { offers: offersResponse.offers, ...data },
-          })
-        }
       } else {
         console.error("Lead creation failed:", response.message)
         setErrors({ api: response.message || "Lead creation failed. Please try again." })
@@ -558,18 +564,18 @@ const FormFour = () => {
             <div className="form-group mb-3">
               <label className="form-label">Years In Business*</label>
               <select
-                name="yearsInBusiness"
-                value={formData.yearsInBusiness}
+                name="businessYears"
+                value={formData.businessYears}
                 onChange={handleChange}
-                className={`form-select ${formSubmitted && errors.yearsInBusiness ? "is-invalid" : ""}`}
+                className={`form-select ${formSubmitted && errors.businessYears ? "is-invalid" : ""}`}
               >
                 <option value="">Years in Business</option>
                 <option value="1">Less than 1 year</option>
                 <option value="2">1 - 2 years</option>
                 <option value="3">More than 2 years</option>
               </select>
-              {formSubmitted && errors.yearsInBusiness && (
-                <div className="invalid-feedback d-block text-danger">{errors.yearsInBusiness}</div>
+              {formSubmitted && errors.businessYears && (
+                <div className="invalid-feedback d-block text-danger">{errors.businessYears}</div>
               )}
             </div>
 
@@ -793,18 +799,18 @@ const FormFour = () => {
             <div className="form-group mb-3">
               <label className="form-label">Years in business*</label>
               <select
-                name="yearsInBusiness"
-                value={formData.yearsInBusiness}
+                name="businessYears"
+                value={formData.businessYears}
                 onChange={handleChange}
-                className={`form-select ${formSubmitted && errors.yearsInBusiness ? "is-invalid" : ""}`}
+                className={`form-select ${formSubmitted && errors.businessYears ? "is-invalid" : ""}`}
               >
                 <option value="">Select</option>
                 <option value="1">Less than 1 year</option>
                 <option value="2">1 - 2 years</option>
                 <option value="3">More than 2 years</option>
               </select>
-              {formSubmitted && errors.yearsInBusiness && (
-                <div className="invalid-feedback d-block text-danger">{errors.yearsInBusiness}</div>
+              {formSubmitted && errors.businessYears && (
+                <div className="invalid-feedback d-block text-danger">{errors.businessYears}</div>
               )}
             </div>
 

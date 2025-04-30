@@ -102,11 +102,11 @@ const WhyChooseThree = () => {
                 </Accordion.Item>
               </Accordion>
               <br />
-              <div className="form-group">
+              {/* <div className="form-group">
                 <button className="axil-btn btn-fill-primary btn-primary">
                   Customer Login
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

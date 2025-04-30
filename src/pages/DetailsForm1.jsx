@@ -156,7 +156,8 @@ export default function FormikForm() {
     const [initialValues, setInitialValues] = useState(defaultInitialValues)
 
     // const { referralCode } = useParams()
-    const finalReferralCode = localStorage.getItem("referral_code")
+    const finalReferralCode = localStorage.getItem("referralCode")
+    console.log("🚀 ~ FormikForm ~ finalReferralCode:", finalReferralCode)
 
     // Parse date string into day, month, year
     const parseDateString = (dateString) => {
@@ -183,7 +184,7 @@ export default function FormikForm() {
             const response = await getPersonalLoanDetailsByLeadId(leadIdLocal || sentLeadFromOtp)
             // console.log("🚀 ~ fetchPersonalData ~ response:", response)
             const data = response.data || response // Handle different response formats
-            // console.log("Fetched Personal Loan Data:", data)
+            console.log("Fetched Personal Loan Data:", data)
 
             // Check if business details should be shown
             const businessProofValue = data.businessRegistrationType?.toString() || ""
@@ -209,7 +210,7 @@ export default function FormikForm() {
                 year: dateComponents.year,
                 email: data.email || "",
                 pincode: data.pincode || "",
-                referralCode:data.referralCode || "",
+                referal: data.referal || "",
                 employmentStatus: data.employmentStatus?.toString() || "",
                 employerName: data.employerName || "",
                 officePincode: data.officePincode || "",
@@ -235,13 +236,7 @@ export default function FormikForm() {
         fetchPersonalData()
     }, [leadIdLocal])
 
-    // Save referral code to localStorage
-    useEffect(() => {
-        if (finalReferralCode) {
-            localStorage.setItem("referral_code", finalReferralCode)
-        }
-        fetchPersonalData()
-    }, [finalReferralCode])
+
 
     // Check for token and redirect if not present
     useEffect(() => {
@@ -303,8 +298,9 @@ export default function FormikForm() {
                                 mobileNumber: location.state?.mobileNumber || ph,
                                 firstName: location.state?.firstName || fn,
                                 lastName: location.state?.lastName || ln,
-                                referal: finalReferralCode,
-                                pan: values.pan,
+                                referal: finalReferralCode === null 
+                                ? (values.referal ?? null) 
+                                : (finalReferralCode !== values.referal ? values.referal : finalReferralCode),                                pan: values.pan,
                                 dob: `${values.year}-${String(values.month).padStart(2, "0")}-${String(values.day).padStart(2, "0")}`,
                                 email: values.email,
                                 pincode: values.pincode,
@@ -316,20 +312,21 @@ export default function FormikForm() {
                                     employerName: values.employerName,
                                     officePincode: values.officePincode.toString(),
                                 }),
-                                ...(isSelfEmployed &&
-                                    hasValidBusinessProof && {
+                                ...(isSelfEmployed && {
                                     businessRegistrationType: Number(values.businessProof),
-                                    residenceType: Number(values.residence),
-                                    businessCurrentTurnover: Number(values.turnover),
-                                    businessYears: Number(values.years),
-                                    businessAccount: Number(values.currentAcc),
-                                }),
+                                    ...(hasValidBusinessProof && {
+                                      residenceType: Number(values.residence),
+                                      businessCurrentTurnover: Number(values.turnover),
+                                      businessYears: Number(values.years),
+                                      businessAccount: Number(values.currentAcc),
+                                    }),
+                                  }),
                                 ...(location.state?.referal &&
                                     location.state.referal.trim() !== "" && {
                                     referal: location.state.referal.trim(),
                                 }),
                             }
-
+                            // console.log("🚀 ~ onSubmit={ ~ personaLLoanFormData:", personaLLoanFormData)
                             // Save form data to localStorage
                             // saveFormData(values)
                             // localStorage.removeItem("formData")
@@ -339,16 +336,19 @@ export default function FormikForm() {
                                 setLoading(true)
                                 // API call to submit form data
                                 const response = await lead(personaLLoanFormData)
-                                // console.log(response)
+                                // console.log("🚀 ~ onSubmit={ ~ response:", response)
+                                
                                 if (response.success === true) {
                                     const leadId = response.leadId
+                                    // console.log("🚀 ~ leadId:", leadId)
                                     // console.log(leadId)
                                     const offersResponse = await getOffersByLeadId(leadId)
+
                                     localStorage.setItem("leadId", leadId)
                                     // console.log("Offers response:", offersResponse)
 
                                     if (finalReferralCode) {
-                                        navigate(`/user-detail/offers/${referralCode}`, {
+                                        navigate(`/user-detail/offers/${finalReferralCode}`, {
                                             state: { offers: offersResponse.offers, ...data },
                                         })
                                     } else {
@@ -520,7 +520,7 @@ export default function FormikForm() {
                                 )}
 
                                 {/* Additional Details */}
-                                {values.employmentStatus=="2" && values.businessProof!=="8" && (
+                                {values.employmentStatus == "2" && values.businessProof !== "8" && (
                                     <>
                                         <div className="form-group">
                                             <label>Residence Type*</label>
@@ -578,7 +578,7 @@ export default function FormikForm() {
                                         (a) Lenders retrieving your credit score from third party providers for the purpose of evaluating
                                         your eligibility for a Credit Facility; (b) Lenders sharing your credit score with Little Money; (c)
                                         Little Money sharing the Transaction information with its affiliates and Lenders. For the avoidance
-                                        of doubt, Creditlinks does not retrieve your credit score from any source.
+                                        of doubt, Little Money does not retrieve your credit score from any source.
                                     </label>
                                     <ErrorMessage name="consent" component="p" className="error-text" />
                                 </div>

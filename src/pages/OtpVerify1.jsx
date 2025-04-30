@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { lead, verifyOtp } from '../api/Website/index'
+import { getPersonalLoanDetailsByLeadId, lead, verifyOtp } from '../api/Website/index'
 import { sendOtp } from '../api/Website/index'
 import { getOffersByLeadId } from '../api/Website/index'
 import FullScreenLoader from '../component/loader/FullScreenLoader';
@@ -90,62 +90,65 @@ const OtpVerify1 = () => {
     }
   }, [finalReferralCode]);
   const handleVerify = async (e) => {
-    e.preventDefault();
-    const enteredOtp = otp.join("");
-    setLoading(true);
-    setMessage("");
+    e.preventDefault()
+    const enteredOtp = otp.join("")
+    setLoading(true)
+    setMessage("")
 
-    const result = await verifyOtp(data.mobileNumber, enteredOtp);
+    const result = await verifyOtp(data.mobileNumber, enteredOtp)
     // console.log("result from verify otp api", result)
-    console.log(result.createdAt);
-    const createdAt = new Date(result.createdAt);
-    const now = new Date();
+    // console.log(result.createdAt)
+    const createdAt = new Date(result.createdAt)
+    const now = new Date()
 
-    const daysSinceCreation = (now - createdAt) / (1000 * 60 * 60 * 24); // Difference in days
+    const daysSinceCreation = (now - createdAt) / (1000 * 60 * 60 * 24) // Difference in days
     // console.log("User created", daysSinceCreation.toFixed(1), "days ago");
 
     if (result.success) {
       if (daysSinceCreation > 30) {
-        navigate(`/user-detail`, { state: data });
-        return;
+        navigate(`/user-detail`, { state: data })
+        return
       }
-    
+
       if (result.leadId) {
-        const leadId = result.leadId;
+        const leadId = result.leadId
         localStorage.setItem("ExistingLeadInLocal", leadId)
-        const ExistingLeadFromLocal = localStorage.getItem('ExistingLeadInLocal')
-        console.log("ExistingLeadFromLocal", ExistingLeadFromLocal);
+        const ExistingLeadFromLocal = localStorage.getItem("ExistingLeadInLocal")
+        // console.log("ExistingLeadFromLocal", ExistingLeadFromLocal)
 
+        try {
+          const personalLeadResponse = await getPersonalLoanDetailsByLeadId(leadId)
+          if (personalLeadResponse.success || personalLeadResponse.status === 200) {
+            const offersResponse = await getOffersByLeadId(leadId)
+            const offers = offersResponse.offers
+            // console.log("offersResponse", offers)
 
-        const offersResponse = await getOffersByLeadId(leadId);
-        const offers = offersResponse.offers;
-        console.log("offersResponse", offers);
-        if (finalReferralCode) {
-          navigate(`/user-detail/offers/${finalReferralCode}`, {
-            state: { ...data, offers, ExistingLeadFromLocal },
-          });
-        } else {
-          navigate(`/user-detail/offers`, {
-            state: { ...data, offers, ExistingLeadFromLocal },
-          });
+            navigate(`/user-detail/offers`, {
+              state: { ...data, offers, ExistingLeadFromLocal },
+            })
+          } else {
+            // Navigate to user-detail if personal loan details not found
+            navigate(`/user-detail`, { state: data })
+          }
+        } catch (error) {
+          console.error("Error fetching personal loan details:", error)
+          // Navigate to user-detail on error
+          navigate(`/user-detail`, { state: data })
         }
       } else {
         // If no leadId but user is valid, go to user-details
-        if (finalReferralCode) {
-          navigate(`/user-detail/${finalReferralCode}`, { state: data });
-        } else {
-          navigate(`/user-detail`, { state: data });
-        }
+        navigate(`/user-detail`, { state: data })
       }
     } else {
-      setMessage(result.message);
+      setMessage(result.message)
     }
-    setLoading(false);
-  };
+    setLoading(false)
+  }
+
 
 
   const handleResendOtp = async (e) => {
-    console.log("gkjb")
+    // console.log("gkjb")
     setOtpResent(true);
     setMessage(`OTP resent successfully `);
     setCountdown(75); // Restart timer
@@ -153,7 +156,7 @@ const OtpVerify1 = () => {
     // const result = await verfyOtp(data.mobileNumber, enteredOtp);
 
     try {
-      console.log(data.mobileNumber);
+      // console.log(data.mobileNumber);
 
       const result = await sendOtp({ mobileNumber: data.mobileNumber }); // Make sure you have sendOtp function
 
@@ -208,7 +211,7 @@ const OtpVerify1 = () => {
                 </div>
 
                 <br />
-                {message && <p className="message text-center">{message}</p>}
+                {message && <p className="message text-center" style={{ color: "red" }}>{message}</p>}
 
                 <div className="container text-center mt-2">
 

@@ -64,6 +64,7 @@ import BusinessLoanOtpVerification from './pages/BusinessLoanOtpVerification';
 import BusinessLoanForm from './pages/BusinessLoanForm';
 import PrivateRoute from './pages/PrivateRoute';
 import ProjectGridFiveBL from './pages/ProjectGridFiveBL';
+import PrivateRouteBL from './pages/PrivateriuteBL';
 const App = () => {
 	useEffect(() => {
 		const stored = localStorage.getItem("referral_code");
@@ -79,7 +80,7 @@ const App = () => {
 					{/* <Route path={PUBLIC_URL + "/"} element={<Splash />}/> */}
 					<Route path="/" element={<CreativeAgency />} />
 
-					
+
 					<Route path="/project-width-one" element={<ProjectGridFour />} />
 
 					{/* Pages  */}
@@ -87,15 +88,11 @@ const App = () => {
 					<Route path="/our-clients" element={<OurClients />} />
 					<Route path="/contact" element={<Contact />} />
 					<Route path="/merchant-login" element={<MerchantLogin />} />
-					<Route path="/business-loan/:referralCode?" element={<BusinessLoans />} />
 					{/* <Route path="/personal-loan/verification/user-details" element={<UserDetails />} /> */}
 					{/* <Route path="/business-loans/user-details2" element={<UserDetails2 />} /> */}
 
 					<Route path="/personal-loan/:referralCode?" element={<PersonalLoans />} />
 					{/* <Route path="/personal-loan" element={<PersonalLoanFlow />} /> */}
-
-
-
 					<Route path="/verification/:referralCode?" element={<OtpVerification />} />
 					{/* <Route path="/personal-loan/verification/user-details/:referralCode?" element={<UserDetails />} /> */}
 					<Route
@@ -107,14 +104,24 @@ const App = () => {
 						}
 					/>
 					<Route path="/user-detail/offers/:referralCode?" element={<ProjectGridFour />} />
+
+					
+					<Route path="/business-loan/:referralCode?" element={<BusinessLoans />} />
 					<Route path="/bl-verification/:referralCode?" element={<BusinessLoanOtpVerification />} />
-					<Route path="/business-detail/:referralCode?" element={<BusinessLoanForm />} />
+					{/* <Route path="/business-detail/:referralCode?" element={<BusinessLoanForm />} /> */}
 
 					{/* <Route path="/business-loan/verification/business-details/user-details3/turn-over2/offers" element={<ProjectGridOne />} /> */}
 					{/* /business-loans/verification/user-details2/user-details3/turn-over2/offers */}
 					{/* <Route path="/business-loan/verification/business-details/turn-over2" element={<TurnOver2 />} /> */}
 					{/* <Route path="/business-loan/verification/business-details/turn-over2/offers" element={<ProjectGridOne />} /> */}
-
+					<Route
+						path="/business-detail/:referralCode?"
+						element={
+							<PrivateRouteBL>
+								<BusinessLoanForm />
+							</PrivateRouteBL>
+						}
+					/>
 
 
 

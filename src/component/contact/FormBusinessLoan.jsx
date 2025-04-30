@@ -190,7 +190,7 @@ const FormBusinessLoan = () => {
                       "Delete",
                       "Shift",
                     ];
-                    const regex = /^[a-zA-Z ]$/;
+                    const regex = /^[a-zA-Z]$/;
                     if (!regex.test(e.key) && !allowedKeys.includes(e.key)) {
                       e.preventDefault();
                     }
@@ -231,7 +231,7 @@ const FormBusinessLoan = () => {
                       "Delete",
                       "Shift",
                     ];
-                    const regex = /^[a-zA-Z ]$/;
+                    const regex = /^[a-zA-Z]$/;
                     if (!regex.test(e.key) && !allowedKeys.includes(e.key)) {
                       e.preventDefault();
                     }

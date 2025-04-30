@@ -143,6 +143,7 @@ export const appliedCustomers = async (payload) => {
 }
 
 export const leadApiBusinessLoan = async (payload) => {
+  console.log("🚀 ~ leadApiBusinessLoan ~ payload:", payload)
   const token = localStorage.getItem("token");
   if (!token) return { success: false, message: "No token found for authentication." };
   try {
@@ -174,10 +175,10 @@ export const getBusinessDetailsByLeadId = async (leadId) => {
         Authorization: `Bearer ${token}`, // Manually add the Authorization header
       }
     })
-    return response.data;
+    console.log("🚀 ~ getBusinessDetailsByLeadId ~ response:", response)
+    return response;
 
   } catch (error) {
-    console.error("Error fetching offers by leadId:", error);
     return { success: false, message: "Failed to fetch offers" };
   }
 }

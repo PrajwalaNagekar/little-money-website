@@ -114,11 +114,11 @@ const WhyChooseOne = () => {
                     Contact us to sign up
                   </button>
                 </Link>
-                <Link to="#">
+                {/* <Link to="#">
                   <button className="axil-btn btn-fill-primary btn-primary">
                     Merchant Login
                   </button>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

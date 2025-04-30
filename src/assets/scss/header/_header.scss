@@ -1125,6 +1125,7 @@
 //   }
 /* For large screens */
 .large-caption {
+    
     position: absolute;
     bottom: 30%;
     left: 8%;
@@ -1198,6 +1199,12 @@
     .small-caption {
         font-size: 0.9rem;
     }
+}
+
+@media (max-height: 650px) {
+    .large-caption{
+		bottom:0%;
+	}
 }
 
 .link-hover-effect {
