@@ -216,7 +216,7 @@ export const getPersonalLoanDetailsByLeadId = async (leadId) => {
       },
     });
 
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Error fetching personal loan details by leadId:", error);
     return { success: false, message: "Failed to fetch personal loan details" };

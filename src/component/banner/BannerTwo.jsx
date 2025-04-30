@@ -90,7 +90,7 @@ const smallScreenSlides = [
     subtitle2: "No Hidden Charges",
     subtitle3: "Flexible Repayments",
     statement:
-      "Get quick and easy personal loans with flexible repayment terms.",
+      "Fast and flexible loans to help your business grow with tailored repayment plans.",
 
     button: "Apply Now",
     link: "/business-loan",
@@ -105,7 +105,7 @@ const smallScreenSlides = [
     subtitle2: "Easy Monthly Payments",
     subtitle3: "Instant EMI Approval",
     statement:
-      "Get quick and easy personal loans with flexible repayment terms.",
+      "Shop now and pay later with easy, low-cost installment options.",
 
     button: "Contact Us",
     link: "/contact",

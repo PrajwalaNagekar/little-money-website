@@ -355,7 +355,7 @@ const FormFour = () => {
       }
 
       // Handle valid businessYears
-      const validYears = [1, 2,3]
+      const validYears = [1, 2, 3]
       if (validYears.includes(Number(formData.businessYears))) {
         payload.businessYears = Number(formData.businessYears)
       }
@@ -523,7 +523,6 @@ const FormFour = () => {
               </div>
               {errors.dob && <div className="text-danger">{errors.dob}</div>}
             </div>
-
             <div className="form-group mb-3">
               <h5>Business Information</h5>
               <label className="form-label">Residence Type*</label>
@@ -613,7 +612,6 @@ const FormFour = () => {
                 <div className="invalid-feedback d-block text-danger">{errors.hasCurrentAccount}</div>
               )}
             </div>
-
             <div className="form-group mb-3">
               <label className="form-label">Monthly Income*</label>
               <input
@@ -760,94 +758,99 @@ const FormFour = () => {
               )}
             </div>
 
-            <div className="form-group mb-3">
-              <label className="form-label">Residence Type*</label>
-              <select
-                name="residenceType"
-                value={formData.residenceType}
-                onChange={handleChange}
-                className={`form-select ${formSubmitted && errors.residenceType ? "is-invalid" : ""}`}
-              >
-                <option value="">Select</option>
-                <option value="1">Rented</option>
-                <option value="2">Owned</option>
-              </select>
-              {formSubmitted && errors.residenceType && (
-                <div className="invalid-feedback d-block text-danger">{errors.residenceType}</div>
-              )}
-            </div>
+            {formData.businessProof !== "8" && (
+              <>
+                <div className="form-group mb-3">
+                  <label className="form-label">Residence Type*</label>
+                  <select
+                    name="residenceType"
+                    value={formData.residenceType}
+                    onChange={handleChange}
+                    className={`form-select ${formSubmitted && errors.residenceType ? "is-invalid" : ""}`}
+                  >
+                    <option value="">Select</option>
+                    <option value="1">Rented</option>
+                    <option value="2">Owned</option>
+                  </select>
+                  {formSubmitted && errors.residenceType && (
+                    <div className="invalid-feedback d-block text-danger">{errors.residenceType}</div>
+                  )}
+                </div>
 
-            <div className="form-group mb-3">
-              <label className="form-label">Current Turnover*</label>
-              <select
-                name="turnover"
-                value={formData.turnover}
-                onChange={handleChange}
-                className={`form-select ${formSubmitted && errors.turnover ? "is-invalid" : ""}`}
-              >
-                <option value="">Select</option>
-                <option value="1">Up to 6 Lacs</option>
-                <option value="2">6 - 12 Lacs</option>
-                <option value="3">12 - 20 Lacs</option>
-                <option value="4">More than 20 Lacs</option>
-              </select>
-              {formSubmitted && errors.turnover && (
-                <div className="invalid-feedback d-block text-danger">{errors.turnover}</div>
-              )}
-            </div>
+                <div className="form-group mb-3">
+                  <label className="form-label">Current Turnover*</label>
+                  <select
+                    name="turnover"
+                    value={formData.turnover}
+                    onChange={handleChange}
+                    className={`form-select ${formSubmitted && errors.turnover ? "is-invalid" : ""}`}
+                  >
+                    <option value="">Select</option>
+                    <option value="1">Up to 6 Lacs</option>
+                    <option value="2">6 - 12 Lacs</option>
+                    <option value="3">12 - 20 Lacs</option>
+                    <option value="4">More than 20 Lacs</option>
+                  </select>
+                  {formSubmitted && errors.turnover && (
+                    <div className="invalid-feedback d-block text-danger">{errors.turnover}</div>
+                  )}
+                </div>
 
-            <div className="form-group mb-3">
-              <label className="form-label">Years in business*</label>
-              <select
-                name="businessYears"
-                value={formData.businessYears}
-                onChange={handleChange}
-                className={`form-select ${formSubmitted && errors.businessYears ? "is-invalid" : ""}`}
-              >
-                <option value="">Select</option>
-                <option value="1">Less than 1 year</option>
-                <option value="2">1 - 2 years</option>
-                <option value="3">More than 2 years</option>
-              </select>
-              {formSubmitted && errors.businessYears && (
-                <div className="invalid-feedback d-block text-danger">{errors.businessYears}</div>
-              )}
-            </div>
+                <div className="form-group mb-3">
+                  <label className="form-label">Years in business*</label>
+                  <select
+                    name="businessYears"
+                    value={formData.businessYears}
+                    onChange={handleChange}
+                    className={`form-select ${formSubmitted && errors.businessYears ? "is-invalid" : ""}`}
+                  >
+                    <option value="">Select</option>
+                    <option value="1">Less than 1 year</option>
+                    <option value="2">1 - 2 years</option>
+                    <option value="3">More than 2 years</option>
+                  </select>
+                  {formSubmitted && errors.businessYears && (
+                    <div className="invalid-feedback d-block text-danger">{errors.businessYears}</div>
+                  )}
+                </div>
+                <div className="form-group mb-3">
+                  <label className="form-label d-block">Current Account in Business Name?*</label>
+                  <div className="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      className={`form-check-input ${formSubmitted && errors.hasCurrentAccount ? "is-invalid" : ""}`}
+                      name="hasCurrentAccount"
+                      id="hasCurrentAccount-yes"
+                      value="1"
+                      checked={formData.hasCurrentAccount === "1"}
+                      onChange={handleChange}
+                    />
+                    <label className="form-check-label" htmlFor="hasCurrentAccount-yes">
+                      Yes
+                    </label>
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <input
+                      type="radio"
+                      className={`form-check-input ${formSubmitted && errors.hasCurrentAccount ? "is-invalid" : ""}`}
+                      name="hasCurrentAccount"
+                      id="hasCurrentAccount-no"
+                      value="2"
+                      checked={formData.hasCurrentAccount === "2"}
+                      onChange={handleChange}
+                    />
+                    <label className="form-check-label" htmlFor="hasCurrentAccount-no">
+                      No
+                    </label>
+                  </div>
+                  {formSubmitted && errors.hasCurrentAccount && (
+                    <div className="invalid-feedback d-block text-danger">{errors.hasCurrentAccount}</div>
+                  )}
+                </div>
 
-            <div className="form-group mb-3">
-              <label className="form-label d-block">Current Account in Business Name?*</label>
-              <div className="form-check form-check-inline">
-                <input
-                  type="radio"
-                  className={`form-check-input ${formSubmitted && errors.hasCurrentAccount ? "is-invalid" : ""}`}
-                  name="hasCurrentAccount"
-                  id="hasCurrentAccount-yes"
-                  value="1"
-                  checked={formData.hasCurrentAccount === "1"}
-                  onChange={handleChange}
-                />
-                <label className="form-check-label" htmlFor="hasCurrentAccount-yes">
-                  Yes
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <input
-                  type="radio"
-                  className={`form-check-input ${formSubmitted && errors.hasCurrentAccount ? "is-invalid" : ""}`}
-                  name="hasCurrentAccount"
-                  id="hasCurrentAccount-no"
-                  value="2"
-                  checked={formData.hasCurrentAccount === "2"}
-                  onChange={handleChange}
-                />
-                <label className="form-check-label" htmlFor="hasCurrentAccount-no">
-                  No
-                </label>
-              </div>
-              {formSubmitted && errors.hasCurrentAccount && (
-                <div className="invalid-feedback d-block text-danger">{errors.hasCurrentAccount}</div>
-              )}
-            </div>
+              </>
+            )}
+
           </>
         )}
 

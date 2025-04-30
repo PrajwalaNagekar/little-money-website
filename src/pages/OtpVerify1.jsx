@@ -96,7 +96,7 @@ const OtpVerify1 = () => {
     setMessage("")
 
     const result = await verifyOtp(data.mobileNumber, enteredOtp)
-    // console.log("result from verify otp api", result)
+    console.log("result from verify otp api", result)
     // console.log(result.createdAt)
     const createdAt = new Date(result.createdAt)
     const now = new Date()
@@ -114,14 +114,15 @@ const OtpVerify1 = () => {
         const leadId = result.leadId
         localStorage.setItem("ExistingLeadInLocal", leadId)
         const ExistingLeadFromLocal = localStorage.getItem("ExistingLeadInLocal")
-        // console.log("ExistingLeadFromLocal", ExistingLeadFromLocal)
+        console.log("ExistingLeadFromLocal", ExistingLeadFromLocal)
 
         try {
           const personalLeadResponse = await getPersonalLoanDetailsByLeadId(leadId)
+          console.log("🚀 ~ handleVerify ~ personalLeadResponse:", personalLeadResponse)
           if (personalLeadResponse.success || personalLeadResponse.status === 200) {
             const offersResponse = await getOffersByLeadId(leadId)
             const offers = offersResponse.offers
-            // console.log("offersResponse", offers)
+            console.log("offersResponse", offers)
 
             navigate(`/user-detail/offers`, {
               state: { ...data, offers, ExistingLeadFromLocal },
